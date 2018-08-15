@@ -1,6 +1,9 @@
 package db
 
-import "github.com/elaugier/lpdp/pkg/models"
+import (
+	"github.com/elaugier/lpdp/pkg/models"
+	"github.com/jinzhu/gorm"
+)
 
 //Users ...
 type Users struct {
@@ -16,4 +19,18 @@ func (s *Users) User(id int) (*models.User, error) {
 //CreateUser ...
 func (s *Users) CreateUser(user models.User) (bool, error) {
 	return s.CreateUserFn(user)
+}
+
+//DatabaseInitialization ...
+func DatabaseInitialization(conn *gorm.DB) {
+
+	if (!conn.HasTable(&models.Achievement{})) {
+		conn.CreateTable(&models.Achievement{})
+	}
+
+	if (!conn.HasTable(&models.Activity{})) {
+		conn.CreateTable(&models.Activity{})
+	}
+
+	return
 }
