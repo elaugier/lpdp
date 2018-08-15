@@ -9,33 +9,23 @@ import (
 	"time"
 
 	jwt "github.com/appleboy/gin-jwt"
+	"github.com/elaugier/lpdp/pkg/config"
 	"github.com/elaugier/lpdp/pkg/db"
 	"github.com/gin-gonic/gin"
 	"github.com/jinzhu/gorm"
+	_ "github.com/jinzhu/gorm/dialects/postgres"
 )
-
-//DATABASEDRIVER ...
-var DATABASEDRIVER = os.Getenv("DATABASEDRIVER")
-
-//DATABASEHOSTNAME ...
-var DATABASEHOSTNAME = os.Getenv("DATABASEHOSTNAME")
-
-//DATABASEPORT ...
-var DATABASEPORT = os.Getenv("DATABASEPORT")
-
-//DATABASENAME ...
-var DATABASENAME = os.Getenv("DATABASENAME")
-
-//DATABASEUSERNAME ...
-var DATABASEUSERNAME = os.Getenv("DATABASEUSERNAME")
-
-//DATABASEPASSWORD ...
-var DATABASEPASSWORD = os.Getenv("DATABASEPASSWORD")
 
 func main() {
 
+	conf, err := config.Get()
+
+	logFolder := os.ExpandEnv(conf.GetString("logFolder"))
+
+	fmt.Println("logFolder : '" + logFolder + "'")
+
 	timestamp := strconv.FormatInt(time.Time.UnixNano(time.Now()), 10)
-	f, err := os.OpenFile(os.Getenv("TEMP")+"/"+timestamp+"_"+os.Args[0]+".log", os.O_WRONLY|os.O_CREATE|os.O_APPEND, 0644)
+	f, err := os.OpenFile(logFolder+"/"+timestamp+"_"+os.Args[0]+".log", os.O_WRONLY|os.O_CREATE|os.O_APPEND, 0644)
 	multi := io.MultiWriter(f, os.Stdout)
 	log.SetOutput(multi)
 
@@ -43,8 +33,21 @@ func main() {
 	log.SetFlags(log.Ldate | log.Ltime | log.Lmicroseconds | log.Lshortfile | log.LUTC)
 	gin.DefaultWriter = multi
 
-	conn, err := gorm.Open(DATABASEDRIVER, fmt.Sprintf("host=%s port=%s user=%s dbname=%s password=%s",
-		DATABASEHOSTNAME, DATABASEPORT, DATABASEUSERNAME, DATABASENAME, DATABASEPASSWORD))
+	databaseDriver := conf.GetString("database.driver")
+	log.Printf("database driver selected: %s", databaseDriver)
+	databaseHostname := conf.GetString("database.hostname")
+	log.Printf("database hostname selected: %s", databaseHostname)
+	databasePort := conf.GetString("database.port")
+	log.Printf("database port selected: %s", databasePort)
+	databaseDbName := conf.GetString("database.dbname")
+	log.Printf("database dbname selected: %s", databaseDbName)
+	databaseUsername := conf.GetString("database.user")
+	log.Printf("database username selected: %s", databaseUsername)
+	databasePassword := conf.GetString("database.password")
+	log.Printf("database password found!")
+
+	conn, err := gorm.Open(databaseDriver, fmt.Sprintf("host=%s port=%s user=%s dbname=%s password=%s",
+		databaseHostname, databasePort, databaseUsername, databaseDbName, databasePassword))
 	if err != nil {
 		log.Fatalf("couldn't connect to database: %v\n", err)
 		return

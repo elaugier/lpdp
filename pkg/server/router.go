@@ -15,6 +15,13 @@ func NewRouter() *gin.Engine {
 	corsConfig := cors.DefaultConfig()
 	router.Use(cors.New(corsConfig))
 
+	achievements := new(controllers.AchievementsController)
+	router.GET("/achievements/:id", achievements.Get)
+	router.GET("/achievements", achievements.List)
+	router.POST("/achievements", achievements.Add)
+	router.PUT("/achievements/:id", achievements.Modify)
+	router.DELETE("/achievements/:id", achievements.Remove)
+
 	alerts := new(controllers.AlertsController)
 	router.GET("/alerts/:id", alerts.Get)
 	router.GET("/alerts", alerts.List)

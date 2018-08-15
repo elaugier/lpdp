@@ -1,0 +1,11 @@
+{
+    "logFolder":"${TEMP}",
+    "database":{
+        "driver":"postgres",
+        "hostname": "localhost",
+        "port":"5432",
+        "dbname": "dbname",
+        "user":"username",
+        "password":"password"
+    }
+}

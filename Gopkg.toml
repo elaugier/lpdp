@@ -32,3 +32,7 @@
 [[constraint]]
   name = "github.com/appleboy/gin-jwt"
   version = "2.3.1"
+
+[[constraint]]
+  name = "github.com/spf13/viper"
+  version = "1.1.0"
