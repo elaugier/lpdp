@@ -12,7 +12,8 @@ type Achievement struct {
 	RemovedAt time.Time
 }
 
-func (Achievement) tableName() string {
+//TableName ...
+func (Achievement) TableName() string {
 	return "achievements"
 }
 
@@ -146,17 +147,56 @@ func (Comment) TableName() string {
 	return "comments"
 }
 
+//Contact ...
+type Contact struct {
+	ID        string
+	CreatedAt time.Time
+	UpdatedAt time.Time
+	RemovedAt time.Time
+}
+
+//TableName ...
+func (Contact) TableName() string {
+	return "contacts"
+}
+
+//ContestRound ...
+type ContestRound struct {
+	ID        string
+	CreatedAt time.Time
+	UpdatedAt time.Time
+	RemovedAt time.Time
+}
+
+//TableName ...
+func (ContestRound) TableName() string {
+	return "contestrounds"
+}
+
+//Contest ...
+type Contest struct {
+	ID        string
+	CreatedAt time.Time
+	UpdatedAt time.Time
+	RemovedAt time.Time
+}
+
+//TableName ...
+func (Contest) TableName() string {
+	return "contests"
+}
+
 //User ...
 type User struct {
 	ID        string
 	CreatedAt time.Time
 	UpdatedAt time.Time
 	RemovedAt time.Time
-	Email     string `gorm:"type:varchar(100);unique_index"`
-	UserName  string
-	Password  string
-	FirstName string
-	LastName  string
+	Email     string `gorm:"type:varchar(200);unique_index"`
+	UserName  string `gorm:"type:varchar(100);unique_index"`
+	Password  string `gorm:"type:varchar(100)"`
+	FirstName string `gorm:"type:varchar(100)"`
+	LastName  string `gorm:"type:varchar(100)"`
 	BirthDate time.Time
 	Gender    uint
 }
