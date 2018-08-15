@@ -3,9 +3,10 @@ package main
 import (
 	"fmt"
 	"io"
-	"io/ioutil"
 	"log"
 	"os"
+	"strconv"
+	"time"
 
 	"github.com/elaugier/lpdp/pkg/db"
 	"github.com/gin-gonic/gin"
@@ -30,44 +31,16 @@ var DATABASEUSERNAME = os.Getenv("DATABASEUSERNAME")
 //DATABASEPASSWORD ...
 var DATABASEPASSWORD = os.Getenv("DATABASEPASSWORD")
 
-var (
-	//Trace ...
-	Trace *log.Logger
-	//Info ...
-	Info *log.Logger
-	//Warning ...
-	Warning *log.Logger
-	//Error ...
-	Error *log.Logger
-)
-
-//InitLog ...
-func InitLog(
-	traceHandle io.Writer,
-	infoHandle io.Writer,
-	warningHandle io.Writer,
-	errorHandle io.Writer) {
-
-	Trace = log.New(traceHandle,
-		"TRACE: ",
-		log.Ldate|log.Ltime|log.Lshortfile)
-
-	Info = log.New(infoHandle,
-		"INFO: ",
-		log.Ldate|log.Ltime|log.Lshortfile)
-
-	Warning = log.New(warningHandle,
-		"WARNING: ",
-		log.Ldate|log.Ltime|log.Lshortfile)
-
-	Error = log.New(errorHandle,
-		"ERROR: ",
-		log.Ldate|log.Ltime|log.Lshortfile)
-}
-
 func main() {
 
-	InitLog(ioutil.Discard, os.Stdout, os.Stdout, os.Stderr)
+	timestamp := strconv.FormatInt(time.Time.UnixNano(time.Now()), 10)
+	f, err := os.OpenFile(os.Getenv("TEMP")+"/"+timestamp+"_"+os.Args[0]+".log", os.O_WRONLY|os.O_CREATE|os.O_APPEND, 0644)
+	multi := io.MultiWriter(f, os.Stdout)
+	log.SetOutput(multi)
+
+	// set log format
+	log.SetFlags(log.Ldate | log.Ltime | log.Lmicroseconds | log.Lshortfile | log.LUTC)
+	gin.DefaultWriter = multi
 
 	conn, err := gorm.Open(DATABASEDRIVER, fmt.Sprintf("host=%s port=%s user=%s dbname=%s password=%s",
 		DATABASEHOSTNAME, DATABASEPORT, DATABASEUSERNAME, DATABASENAME, DATABASEPASSWORD))
