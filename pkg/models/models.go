@@ -223,6 +223,27 @@ func (Post) TableName() string {
 	return "posts"
 }
 
+//Section ...
+type Section struct {
+	ID          string
+	CreatedAt   time.Time
+	UpdatedAt   time.Time
+	RemovedAt   time.Time
+	Name        string
+	ShortName   string
+	Description string
+	Order       uint
+	SecShow     uint
+	SecAdd      uint
+	SecModify   uint
+	SecRemove   uint
+}
+
+//TableName ...
+func (Section) TableName() string {
+	return "sections"
+}
+
 //User ...
 type User struct {
 	ID             string
