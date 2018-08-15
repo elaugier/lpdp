@@ -8,6 +8,7 @@ import (
 	"strconv"
 	"time"
 
+	jwt "github.com/appleboy/gin-jwt"
 	"github.com/elaugier/lpdp/pkg/db"
 	"github.com/gin-gonic/gin"
 	"github.com/jinzhu/gorm"
@@ -55,8 +56,14 @@ func main() {
 
 	r := gin.Default()
 	r.GET("/ping", func(c *gin.Context) {
+		auth := "false"
+		claims := jwt.ExtractClaims(c)
+		if claims != nil {
+			auth = "true"
+		}
 		c.JSON(200, gin.H{
-			"message": "pong",
+			"message":        "pong",
+			"VerifyAudience": auth,
 		})
 	})
 	r.Run() // listen and serve on 0.0.0.0:8080

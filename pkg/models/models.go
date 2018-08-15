@@ -2,14 +2,16 @@ package models
 
 import (
 	"time"
+
+	"github.com/google/uuid"
 )
 
 //Achievement ...
 type Achievement struct {
-	ID        string
+	ID        uuid.UUID `sql:"type:uuid;primary key;default:uuid_generate_v4()"`
 	CreatedAt time.Time
 	UpdatedAt time.Time
-	RemovedAt time.Time
+	DeletedAt time.Time
 }
 
 //TableName ...
@@ -19,10 +21,12 @@ func (Achievement) TableName() string {
 
 //Activity ...
 type Activity struct {
-	ID        string
+	ID        uuid.UUID `sql:"type:uuid;primary key;default:uuid_generate_v4()"`
 	CreatedAt time.Time
 	UpdatedAt time.Time
-	RemovedAt time.Time
+	DeletedAt time.Time
+	Message   string
+	Type      string
 }
 
 //TableName ...
@@ -32,10 +36,13 @@ func (Activity) TableName() string {
 
 //Alert ...
 type Alert struct {
-	ID        string
+	ID        uuid.UUID `sql:"type:uuid;primary key;default:uuid_generate_v4()"`
 	CreatedAt time.Time
 	UpdatedAt time.Time
-	RemovedAt time.Time
+	DeletedAt time.Time
+	Type      string `gorm:"type:varchar(100)"`
+	Details   string `gorm:"type:varchar(2000)"`
+	User      string `gorm:"type:uuid()"`
 }
 
 //TableName ...
@@ -45,10 +52,10 @@ func (Alert) TableName() string {
 
 //AlertAction ...
 type AlertAction struct {
-	ID        string
+	ID        uuid.UUID `sql:"type:uuid;primary key;default:uuid_generate_v4()"`
 	CreatedAt time.Time
 	UpdatedAt time.Time
-	RemovedAt time.Time
+	DeletedAt time.Time
 }
 
 //TableName ...
@@ -58,10 +65,10 @@ func (AlertAction) TableName() string {
 
 //Badge ...
 type Badge struct {
-	ID        string
+	ID        uuid.UUID `sql:"type:uuid;primary key;default:uuid_generate_v4()"`
 	CreatedAt time.Time
 	UpdatedAt time.Time
-	RemovedAt time.Time
+	DeletedAt time.Time
 }
 
 //TableName ...
@@ -71,10 +78,10 @@ func (Badge) TableName() string {
 
 //BadgeType ...
 type BadgeType struct {
-	ID        string
+	ID        uuid.UUID `sql:"type:uuid;primary key;default:uuid_generate_v4()"`
 	CreatedAt time.Time
 	UpdatedAt time.Time
-	RemovedAt time.Time
+	DeletedAt time.Time
 }
 
 //TableName ...
@@ -84,10 +91,10 @@ func (BadgeType) TableName() string {
 
 //BadIPAddress ...
 type BadIPAddress struct {
-	ID        string
+	ID        uuid.UUID `sql:"type:uuid;primary key;default:uuid_generate_v4()"`
 	CreatedAt time.Time
 	UpdatedAt time.Time
-	RemovedAt time.Time
+	DeletedAt time.Time
 }
 
 //TableName ...
@@ -97,10 +104,10 @@ func (BadIPAddress) TableName() string {
 
 //BookPart ...
 type BookPart struct {
-	ID        string
+	ID        uuid.UUID `sql:"type:uuid;primary key;default:uuid_generate_v4()"`
 	CreatedAt time.Time
 	UpdatedAt time.Time
-	RemovedAt time.Time
+	DeletedAt time.Time
 }
 
 //TableName ...
@@ -110,10 +117,13 @@ func (BookPart) TableName() string {
 
 //Book ...
 type Book struct {
-	ID        string
+	ID        uuid.UUID `sql:"type:uuid;primary key;default:uuid_generate_v4()"`
 	CreatedAt time.Time
 	UpdatedAt time.Time
-	RemovedAt time.Time
+	DeletedAt time.Time
+	Title     string    `gorm:"type:varchar(100)"`
+	Summary   string    `sql:"type:text;"`
+	Author    uuid.UUID `sql:"type:uuid"`
 }
 
 //TableName ...
@@ -123,10 +133,10 @@ func (Book) TableName() string {
 
 //CoAuthor ...
 type CoAuthor struct {
-	ID        string
+	ID        uuid.UUID `sql:"type:uuid;primary key;default:uuid_generate_v4()"`
 	CreatedAt time.Time
 	UpdatedAt time.Time
-	RemovedAt time.Time
+	DeletedAt time.Time
 }
 
 //TableName ...
@@ -136,10 +146,10 @@ func (CoAuthor) TableName() string {
 
 //Comment ...
 type Comment struct {
-	ID        string
+	ID        uuid.UUID `sql:"type:uuid;primary key;default:uuid_generate_v4()"`
 	CreatedAt time.Time
 	UpdatedAt time.Time
-	RemovedAt time.Time
+	DeletedAt time.Time
 }
 
 //TableName ...
@@ -149,10 +159,10 @@ func (Comment) TableName() string {
 
 //Contact ...
 type Contact struct {
-	ID        string
+	ID        uuid.UUID `sql:"type:uuid;primary key;default:uuid_generate_v4()"`
 	CreatedAt time.Time
 	UpdatedAt time.Time
-	RemovedAt time.Time
+	DeletedAt time.Time
 }
 
 //TableName ...
@@ -162,10 +172,10 @@ func (Contact) TableName() string {
 
 //ContestRound ...
 type ContestRound struct {
-	ID        string
+	ID        uuid.UUID `sql:"type:uuid;primary key;default:uuid_generate_v4()"`
 	CreatedAt time.Time
 	UpdatedAt time.Time
-	RemovedAt time.Time
+	DeletedAt time.Time
 }
 
 //TableName ...
@@ -175,10 +185,10 @@ func (ContestRound) TableName() string {
 
 //Contest ...
 type Contest struct {
-	ID        string
+	ID        uuid.UUID `sql:"type:uuid;primary key;default:uuid_generate_v4()"`
 	CreatedAt time.Time
 	UpdatedAt time.Time
-	RemovedAt time.Time
+	DeletedAt time.Time
 }
 
 //TableName ...
@@ -186,16 +196,59 @@ func (Contest) TableName() string {
 	return "contests"
 }
 
-//Message ...
-type Message struct {
-	ID        string
+//CorrectionRequest ...
+type CorrectionRequest struct {
+	ID        uuid.UUID `sql:"type:uuid;primary key;default:uuid_generate_v4()"`
 	CreatedAt time.Time
 	UpdatedAt time.Time
-	RemovedAt time.Time
+	DeletedAt time.Time
+	Requester uuid.UUID `sql:"type:uuid"`
+}
+
+//TableName ...
+func (CorrectionRequest) TableName() string {
+	return "correctionrequests"
+}
+
+//CorrectionRequestAction ...
+type CorrectionRequestAction struct {
+	ID         uuid.UUID `sql:"type:uuid;primary key;default:uuid_generate_v4()"`
+	CreatedAt  time.Time
+	UpdatedAt  time.Time
+	DeletedAt  time.Time
+	RequestRef uuid.UUID `sql:"type:uuid"`
+}
+
+//TableName ...
+func (CorrectionRequestAction) TableName() string {
+	return "correctionrequestactions"
+}
+
+//IPHistory ...
+type IPHistory struct {
+	ID        uuid.UUID `sql:"type:uuid;primary key;default:uuid_generate_v4()"`
+	CreatedAt time.Time
+	UpdatedAt time.Time
+	DeletedAt time.Time
+	User      uuid.UUID `sql:"type:uuid"`
+	IP        string
+}
+
+//TableName ...
+func (IPHistory) TableName() string {
+	return "iphistories"
+}
+
+//Message ...
+type Message struct {
+	ID        uuid.UUID `sql:"type:uuid;primary key;default:uuid_generate_v4()"`
+	CreatedAt time.Time
+	UpdatedAt time.Time
+	DeletedAt time.Time
 	Sender    User
-	ReplyTo   string
+	ReplyTo   uuid.UUID `sql:"type:uuid"`
 	Recipient User
-	Content   string
+	Content   string `sql:"type:text"`
 }
 
 //TableName ...
@@ -205,17 +258,18 @@ func (Message) TableName() string {
 
 //Post ...
 type Post struct {
-	ID          string
-	CreatedAt   time.Time
-	UpdatedAt   time.Time
-	RemovedAt   time.Time
-	PublishedAt time.Time
-	ApprovedAt  time.Time
-	ApprouvedBy string
-	Title       string
-	Summary     string
-	Content     string
-	Author      string
+	ID                  uuid.UUID `sql:"type:uuid;primary key;default:uuid_generate_v4()"`
+	CreatedAt           time.Time
+	UpdatedAt           time.Time
+	DeletedAt           time.Time
+	PublishedAt         time.Time
+	ApprovedAt          time.Time
+	ApprouvedBy         uuid.UUID `sql:"type:uuid"`
+	ApprouvedByUserName string
+	Title               string
+	Summary             string    `sql:"type:text"`
+	Content             string    `sql:"type:text"`
+	Author              uuid.UUID `sql:"type:uuid"`
 }
 
 //TableName ...
@@ -225,13 +279,13 @@ func (Post) TableName() string {
 
 //Section ...
 type Section struct {
-	ID          string
+	ID          uuid.UUID `sql:"type:uuid;primary key;default:uuid_generate_v4()"`
 	CreatedAt   time.Time
 	UpdatedAt   time.Time
-	RemovedAt   time.Time
-	Name        string
-	ShortName   string
-	Description string
+	DeletedAt   time.Time
+	Name        string `gorm:"type:varchar(200)"`
+	ShortName   string `gorm:"type:varchar(30)"`
+	Description string `sql:"type:text"`
 	Order       uint
 	SecShow     uint
 	SecAdd      uint
@@ -246,10 +300,10 @@ func (Section) TableName() string {
 
 //User ...
 type User struct {
-	ID             string
+	ID             uuid.UUID `sql:"type:uuid;primary key;default:uuid_generate_v4()"`
 	CreatedAt      time.Time
 	UpdatedAt      time.Time
-	RemovedAt      time.Time
+	DeletedAt      time.Time
 	Email          string `gorm:"type:varchar(200);unique_index"`
 	UserName       string `gorm:"type:varchar(100);unique_index"`
 	Password       string `gorm:"type:varchar(100)"`
@@ -275,10 +329,10 @@ func (User) TableName() string {
 
 //Warning ...
 type Warning struct {
-	ID        string
+	ID        uuid.UUID `sql:"type:uuid;primary key;default:uuid_generate_v4()"`
 	CreatedAt time.Time
 	UpdatedAt time.Time
-	RemovedAt time.Time
+	DeletedAt time.Time
 }
 
 //TableName ...
