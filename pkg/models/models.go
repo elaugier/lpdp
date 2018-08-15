@@ -186,19 +186,65 @@ func (Contest) TableName() string {
 	return "contests"
 }
 
-//User ...
-type User struct {
+//Message ...
+type Message struct {
 	ID        string
 	CreatedAt time.Time
 	UpdatedAt time.Time
 	RemovedAt time.Time
-	Email     string `gorm:"type:varchar(200);unique_index"`
-	UserName  string `gorm:"type:varchar(100);unique_index"`
-	Password  string `gorm:"type:varchar(100)"`
-	FirstName string `gorm:"type:varchar(100)"`
-	LastName  string `gorm:"type:varchar(100)"`
-	BirthDate time.Time
-	Gender    uint
+	Sender    User
+	ReplyTo   string
+	Recipient User
+	Content   string
+}
+
+//TableName ...
+func (Message) TableName() string {
+	return "messages"
+}
+
+//Post ...
+type Post struct {
+	ID          string
+	CreatedAt   time.Time
+	UpdatedAt   time.Time
+	RemovedAt   time.Time
+	PublishedAt time.Time
+	ApprovedAt  time.Time
+	ApprouvedBy string
+	Title       string
+	Summary     string
+	Content     string
+	Author      string
+}
+
+//TableName ...
+func (Post) TableName() string {
+	return "posts"
+}
+
+//User ...
+type User struct {
+	ID             string
+	CreatedAt      time.Time
+	UpdatedAt      time.Time
+	RemovedAt      time.Time
+	Email          string `gorm:"type:varchar(200);unique_index"`
+	UserName       string `gorm:"type:varchar(100);unique_index"`
+	Password       string `gorm:"type:varchar(100)"`
+	FirstName      string `gorm:"type:varchar(100)"`
+	LastName       string `gorm:"type:varchar(100)"`
+	SurName        string `gorm:"type:varchar(100)"`
+	Pseudo         string `gorm:"type:varchar(100);unique_index"`
+	BirthDate      time.Time
+	Gender         uint
+	PostalAddress  string `gorm:"type:varchar(100)"`
+	PostalAddress2 string `gorm:"type:varchar(100)"`
+	Job            string `gorm:"type:varchar(100)"`
+	Hobbies        string `gorm:"type:varchar(100)"`
+	AccountStatus  string `gorm:"type:varchar(100)"`
+	AccountType    string `gorm:"type:varchar(100)"`
+	Role           string `gorm:"type:varchar(100)"`
 }
 
 //TableName ...
