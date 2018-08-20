@@ -12,13 +12,14 @@ import (
 	"github.com/elaugier/lpdp/pkg/config"
 	"github.com/elaugier/lpdp/pkg/db"
 	"github.com/gin-gonic/gin"
-	"github.com/jinzhu/gorm"
-	_ "github.com/jinzhu/gorm/dialects/postgres"
 )
 
 func main() {
 
 	conf, err := config.Get()
+	if err != nil {
+		log.Fatalf("Error on loading configuration : %v", err)
+	}
 
 	logFolder := os.ExpandEnv(conf.GetString("logFolder"))
 
@@ -26,6 +27,9 @@ func main() {
 
 	timestamp := strconv.FormatInt(time.Time.UnixNano(time.Now()), 10)
 	f, err := os.OpenFile(logFolder+"/"+timestamp+"_"+os.Args[0]+".log", os.O_WRONLY|os.O_CREATE|os.O_APPEND, 0644)
+	if err != nil {
+		log.Fatalf("Error on open log file : %v", err)
+	}
 	multi := io.MultiWriter(f, os.Stdout)
 	log.SetOutput(multi)
 
@@ -33,29 +37,17 @@ func main() {
 	log.SetFlags(log.Ldate | log.Ltime | log.Lmicroseconds | log.Lshortfile | log.LUTC)
 	gin.DefaultWriter = multi
 
-	databaseDriver := conf.GetString("database.driver")
-	log.Printf("database driver selected: %s", databaseDriver)
-	databaseHostname := conf.GetString("database.hostname")
-	log.Printf("database hostname selected: %s", databaseHostname)
-	databasePort := conf.GetString("database.port")
-	log.Printf("database port selected: %s", databasePort)
-	databaseDbName := conf.GetString("database.dbname")
-	log.Printf("database dbname selected: %s", databaseDbName)
-	databaseUsername := conf.GetString("database.user")
-	log.Printf("database username selected: %s", databaseUsername)
-	databasePassword := conf.GetString("database.password")
-	log.Printf("database password found!")
-
-	conn, err := gorm.Open(databaseDriver, fmt.Sprintf("host=%s port=%s user=%s dbname=%s password=%s",
-		databaseHostname, databasePort, databaseUsername, databaseDbName, databasePassword))
-	if err != nil {
-		log.Fatalf("couldn't connect to database: %v\n", err)
-		return
+	db := db.Instance{
+		Driver:   conf.GetString("database.driver"),
+		Hostname: conf.GetString("database.hostname"),
+		Port:     conf.GetString("database.port"),
+		DbName:   conf.GetString("database.dbname"),
+		Username: conf.GetString("database.user"),
+		Password: conf.GetString("database.password"),
 	}
-	log.Println("database connected")
-	defer conn.Close()
+	defer db.Close()
 
-	db.DatabaseInitialization(conn)
+	db.Connect()
 
 	r := gin.Default()
 	r.GET("/ping", func(c *gin.Context) {
