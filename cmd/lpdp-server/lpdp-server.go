@@ -1,9 +1,12 @@
 package main
 
 import (
+	"fmt"
 	"io"
 	"log"
 	"net/http"
+	"net/http/httputil"
+	"net/url"
 	"os"
 	"strconv"
 	"strings"
@@ -85,12 +88,26 @@ func main() {
 		//ErrorLog:     *log,
 	}
 
+	http.HandleFunc("/new", func(w http.ResponseWriter, r *http.Request) {
+		fmt.Fprint(w, "New function")
+	})
+
+	u1, _ := url.Parse("http://localhost:8080/")
+	http.Handle("lpdpbackend.local/", httputil.NewSingleHostReverseProxy(u1))
+
+	u2, _ := url.Parse("http://localhost:8081/")
+	http.Handle("lpdpfrontend.local/", httputil.NewSingleHostReverseProxy(u2))
+
 	g.Go(func() error {
 		return backendServer.ListenAndServe()
 	})
 
 	g.Go(func() error {
 		return frontendServer.ListenAndServe()
+	})
+
+	g.Go(func() error {
+		return http.ListenAndServe(":80", nil)
 	})
 
 	if err := g.Wait(); err != nil {
