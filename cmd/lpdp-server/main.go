@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bytes"
 	"fmt"
 	"io"
 	"log"
@@ -8,8 +9,10 @@ import (
 	"net/http/httputil"
 	"net/url"
 	"os"
+	"os/exec"
 	"strconv"
 	"strings"
+	"syscall"
 	"time"
 
 	"github.com/kardianos/osext"
@@ -62,6 +65,47 @@ func main() {
 	log.SetFlags(log.Ldate | log.Ltime | log.Lmicroseconds | log.Lshortfile | log.LUTC)
 	gin.DefaultWriter = multi
 
+	cockroachPath := config.GetString("cockroachPath")
+	cockroachArgs := config.GetString("cockroachArgs")
+
+	cockroachProc := exec.Command(cockroachPath)
+
+	cockroachProc.SysProcAttr = &syscall.SysProcAttr{
+		HideWindow:    true,
+		CmdLine:       fmt.Sprintf("%s", cockroachArgs),
+		CreationFlags: 0,
+	}
+
+	stdout, err := cockroachProc.StdoutPipe()
+	if err != nil {
+		log.Fatalf("Error on get stdOut of cockroach process")
+	}
+	stderr, err := cockroachProc.StderrPipe()
+	if err != nil {
+		log.Fatalf("Error on get stdErr of cockroach process")
+	}
+
+	g.Go(func() error {
+		err = cockroachProc.Start()
+		if err != nil {
+			log.Fatalf("Error on starting cockroach : %s %s => %v", cockroachPath, cockroachArgs, err)
+		}
+		bufStdout := new(bytes.Buffer)
+		bufStderr := new(bytes.Buffer)
+		bufStdout.ReadFrom(stdout)
+		bufStderr.ReadFrom(stderr)
+		if err = cockroachProc.Wait(); err != nil {
+			log.Fatalf("Error when execute %s %s => %v\r\nstdout = '%s'\r\nstderr = '%s'",
+				cockroachPath, cockroachArgs, err, bufStdout.String(), bufStderr.String())
+		}
+		return err
+	})
+
+	backendHostname := config.GetString("backendHostname")
+	backendPort := config.GetString("backendPort")
+	frontendHostname := config.GetString("frontendHostname")
+	frontendPort := config.GetString("frontendPort")
+
 	// db := db.NewInstance(
 	// 	conf.GetString("database.driver"),
 	// 	conf.GetString("database.hostname"),
@@ -88,15 +132,16 @@ func main() {
 		//ErrorLog:     *log,
 	}
 
+	// New functionality written in Go
 	http.HandleFunc("/new", func(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprint(w, "New function")
 	})
 
-	u1, _ := url.Parse("http://localhost:8080/")
-	http.Handle("lpdpbackend.local/", httputil.NewSingleHostReverseProxy(u1))
+	urlBackend, _ := url.Parse(fmt.Sprintf("http://localhost:%s/", backendPort))
+	http.Handle(fmt.Sprintf("%s/", backendHostname), httputil.NewSingleHostReverseProxy(urlBackend))
 
-	u2, _ := url.Parse("http://localhost:8081/")
-	http.Handle("lpdpfrontend.local/", httputil.NewSingleHostReverseProxy(u2))
+	urlFrontend, _ := url.Parse(fmt.Sprintf("http://localhost:%s/", frontendPort))
+	http.Handle(fmt.Sprintf("%s/", frontendHostname), httputil.NewSingleHostReverseProxy(urlFrontend))
 
 	g.Go(func() error {
 		return backendServer.ListenAndServe()

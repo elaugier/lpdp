@@ -27,5 +27,6 @@
 !.vscode/launch.json
 !.vscode/extensions.json
 
+dist/lpdp-server/cockroach-data/**/*
 
 # End of https://www.gitignore.io/api/go,visualstudiocode
