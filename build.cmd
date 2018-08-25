@@ -1,3 +1,7 @@
+@for /f "usebackq delims=" %%a in (`timestamp.exe -prefix="0."`) do @set VERSION=%%a
+@echo version = %VERSION%
+@set LDFLAGS=-w -s -X main.Version=%VERSION%
+@echo ldflags = %LDFLAGS%
 go build ./...
 go install ./...
-go build -v cmd\lpdp-api-server\lpdp-api-server.go
+go build -v -ldflags "%LDFLAGS%" -o dist\lpdp-api-server\lpdp-api-server.exe cmd\lpdp-api-server\lpdp-api-server.go

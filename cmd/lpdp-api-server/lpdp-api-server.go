@@ -37,17 +37,15 @@ func main() {
 	log.SetFlags(log.Ldate | log.Ltime | log.Lmicroseconds | log.Lshortfile | log.LUTC)
 	gin.DefaultWriter = multi
 
-	db := db.Instance{
-		Driver:   conf.GetString("database.driver"),
-		Hostname: conf.GetString("database.hostname"),
-		Port:     conf.GetString("database.port"),
-		DbName:   conf.GetString("database.dbname"),
-		Username: conf.GetString("database.user"),
-		Password: conf.GetString("database.password"),
-	}
+	db := db.NewInstance(
+		conf.GetString("database.driver"),
+		conf.GetString("database.hostname"),
+		conf.GetString("database.port"),
+		conf.GetString("database.dbname"),
+		conf.GetString("database.user"),
+		conf.GetString("database.password"),
+	)
 	defer db.Close()
-
-	db.Connect()
 
 	r := gin.Default()
 	r.GET("/ping", func(c *gin.Context) {
@@ -61,5 +59,6 @@ func main() {
 			"VerifyAudience": auth,
 		})
 	})
+
 	r.Run() // listen and serve on 0.0.0.0:8080
 }

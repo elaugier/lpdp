@@ -5,6 +5,7 @@
 # Binaries for programs and plugins
 *.exe
 *.exe~
+!timestamp.exe
 *.dll
 *.so
 *.dylib
