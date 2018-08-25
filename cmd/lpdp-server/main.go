@@ -72,6 +72,7 @@ func main() {
 	logger.SetFlags(log.Ldate | log.Ltime | log.Lmicroseconds | log.Lshortfile | log.LUTC)
 	gin.DefaultWriter = multi
 	gin.DefaultErrorWriter = multi
+	gin.DisableConsoleColor()
 	/**
 	 * Cockroach Initialization
 	 */
@@ -131,22 +132,24 @@ func main() {
 	logger.Printf("backendServerAddr = '%s'", backendServerAddr)
 
 	backendServer := &http.Server{
-		Addr:         backendServerAddr,
-		Handler:      server.BackendRouter(logger),
-		ReadTimeout:  5 * time.Second,
-		WriteTimeout: 10 * time.Second,
-		ErrorLog:     logger,
+		Addr:           backendServerAddr,
+		Handler:        server.BackendRouter(logger),
+		ReadTimeout:    5 * time.Second,
+		WriteTimeout:   10 * time.Second,
+		ErrorLog:       logger,
+		MaxHeaderBytes: 1 << 20,
 	}
 
 	frontendServerAddr := fmt.Sprintf(":%s", frontendPort)
 	logger.Printf("frontendServerAddr = '%s'", frontendServerAddr)
 
 	frontendServer := &http.Server{
-		Addr:         frontendServerAddr,
-		Handler:      server.FrontendRouter(logger),
-		ReadTimeout:  5 * time.Second,
-		WriteTimeout: 10 * time.Second,
-		ErrorLog:     logger,
+		Addr:           frontendServerAddr,
+		Handler:        server.FrontendRouter(logger),
+		ReadTimeout:    5 * time.Second,
+		WriteTimeout:   10 * time.Second,
+		ErrorLog:       logger,
+		MaxHeaderBytes: 1 << 20,
 	}
 
 	urlBackend, _ := url.Parse(fmt.Sprintf("http://localhost:%s/", backendPort))
@@ -164,7 +167,7 @@ func main() {
 	})
 
 	g.Go(func() error {
-		return http.ListenAndServe(":80", nil)
+		return http.ListenAndServe(":80", logRequest(http.DefaultServeMux))
 	})
 
 	if err := g.Wait(); err != nil {
@@ -184,4 +187,11 @@ func Scan(i io.ReadCloser) {
 	if err := in.Err(); err != nil {
 		logger.Printf("error: %s", err)
 	}
+}
+
+func logRequest(handler http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		logger.Printf("%30s | %30s | %5s | %s\n", r.Host, r.RemoteAddr, r.Method, r.URL)
+		handler.ServeHTTP(w, r)
+	})
 }

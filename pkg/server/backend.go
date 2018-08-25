@@ -5,6 +5,7 @@ import (
 	"net/http"
 
 	"github.com/elaugier/lpdp/pkg/controllers"
+	"github.com/elaugier/lpdp/pkg/middlewares"
 	"github.com/gin-gonic/gin"
 )
 
@@ -14,6 +15,9 @@ func BackendRouter(logger *log.Logger) http.Handler {
 	router := gin.Default()
 	router.Use(gin.Logger())
 	router.Use(gin.Recovery())
+
+	router.Use(middlewares.Identification(logger))
+	router.Use(middlewares.RequestID(logger))
 
 	//corsConfig := cors.DefaultConfig()
 	//router.Use(cors.New(corsConfig))

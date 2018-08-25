@@ -4,6 +4,7 @@ import (
 	"log"
 	"net/http"
 
+	"github.com/elaugier/lpdp/pkg/middlewares"
 	"github.com/gin-gonic/gin"
 )
 
@@ -13,6 +14,8 @@ func FrontendRouter(logger *log.Logger) http.Handler {
 	router := gin.New()
 	router.Use(gin.Logger())
 	router.Use(gin.Recovery())
+	router.Use(middlewares.Identification(logger))
+	router.Use(middlewares.RequestID(logger))
 	router.Static("/", "./www/")
 	return router
 }
