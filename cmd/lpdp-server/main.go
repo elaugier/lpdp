@@ -11,6 +11,7 @@ import (
 	"net/url"
 	"os"
 	"os/exec"
+	"os/signal"
 	"strconv"
 	"strings"
 	"syscall"
@@ -29,9 +30,19 @@ import (
 var (
 	g      errgroup.Group
 	logger *log.Logger
+	run    bool
 )
 
 func main() {
+
+	run = true
+	c := make(chan os.Signal)
+	signal.Notify(c, os.Interrupt, syscall.SIGTERM)
+
+	go func() {
+		<-c
+		run = false
+	}()
 
 	/**
 	 * Logger Initialization
