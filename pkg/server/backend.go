@@ -53,6 +53,13 @@ func BackendRouter(logger *log.Logger) http.Handler {
 	router.PUT("/alertactions/:id", alertactions.Modify)
 	router.DELETE("/alertactions/:id", alertactions.Remove)
 
+	badges := new(controllers.BadgesController)
+	router.GET("/badges/:id", badges.Get)
+	router.GET("/badges", badges.List)
+	router.POST("/badges", badges.Add)
+	router.PUT("/badges/:id", badges.Modify)
+	router.DELETE("/badges/:id", badges.Remove)
+
 	users := new(controllers.UsersController)
 	router.GET("/users/:id", users.Get)
 	router.GET("/users", users.List)
