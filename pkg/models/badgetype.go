@@ -8,7 +8,7 @@ import (
 
 //BadgeType ...
 type BadgeType struct {
-	ID        uuid.UUID `sql:"type:uuid;primary key;default:uuid_generate_v4()"`
+	ID        uuid.UUID `sql:"type:uuid;primary key;default:gen_random_uuid()"`
 	CreatedAt time.Time
 	UpdatedAt time.Time
 	DeletedAt time.Time

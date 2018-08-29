@@ -21,8 +21,8 @@ import (
 
 	// jwt "github.com/appleboy/gin-jwt"
 	"github.com/elaugier/lpdp/pkg/config"
+	"github.com/elaugier/lpdp/pkg/db"
 	"github.com/elaugier/lpdp/pkg/server"
-	//"github.com/elaugier/lpdp/pkg/db"
 	"github.com/gin-gonic/gin"
 	"golang.org/x/sync/errgroup"
 )
@@ -64,13 +64,13 @@ func main() {
 	logger.SetFlags(log.Ldate | log.Ltime | log.Lmicroseconds | log.Lshortfile | log.LUTC)
 	logger.SetPrefix(binaryName + " " + strconv.Itoa(os.Getpid()) + " ")
 
-	config, err := config.Get()
+	configuration, err := config.Get()
 	if err != nil {
 		logger.Fatal(err)
 	}
 
 	timestampStart := strconv.FormatInt(time.Time.UnixNano(time.Now()), 10)
-	logFile := os.ExpandEnv(config.GetString("logFolder")) + "/" + timestampStart + "_" + binaryName + ".log"
+	logFile := os.ExpandEnv(configuration.GetString("logFolder")) + "/" + timestampStart + "_" + binaryName + ".log"
 	logger.Println("log file location => '" + logFile + "'")
 	f, err := os.OpenFile(logFile, os.O_WRONLY|os.O_CREATE|os.O_APPEND, 0644)
 	if err != nil {
@@ -87,8 +87,8 @@ func main() {
 	/**
 	 * Cockroach Initialization
 	 */
-	cockroachPath := config.GetString("cockroachPath")
-	cockroachArgs := config.GetString("cockroachArgs")
+	cockroachPath := configuration.GetString("cockroachPath")
+	cockroachArgs := configuration.GetString("cockroachArgs")
 	cockroachProc := exec.Command(cockroachPath)
 	cockroachProc.SysProcAttr = &syscall.SysProcAttr{
 		HideWindow:    true,
@@ -124,20 +124,15 @@ func main() {
 		return err
 	})
 
-	backendHostname := config.GetString("backendHostname")
-	backendPort := config.GetString("backendPort")
-	frontendHostname := config.GetString("frontendHostname")
-	frontendPort := config.GetString("frontendPort")
+	backendHostname := configuration.GetString("backendHostname")
+	backendPort := configuration.GetString("backendPort")
+	frontendHostname := configuration.GetString("frontendHostname")
+	frontendPort := configuration.GetString("frontendPort")
 
-	// db := db.NewInstance(
-	// 	conf.GetString("database.driver"),
-	// 	conf.GetString("database.hostname"),
-	// 	conf.GetString("database.port"),
-	// 	conf.GetString("database.dbname"),
-	// 	conf.GetString("database.user"),
-	// 	conf.GetString("database.password"),
-	// )
-	// defer db.Close()
+	database := db.NewInstance()
+	defer database.Close()
+	database.Connection.SetLogger(logger)
+	database.DatabaseInitialization()
 
 	backendServerAddr := fmt.Sprintf(":%s", backendPort)
 	logger.Printf("backendServerAddr = '%s'", backendServerAddr)

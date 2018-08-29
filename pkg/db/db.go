@@ -1,9 +1,9 @@
 package db
 
 import (
-	"fmt"
 	"log"
 
+	"github.com/elaugier/lpdp/pkg/config"
 	"github.com/elaugier/lpdp/pkg/models"
 	"github.com/jinzhu/gorm"
 	//Postgres
@@ -11,43 +11,28 @@ import (
 )
 
 //NewInstance ...
-func NewInstance(
-	Driver string,
-	Hostname string,
-	Port string,
-	DbName string,
-	Username string,
-	Password string) *Instance {
-	c, err := gorm.Open(Driver, fmt.Sprintf("host=%s port=%s user=%s dbname=%s password=%s",
-		Hostname, Port, Username, DbName, Password))
+func NewInstance() *Instance {
+	configuration, err := config.Get()
+	c, err := gorm.Open("postgres", configuration.GetString("database.postgres"))
 	if err != nil {
 		log.Fatalf("couldn't connect to database: %v\n", err)
 	}
 	log.Println("database connected")
 	return &Instance{
-		Driver:     Driver,
-		Hostname:   Hostname,
-		Port:       Port,
-		DbName:     DbName,
-		Username:   Username,
-		Password:   Password,
 		Connection: c,
 	}
 }
 
 //Instance ...
 type Instance struct {
-	Driver     string
-	Hostname   string
-	Port       string
-	DbName     string
-	Username   string
-	Password   string
 	Connection *gorm.DB
 }
 
 //DatabaseInitialization ...
 func (i Instance) DatabaseInitialization() {
+
+	i.Connection.Exec("CREATE DATABASE IF NOT EXISTS lpdp;")
+	i.Connection.Exec("USE lpdp;")
 
 	if (!i.Connection.HasTable(&models.Achievement{})) {
 		i.Connection.CreateTable(&models.Achievement{})

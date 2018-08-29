@@ -2,20 +2,23 @@
 
 
 [[projects]]
+  branch = "master"
+  digest = "1:db03d46c64ea5f3ddfca02fe7be44ab65abdc39b01b8e962a5a557dc12a3519c"
+  name = "github.com/client9/gospell"
+  packages = [
+    ".",
+    "plaintext",
+  ]
+  pruneopts = "UT"
+  revision = "90dfc71015dfebd3a7274f1ad2756c1dbf09e250"
+
+[[projects]]
   digest = "1:abeb38ade3f32a92943e5be54f55ed6d6e3b6602761d74b4aab4c9dd45c18abd"
   name = "github.com/fsnotify/fsnotify"
   packages = ["."]
   pruneopts = "UT"
   revision = "c2828203cd70a50dcccfb2761f8b1f8ceef9a8e9"
   version = "v1.4.7"
-
-[[projects]]
-  digest = "1:2b59aca2665ff804f6606c8829eaee133ddd3aefbc841014660d961b0034f888"
-  name = "github.com/gin-contrib/cors"
-  packages = ["."]
-  pruneopts = "UT"
-  revision = "cf4846e6a636a76237a28d9286f163c132e841bc"
-  version = "v1.2"
 
 [[projects]]
   branch = "master"
@@ -99,6 +102,14 @@
   pruneopts = "UT"
   revision = "1624edc4454b8682399def8740d46db5e4362ba4"
   version = "1.1.5"
+
+[[projects]]
+  branch = "master"
+  digest = "1:caf6db28595425c0e0f2301a00257d11712f65c1878e12cffc42f6b9a9cf3f23"
+  name = "github.com/kardianos/osext"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "ae77be60afb1dcacde03767a8c37337fad28ac14"
 
 [[projects]]
   branch = "master"
@@ -213,9 +224,13 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:76ee51c3f468493aff39dbacc401e8831fbb765104cbf613b89bef01cf4bad70"
+  digest = "1:c1a52a1cfe481501b51274730129678754287271226b42dbdd81cb1af13da3de"
   name = "golang.org/x/net"
-  packages = ["context"]
+  packages = [
+    "context",
+    "html",
+    "html/atom",
+  ]
   pruneopts = "UT"
   revision = "4bcd98cce591d8c7061bf313d7a3cbad05b58549"
 
@@ -270,11 +285,12 @@
   analyzer-name = "dep"
   analyzer-version = 1
   input-imports = [
-    "github.com/gin-contrib/cors",
+    "github.com/client9/gospell",
     "github.com/gin-gonic/gin",
     "github.com/google/uuid",
     "github.com/jinzhu/gorm",
     "github.com/jinzhu/gorm/dialects/postgres",
+    "github.com/kardianos/osext",
     "github.com/spf13/viper",
     "golang.org/x/sync/errgroup",
   ]
