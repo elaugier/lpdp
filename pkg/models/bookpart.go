@@ -12,6 +12,7 @@ type BookPart struct {
 	CreatedAt time.Time
 	UpdatedAt time.Time
 	DeletedAt time.Time
+	BookRef   uuid.UUID `sql:"type:uuid"`
 }
 
 //TableName ...

@@ -31,16 +31,43 @@ type Instance struct {
 //DatabaseInitialization ...
 func (i Instance) DatabaseInitialization() {
 
-	i.Connection.Exec("CREATE DATABASE IF NOT EXISTS lpdp;")
-	i.Connection.Exec("USE lpdp;")
-
-	if (!i.Connection.HasTable(&models.Achievement{})) {
-		i.Connection.CreateTable(&models.Achievement{})
-	}
-
-	if (!i.Connection.HasTable(&models.Activity{})) {
-		i.Connection.CreateTable(&models.Activity{})
-	}
+	c := i.Connection
+	sql := "CREATE DATABASE IF NOT EXISTS lpdp;"
+	log.Println(sql)
+	c.Exec(sql)
+	sql = "USE lpdp;"
+	log.Println(sql)
+	c.Exec("USE lpdp;")
+	c.AutoMigrate(
+		&models.Achievement{},
+		&models.Activity{},
+		&models.Alert{},
+		&models.AlertAction{},
+		&models.Badge{},
+		&models.BadgeType{},
+		&models.BadIPAddress{},
+		&models.Book{},
+		&models.BookPart{},
+		&models.CoAuthor{},
+		&models.Comment{},
+		&models.Contact{},
+		&models.Contest{},
+		&models.ContestRound{},
+		&models.CorrectionRequest{},
+		&models.CorrectionRequestAction{},
+		&models.IPHistory{},
+		&models.JudgingPanel{},
+		&models.JudgingPanelMember{},
+		&models.License{},
+		&models.Like{},
+		&models.Message{},
+		&models.Post{},
+		&models.Request{},
+		&models.Section{},
+		&models.User{},
+		&models.Warning{},
+		&models.WarningTemplate{},
+	)
 
 	return
 }

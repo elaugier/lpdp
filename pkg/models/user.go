@@ -21,13 +21,15 @@ type User struct {
 	Pseudo         string `gorm:"type:varchar(100);unique_index"`
 	BirthDate      time.Time
 	Gender         uint
-	PostalAddress  string `gorm:"type:varchar(100)"`
-	PostalAddress2 string `gorm:"type:varchar(100)"`
-	Job            string `gorm:"type:varchar(100)"`
-	Hobbies        string `gorm:"type:varchar(100)"`
-	AccountStatus  string `gorm:"type:varchar(100)"`
-	AccountType    string `gorm:"type:varchar(100)"`
-	Role           string `gorm:"type:varchar(100)"`
+	PostalAddress  string    `gorm:"type:varchar(100)"`
+	PostalAddress2 string    `gorm:"type:varchar(100)"`
+	Job            string    `gorm:"type:varchar(100)"`
+	Hobbies        string    `gorm:"type:varchar(100)"`
+	AccountStatus  string    `gorm:"type:varchar(100)"`
+	AccountType    string    `gorm:"type:varchar(100)"`
+	Role           string    `gorm:"type:varchar(100)"`
+	Posts          []Post    `gorm:"foreignkey:Author"`
+	Comments       []Comment `gorm:"foreignkey:"`
 }
 
 //TableName ...

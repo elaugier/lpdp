@@ -8,10 +8,12 @@ import (
 
 //Like ...
 type Like struct {
-	ID        uuid.UUID `sql:"type:uuid;primary key;default:gen_random_uuid()"`
-	CreatedAt time.Time
-	UpdatedAt time.Time
-	DeletedAt time.Time
+	ID         uuid.UUID `sql:"type:uuid;primary key;default:gen_random_uuid()"`
+	CreatedAt  time.Time
+	UpdatedAt  time.Time
+	DeletedAt  time.Time
+	PostRef    uuid.UUID `sql:"type:uuid"`
+	CommentRef uuid.UUID `sql:"type:uuid"`
 }
 
 //TableName ...

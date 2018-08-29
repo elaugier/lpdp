@@ -12,6 +12,9 @@ type Comment struct {
 	CreatedAt time.Time
 	UpdatedAt time.Time
 	DeletedAt time.Time
+	Content   string    `sql:"type:text"`
+	Author    uuid.UUID `sql:"type:uuid"`
+	Likes     []Like    `gorm:"foreignkey:CommentRef"`
 }
 
 //TableName ...

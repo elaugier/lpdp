@@ -14,7 +14,7 @@ type Alert struct {
 	DeletedAt time.Time
 	Type      string `gorm:"type:varchar(100)"`
 	Details   string `gorm:"type:varchar(2000)"`
-	User      string `gorm:"type:uuid()"`
+	User      string `sql:"type:uuid"`
 }
 
 //TableName ...

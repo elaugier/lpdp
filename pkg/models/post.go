@@ -20,6 +20,7 @@ type Post struct {
 	Summary             string    `sql:"type:text"`
 	Content             string    `sql:"type:text"`
 	Author              uuid.UUID `sql:"type:uuid"`
+	Likes               []Like    `gorm:"foreignkey:PostRef"`
 }
 
 //TableName ...

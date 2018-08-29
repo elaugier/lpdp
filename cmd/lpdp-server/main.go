@@ -131,7 +131,7 @@ func main() {
 
 	database := db.NewInstance()
 	defer database.Close()
-	database.Connection.SetLogger(logger)
+	//database.Connection.SetLogger(logger)
 	database.DatabaseInitialization()
 
 	backendServerAddr := fmt.Sprintf(":%s", backendPort)
