@@ -29,7 +29,8 @@ type User struct {
 	AccountType    string    `gorm:"type:varchar(100)"`
 	Role           string    `gorm:"type:varchar(100)"`
 	Posts          []Post    `gorm:"foreignkey:Author"`
-	Comments       []Comment `gorm:"foreignkey:"`
+	Comments       []Comment `gorm:"foreignkey:Author"`
+	Contacts       []Contact `gorm:"foreignkey:OwnerRef"`
 }
 
 //TableName ...
