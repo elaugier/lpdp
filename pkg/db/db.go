@@ -6,6 +6,7 @@ import (
 	"github.com/elaugier/lpdp/pkg/config"
 	"github.com/elaugier/lpdp/pkg/models"
 	"github.com/jinzhu/gorm"
+
 	//Postgres
 	_ "github.com/jinzhu/gorm/dialects/postgres"
 )
@@ -64,6 +65,7 @@ func (i Instance) DatabaseInitialization() {
 		&models.Post{},
 		&models.Request{},
 		&models.Section{},
+		&models.Tag{},
 		&models.User{},
 		&models.Warning{},
 		&models.WarningTemplate{},
