@@ -39,6 +39,13 @@ func BackendRouter(logger *log.Logger) http.Handler {
 	router.PUT("/achievements/:id", achievements.Modify)
 	router.DELETE("/achievements/:id", achievements.Remove)
 
+	activities := new(controllers.ActivitiesController)
+	router.GET("/activities/:id", activities.Get)
+	router.GET("/activities", activities.List)
+	router.POST("/activities", activities.Add)
+	router.PUT("/activities/:id", activities.Modify)
+	router.DELETE("/activities/:id", activities.Remove)
+
 	alerts := new(controllers.AlertsController)
 	router.GET("/alerts/:id", alerts.Get)
 	router.GET("/alerts", alerts.List)
@@ -59,6 +66,20 @@ func BackendRouter(logger *log.Logger) http.Handler {
 	router.POST("/badges", badges.Add)
 	router.PUT("/badges/:id", badges.Modify)
 	router.DELETE("/badges/:id", badges.Remove)
+
+	badgetypes := new(controllers.BadgeTypesController)
+	router.GET("/badgetypes/:id", badgetypes.Get)
+	router.GET("/badgetypes", badgetypes.List)
+	router.POST("/badgetypes", badgetypes.Add)
+	router.PUT("/badgetypes/:id", badgetypes.Modify)
+	router.DELETE("/badgetypes/:id", badgetypes.Remove)
+
+	tags := new(controllers.TagsController)
+	router.GET("/tags/:id", tags.Get)
+	router.GET("/tags", tags.List)
+	router.POST("/tags", tags.Add)
+	router.PUT("/tags/:id", tags.Modify)
+	router.DELETE("/tags/:id", tags.Remove)
 
 	users := new(controllers.UsersController)
 	router.GET("/users/:id", users.Get)

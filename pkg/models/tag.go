@@ -12,8 +12,8 @@ type Tag struct {
 	CreatedAt time.Time
 	UpdatedAt time.Time
 	DeletedAt time.Time
-	Code      string `gorm:"not null;varchar(3);unique"`
-	Label     string `gorm:"not null;varchar(100);unique"`
+	Code      string `gorm:"not null;type:varchar(3);unique"`
+	Label     string `gorm:"not null;type:varchar(100);unique"`
 	Enabled   bool   `gorm:"default:false"`
 	StartedAt time.Time
 	ClosedAt  time.Time

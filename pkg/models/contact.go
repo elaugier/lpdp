@@ -12,8 +12,8 @@ type Contact struct {
 	CreatedAt      time.Time
 	UpdatedAt      time.Time
 	DeletedAt      time.Time
-	LastName       string
-	FirstName      string
+	LastName       string `gorm:"type:varchar(200)"`
+	FirstName      string `gorm:"not null;type:varchar(200)"`
 	BirthDate      time.Time
 	OwnerRef       uuid.UUID `sql:"type:uuid"`
 	UserContactRef uuid.UUID `sql:"type:uuid"`

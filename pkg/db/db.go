@@ -1,6 +1,7 @@
 package db
 
 import (
+	"io"
 	"log"
 
 	"github.com/elaugier/lpdp/pkg/config"
@@ -12,13 +13,15 @@ import (
 )
 
 //NewInstance ...
-func NewInstance() *Instance {
+func NewInstance(logMode bool, io io.Writer) *Instance {
 	configuration, err := config.Get()
 	c, err := gorm.Open("postgres", configuration.GetString("database.postgres"))
 	if err != nil {
 		log.Fatalf("couldn't connect to database: %v\n", err)
 	}
 	log.Println("database connected")
+	c.LogMode(true)
+	c.SetLogger(log.New(io, "", log.LstdFlags))
 	return &Instance{
 		Connection: c,
 	}

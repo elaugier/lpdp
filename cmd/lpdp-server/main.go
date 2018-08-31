@@ -129,7 +129,7 @@ func main() {
 	frontendHostname := configuration.GetString("frontendHostname")
 	frontendPort := configuration.GetString("frontendPort")
 
-	database := db.NewInstance()
+	database := db.NewInstance(true, multi)
 	defer database.Close()
 	//database.Connection.SetLogger(logger)
 	database.DatabaseInitialization()
