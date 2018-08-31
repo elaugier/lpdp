@@ -74,6 +74,27 @@ func BackendRouter(logger *log.Logger) http.Handler {
 	router.PUT("/badgetypes/:id", badgetypes.Modify)
 	router.DELETE("/badgetypes/:id", badgetypes.Remove)
 
+	badipaddresses := new(controllers.BadIPAddressesController)
+	router.GET("/badipaddresses/:id", badipaddresses.Get)
+	router.GET("/badipaddresses", badipaddresses.List)
+	router.POST("/badipaddresses", badipaddresses.Add)
+	router.PUT("/badipaddresses/:id", badipaddresses.Modify)
+	router.DELETE("/badipaddresses/:id", badipaddresses.Remove)
+
+	books := new(controllers.BooksController)
+	router.GET("/books/:id", books.Get)
+	router.GET("/books", books.List)
+	router.POST("/books", books.Add)
+	router.PUT("/books/:id", books.Modify)
+	router.DELETE("/books/:id", books.Remove)
+
+	bookparts := new(controllers.BookPartsController)
+	router.GET("/bookparts/:id", bookparts.Get)
+	router.GET("/bookparts", bookparts.List)
+	router.POST("/bookparts", bookparts.Add)
+	router.PUT("/bookparts/:id", bookparts.Modify)
+	router.DELETE("/bookparts/:id", bookparts.Remove)
+
 	tags := new(controllers.TagsController)
 	router.GET("/tags/:id", tags.Get)
 	router.GET("/tags", tags.List)
