@@ -8,10 +8,10 @@ import (
 
 //Post ...
 type Post struct {
-	ID                  uuid.UUID `sql:"type:uuid;primary key;default:gen_random_uuid()"`
-	CreatedAt           time.Time
-	UpdatedAt           time.Time
-	DeletedAt           time.Time
+	ID        uuid.UUID `sql:"type:uuid;primary key;default:gen_random_uuid()" json:"id,omitempty"`
+	CreatedAt time.Time `json:"created_at"`
+	UpdatedAt time.Time `json:"updated_at"`
+	DeletedAt time.Time `json:"deleted_at"`
 	PublishedAt         time.Time
 	ApprovedAt          time.Time
 	ApprouvedBy         uuid.UUID `sql:"type:uuid"`

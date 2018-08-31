@@ -8,17 +8,17 @@ import (
 
 //User ...
 type User struct {
-	ID                 uuid.UUID `sql:"type:uuid;primary key;default:gen_random_uuid()"`
-	CreatedAt          time.Time
-	UpdatedAt          time.Time
-	DeletedAt          time.Time
-	Email              string `gorm:"type:varchar(200);unique_index"`
-	UserName           string `gorm:"type:varchar(100);unique_index"`
-	Password           string `gorm:"type:varchar(100)"`
-	FirstName          string `gorm:"type:varchar(100)"`
-	LastName           string `gorm:"type:varchar(100)"`
-	SurName            string `gorm:"type:varchar(100)"`
-	Pseudo             string `gorm:"type:varchar(100);unique_index"`
+	ID                 uuid.UUID `sql:"type:uuid;primary key;default:gen_random_uuid()" json:"id,omitempty"`
+	CreatedAt          time.Time `json:"created_at"`
+	UpdatedAt          time.Time `json:"updated_at"`
+	DeletedAt          time.Time `json:"deleted_at"`
+	Email              string    `gorm:"type:varchar(200);unique_index"`
+	UserName           string    `gorm:"type:varchar(100);unique_index"`
+	Password           string    `gorm:"type:varchar(100)"`
+	FirstName          string    `gorm:"type:varchar(100)"`
+	LastName           string    `gorm:"type:varchar(100)"`
+	SurName            string    `gorm:"type:varchar(100)"`
+	Pseudo             string    `gorm:"type:varchar(100);unique_index"`
 	BirthDate          time.Time
 	Gender             uint
 	PostalAddress      string              `gorm:"type:varchar(100)"`
@@ -28,6 +28,7 @@ type User struct {
 	AccountStatus      string              `gorm:"type:varchar(100)"`
 	AccountType        string              `gorm:"type:varchar(100)"`
 	Role               string              `gorm:"type:varchar(100)"`
+	Achievements       []Achievement       `gorm:"foreignkey:OwnerRef"`
 	Posts              []Post              `gorm:"foreignkey:AuthorRef"`
 	Comments           []Comment           `gorm:"foreignkey:AuthorRef"`
 	Contacts           []Contact           `gorm:"foreignkey:OwnerRef"`

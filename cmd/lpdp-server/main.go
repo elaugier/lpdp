@@ -105,8 +105,8 @@ func main() {
 		logger.Fatalf("Error on get stdErr of cockroach process")
 	}
 
-	go Scan(stdout)
-	go Scan(stderr)
+	go Scan(logger, stdout)
+	go Scan(logger, stderr)
 
 	g.Go(func() error {
 		err = cockroachProc.Start()
@@ -183,7 +183,7 @@ func main() {
 }
 
 //Scan ...
-func Scan(i io.ReadCloser) {
+func Scan(logger *log.Logger, i io.ReadCloser) {
 	// read command's stdout line by line
 	in := bufio.NewScanner(i)
 
