@@ -35,6 +35,7 @@ type User struct {
 	InBoxMessages      []Message           `gorm:"foreignkey:SenderRef"`
 	OutBoxMessages     []Message           `gorm:"foreignkey:RecipientRef"`
 	CorrectionRequests []CorrectionRequest `gorm:"foreignkey:RequesterRef"`
+	Payments           []Payment           `gorm:"foreignkey:PayerRef"`
 }
 
 //TableName ...
