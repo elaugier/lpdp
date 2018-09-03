@@ -12,8 +12,9 @@ type IPHistory struct {
 	CreatedAt time.Time `json:"created_at"`
 	UpdatedAt time.Time `json:"updated_at"`
 	DeletedAt time.Time `json:"deleted_at"`
-	User      uuid.UUID `sql:"type:uuid"`
-	IP        string
+	UserRef   uuid.UUID `sql:"type:uuid" json:"user_ref"`
+	IPAddress string    `gorm:"not null;type:varchar(46)" json:"ip_address"`
+	ExpiresAt time.Time `json:"expires_at"`
 }
 
 //TableName ...
