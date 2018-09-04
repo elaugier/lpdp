@@ -3,6 +3,7 @@ package controllers
 import (
 	"net/http"
 
+	"github.com/elaugier/lpdp/pkg/models"
 	"github.com/gin-gonic/gin"
 )
 
@@ -21,11 +22,21 @@ func (u TagsController) List(c *gin.Context) {
 
 //Add ...
 func (u TagsController) Add(c *gin.Context) {
+	var json models.Tag
+	if err := c.ShouldBindJSON(&json); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
 	c.String(http.StatusOK, "Working!")
 }
 
 //Modify ...
 func (u TagsController) Modify(c *gin.Context) {
+	var json models.Tag
+	if err := c.ShouldBindJSON(&json); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
 	c.String(http.StatusOK, "Working!")
 }
 
