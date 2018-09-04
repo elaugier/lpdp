@@ -102,6 +102,12 @@ func BackendRouter(logger *log.Logger) http.Handler {
 	router.PUT("/coauthors/:id", coauthors.Modify)
 	router.DELETE("/coauthors/:id", coauthors.Remove)
 
+	login := new(controllers.LoginController)
+	router.GET("/auth", login.Get)
+	router.GET("/auths", login.List)
+	router.POST("/auth", login.Login)
+	router.DELETE("/auth", login.Logout)
+
 	tags := new(controllers.TagsController)
 	router.GET("/tags/:id", tags.Get)
 	router.GET("/tags", tags.List)
