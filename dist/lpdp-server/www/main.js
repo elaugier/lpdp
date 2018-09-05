@@ -38,12 +38,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _news_news_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./news/news.component */ "./src/app/news/news.component.ts");
 /* harmony import */ var _nav_bar_nav_bar_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./nav-bar/nav-bar.component */ "./src/app/nav-bar/nav-bar.component.ts");
 /* harmony import */ var _shortcut_bar_shortcut_bar_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./shortcut-bar/shortcut-bar.component */ "./src/app/shortcut-bar/shortcut-bar.component.ts");
+/* harmony import */ var _my_account_my_account_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./my-account/my-account.component */ "./src/app/my-account/my-account.component.ts");
+/* harmony import */ var _my_settings_my_settings_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./my-settings/my-settings.component */ "./src/app/my-settings/my-settings.component.ts");
+/* harmony import */ var _my_security_my_security_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./my-security/my-security.component */ "./src/app/my-security/my-security.component.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
+
+
 
 
 
@@ -67,6 +73,21 @@ var routes = [
         pathMatch: 'full',
         component: _nav_bar_nav_bar_component__WEBPACK_IMPORTED_MODULE_3__["NavBarComponent"],
         outlet: 'right'
+    },
+    {
+        path: 'myAccount',
+        component: _my_account_my_account_component__WEBPACK_IMPORTED_MODULE_5__["MyAccountComponent"],
+        outlet: 'center'
+    },
+    {
+        path: 'mySettings',
+        component: _my_settings_my_settings_component__WEBPACK_IMPORTED_MODULE_6__["MySettingsComponent"],
+        outlet: 'center'
+    },
+    {
+        path: 'mySecurity',
+        component: _my_security_my_security_component__WEBPACK_IMPORTED_MODULE_7__["MySecurityComponent"],
+        outlet: 'center'
     }
 ];
 var AppRoutingModule = /** @class */ (function () {
@@ -166,12 +187,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _my_security_my_security_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./my-security/my-security.component */ "./src/app/my-security/my-security.component.ts");
 /* harmony import */ var _my_account_my_account_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./my-account/my-account.component */ "./src/app/my-account/my-account.component.ts");
 /* harmony import */ var _my_settings_my_settings_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./my-settings/my-settings.component */ "./src/app/my-settings/my-settings.component.ts");
+/* harmony import */ var _my_messages_my_messages_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./my-messages/my-messages.component */ "./src/app/my-messages/my-messages.component.ts");
+/* harmony import */ var _my_correction_requests_my_correction_requests_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./my-correction-requests/my-correction-requests.component */ "./src/app/my-correction-requests/my-correction-requests.component.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
+
 
 
 
@@ -200,7 +225,9 @@ var AppModule = /** @class */ (function () {
                 _shortcut_bar_shortcut_bar_component__WEBPACK_IMPORTED_MODULE_9__["ShortcutBarComponent"],
                 _my_security_my_security_component__WEBPACK_IMPORTED_MODULE_10__["MySecurityComponent"],
                 _my_account_my_account_component__WEBPACK_IMPORTED_MODULE_11__["MyAccountComponent"],
-                _my_settings_my_settings_component__WEBPACK_IMPORTED_MODULE_12__["MySettingsComponent"]
+                _my_settings_my_settings_component__WEBPACK_IMPORTED_MODULE_12__["MySettingsComponent"],
+                _my_messages_my_messages_component__WEBPACK_IMPORTED_MODULE_13__["MyMessagesComponent"],
+                _my_correction_requests_my_correction_requests_component__WEBPACK_IMPORTED_MODULE_14__["MyCorrectionRequestsComponent"]
             ],
             imports: [
                 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["BrowserModule"],
@@ -337,6 +364,132 @@ var MyAccountComponent = /** @class */ (function () {
         __metadata("design:paramtypes", [])
     ], MyAccountComponent);
     return MyAccountComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/my-correction-requests/my-correction-requests.component.html":
+/*!******************************************************************************!*\
+  !*** ./src/app/my-correction-requests/my-correction-requests.component.html ***!
+  \******************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<p>\n  my-correction-requests works!\n</p>\n"
+
+/***/ }),
+
+/***/ "./src/app/my-correction-requests/my-correction-requests.component.scss":
+/*!******************************************************************************!*\
+  !*** ./src/app/my-correction-requests/my-correction-requests.component.scss ***!
+  \******************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ""
+
+/***/ }),
+
+/***/ "./src/app/my-correction-requests/my-correction-requests.component.ts":
+/*!****************************************************************************!*\
+  !*** ./src/app/my-correction-requests/my-correction-requests.component.ts ***!
+  \****************************************************************************/
+/*! exports provided: MyCorrectionRequestsComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MyCorrectionRequestsComponent", function() { return MyCorrectionRequestsComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+var MyCorrectionRequestsComponent = /** @class */ (function () {
+    function MyCorrectionRequestsComponent() {
+    }
+    MyCorrectionRequestsComponent.prototype.ngOnInit = function () {
+    };
+    MyCorrectionRequestsComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'lpdp-my-correction-requests',
+            template: __webpack_require__(/*! ./my-correction-requests.component.html */ "./src/app/my-correction-requests/my-correction-requests.component.html"),
+            styles: [__webpack_require__(/*! ./my-correction-requests.component.scss */ "./src/app/my-correction-requests/my-correction-requests.component.scss")]
+        }),
+        __metadata("design:paramtypes", [])
+    ], MyCorrectionRequestsComponent);
+    return MyCorrectionRequestsComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/my-messages/my-messages.component.html":
+/*!********************************************************!*\
+  !*** ./src/app/my-messages/my-messages.component.html ***!
+  \********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<p>\n  my-messages works!\n</p>\n"
+
+/***/ }),
+
+/***/ "./src/app/my-messages/my-messages.component.scss":
+/*!********************************************************!*\
+  !*** ./src/app/my-messages/my-messages.component.scss ***!
+  \********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ""
+
+/***/ }),
+
+/***/ "./src/app/my-messages/my-messages.component.ts":
+/*!******************************************************!*\
+  !*** ./src/app/my-messages/my-messages.component.ts ***!
+  \******************************************************/
+/*! exports provided: MyMessagesComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MyMessagesComponent", function() { return MyMessagesComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+var MyMessagesComponent = /** @class */ (function () {
+    function MyMessagesComponent() {
+    }
+    MyMessagesComponent.prototype.ngOnInit = function () {
+    };
+    MyMessagesComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'lpdp-my-messages',
+            template: __webpack_require__(/*! ./my-messages.component.html */ "./src/app/my-messages/my-messages.component.html"),
+            styles: [__webpack_require__(/*! ./my-messages.component.scss */ "./src/app/my-messages/my-messages.component.scss")]
+        }),
+        __metadata("design:paramtypes", [])
+    ], MyMessagesComponent);
+    return MyMessagesComponent;
 }());
 
 
@@ -602,7 +755,7 @@ var NewsComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<lpdp-my-account></lpdp-my-account>\n<lpdp-my-settings></lpdp-my-settings>\n<lpdp-my-security></lpdp-my-security>"
+module.exports = "<div><a routerLink=\"myAccount\">My Account</a></div>\n<div><a routerLink=\"mySecurity\">My Security</a></div>\n<div><a routerLink=\"mySettings\">My Settings</a></div>"
 
 /***/ }),
 

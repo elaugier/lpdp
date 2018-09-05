@@ -12,6 +12,8 @@ import { ShortcutBarComponent } from './shortcut-bar/shortcut-bar.component';
 import { MySecurityComponent } from './my-security/my-security.component';
 import { MyAccountComponent } from './my-account/my-account.component';
 import { MySettingsComponent } from './my-settings/my-settings.component';
+import { MyMessagesComponent } from './my-messages/my-messages.component';
+import { MyCorrectionRequestsComponent } from './my-correction-requests/my-correction-requests.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,9 @@ import { MySettingsComponent } from './my-settings/my-settings.component';
     ShortcutBarComponent,
     MySecurityComponent,
     MyAccountComponent,
-    MySettingsComponent
+    MySettingsComponent,
+    MyMessagesComponent,
+    MyCorrectionRequestsComponent
   ],
   imports: [
     BrowserModule,
