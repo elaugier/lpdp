@@ -8,6 +8,21 @@
             "type": "shell",
             "command": "@del %TEMP%\\*lpdp*.log",
             "problemMatcher": []
+        },
+        {
+            "type": "npm",
+            "script": "build",
+            "path": "src-ui/",
+            "problemMatcher": []
+        },
+        {
+            "label": "start server",
+            "type": "shell",
+            "command": "lpdp-server.exe",
+            "options": {
+                "cwd": "${workspaceFolder}/dist/lpdp-server"
+            },
+            "problemMatcher": []
         }
     ]
 }
