@@ -6,13 +6,25 @@ import { AppComponent } from './app.component';
 import { TopBarComponent } from './top-bar/top-bar.component';
 import { MenuBarComponent } from './menu-bar/menu-bar.component';
 import { ShowSectionComponent } from './show-section/show-section.component';
+import { NewsComponent } from './news/news.component';
+import { NavBarComponent } from './nav-bar/nav-bar.component';
+import { ShortcutBarComponent } from './shortcut-bar/shortcut-bar.component';
+import { MySecurityComponent } from './my-security/my-security.component';
+import { MyAccountComponent } from './my-account/my-account.component';
+import { MySettingsComponent } from './my-settings/my-settings.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     TopBarComponent,
     MenuBarComponent,
-    ShowSectionComponent
+    ShowSectionComponent,
+    NewsComponent,
+    NavBarComponent,
+    ShortcutBarComponent,
+    MySecurityComponent,
+    MyAccountComponent,
+    MySettingsComponent
   ],
   imports: [
     BrowserModule,

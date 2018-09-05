@@ -1,1 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
+.grid-one{
+    display: grid;
+}
+
+.grid-two{
+    display: grid;
+    grid-template-columns: 10% 80% 10%;
+}
