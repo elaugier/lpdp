@@ -1,12 +1,12 @@
 <nav mdcDrawer>
     <div mdcDrawerContent mdcList>
-      <a mdcListItem routerLink="myAccount">
+      <a mdcListItem [routerLink]="[{ outlets: { left: ['myAccount'], center: ['myAccount'], right:['myAccount']  } }]">
         <i mdcListItemGraphic class="material-icons" aria-hidden="true">inbox</i>My Account
       </a>
-      <a mdcListItem routerLink="mySecurity">
+      <a mdcListItem [routerLink]="[{ outlets: { left: ['mySecurity'], center: ['mySecurity'], right:['mySecurity']  } }]">
         <i mdcListItemGraphic class="material-icons" aria-hidden="true">send</i>My Security
       </a>
-      <a mdcListItem routerLink="mySettings">
+      <a mdcListItem [routerLink]="[{ outlets: { left: ['mySettings'], center: ['mySettings'], right:['mySettings']  } }]">
         <i mdcListItemGraphic class="material-icons" aria-hidden="true">drafts</i>My Settings
       </a>
     </div>

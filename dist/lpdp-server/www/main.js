@@ -27,11 +27,12 @@ webpackEmptyAsyncContext.id = "./src/$$_lazy_route_resource lazy recursive";
 /*!***************************************!*\
   !*** ./src/app/app-routing.module.ts ***!
   \***************************************/
-/*! exports provided: AppRoutingModule */
+/*! exports provided: routingModule, AppRoutingModule */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "routingModule", function() { return routingModule; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AppRoutingModule", function() { return AppRoutingModule; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
@@ -76,20 +77,60 @@ var routes = [
     },
     {
         path: 'myAccount',
+        pathMatch: 'full',
+        component: _shortcut_bar_shortcut_bar_component__WEBPACK_IMPORTED_MODULE_4__["ShortcutBarComponent"],
+        outlet: 'left'
+    },
+    {
+        path: 'myAccount',
+        pathMatch: 'full',
         component: _my_account_my_account_component__WEBPACK_IMPORTED_MODULE_5__["MyAccountComponent"],
         outlet: 'center'
     },
     {
+        path: 'myAccount',
+        pathMatch: 'full',
+        component: _nav_bar_nav_bar_component__WEBPACK_IMPORTED_MODULE_3__["NavBarComponent"],
+        outlet: 'right'
+    },
+    {
         path: 'mySettings',
+        pathMatch: 'full',
+        component: _shortcut_bar_shortcut_bar_component__WEBPACK_IMPORTED_MODULE_4__["ShortcutBarComponent"],
+        outlet: 'left'
+    },
+    {
+        path: 'mySettings',
+        pathMatch: 'full',
         component: _my_settings_my_settings_component__WEBPACK_IMPORTED_MODULE_6__["MySettingsComponent"],
         outlet: 'center'
     },
     {
+        path: 'mySettings',
+        pathMatch: 'full',
+        component: _nav_bar_nav_bar_component__WEBPACK_IMPORTED_MODULE_3__["NavBarComponent"],
+        outlet: 'right'
+    },
+    {
         path: 'mySecurity',
+        pathMatch: 'full',
+        component: _shortcut_bar_shortcut_bar_component__WEBPACK_IMPORTED_MODULE_4__["ShortcutBarComponent"],
+        outlet: 'left'
+    },
+    {
+        path: 'mySecurity',
+        pathMatch: 'full',
         component: _my_security_my_security_component__WEBPACK_IMPORTED_MODULE_7__["MySecurityComponent"],
         outlet: 'center'
+    },
+    {
+        path: 'mySecurity',
+        pathMatch: 'full',
+        component: _nav_bar_nav_bar_component__WEBPACK_IMPORTED_MODULE_3__["NavBarComponent"],
+        outlet: 'right'
     }
 ];
+var routingModule = _angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"].forRoot(routes);
 var AppRoutingModule = /** @class */ (function () {
     function AppRoutingModule() {
     }
@@ -761,7 +802,7 @@ var NewsComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<nav mdcDrawer>\n    <div mdcDrawerContent mdcList>\n      <a mdcListItem routerLink=\"myAccount\">\n        <i mdcListItemGraphic class=\"material-icons\" aria-hidden=\"true\">inbox</i>My Account\n      </a>\n      <a mdcListItem routerLink=\"mySecurity\">\n        <i mdcListItemGraphic class=\"material-icons\" aria-hidden=\"true\">send</i>My Security\n      </a>\n      <a mdcListItem routerLink=\"mySettings\">\n        <i mdcListItemGraphic class=\"material-icons\" aria-hidden=\"true\">drafts</i>My Settings\n      </a>\n    </div>\n</nav>"
+module.exports = "<nav mdcDrawer>\n    <div mdcDrawerContent mdcList>\n      <a mdcListItem [routerLink]=\"[{ outlets: { left: ['myAccount'], center: ['myAccount'], right:['myAccount']  } }]\">\n        <i mdcListItemGraphic class=\"material-icons\" aria-hidden=\"true\">inbox</i>My Account\n      </a>\n      <a mdcListItem [routerLink]=\"[{ outlets: { left: ['mySecurity'], center: ['mySecurity'], right:['mySecurity']  } }]\">\n        <i mdcListItemGraphic class=\"material-icons\" aria-hidden=\"true\">send</i>My Security\n      </a>\n      <a mdcListItem [routerLink]=\"[{ outlets: { left: ['mySettings'], center: ['mySettings'], right:['mySettings']  } }]\">\n        <i mdcListItemGraphic class=\"material-icons\" aria-hidden=\"true\">drafts</i>My Settings\n      </a>\n    </div>\n</nav>"
 
 /***/ }),
 
