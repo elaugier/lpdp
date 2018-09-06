@@ -1,9 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
-.grid-one{
-    display: grid;
-}
 
-.grid-two{
-    display: grid;
-    grid-template-columns: 10% 80% 10%;
-}
+// customize some theme variables, e.g.:
+$mdc-theme-primary: #6200ee;
+$mdc-theme-secondary: #018786;
+$mdc-theme-background: #fff;
+
+// import theming for all mdc components:
+@import "material-components-web/material-components-web";
+
+

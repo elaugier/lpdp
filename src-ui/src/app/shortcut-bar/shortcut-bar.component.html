@@ -1,3 +1,13 @@
-<div><a routerLink="myAccount">My Account</a></div>
-<div><a routerLink="mySecurity">My Security</a></div>
-<div><a routerLink="mySettings">My Settings</a></div>
+<nav mdcDrawer>
+    <div mdcDrawerContent mdcList>
+      <a mdcListItem routerLink="myAccount">
+        <i mdcListItemGraphic class="material-icons" aria-hidden="true">inbox</i>My Account
+      </a>
+      <a mdcListItem routerLink="mySecurity">
+        <i mdcListItemGraphic class="material-icons" aria-hidden="true">send</i>My Security
+      </a>
+      <a mdcListItem routerLink="mySettings">
+        <i mdcListItemGraphic class="material-icons" aria-hidden="true">drafts</i>My Settings
+      </a>
+    </div>
+</nav>

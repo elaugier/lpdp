@@ -1,6 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
+import { FormsModule } from '@angular/forms';
+import { MaterialModule } from '@blox/material';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { TopBarComponent } from './top-bar/top-bar.component';
@@ -32,7 +35,9 @@ import { MyCorrectionRequestsComponent } from './my-correction-requests/my-corre
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule,      // using FormsModule is optional
+    MaterialModule
   ],
   providers: [],
   bootstrap: [AppComponent]
