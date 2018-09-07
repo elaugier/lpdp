@@ -1,4 +1,5 @@
-<nav mdcDrawer>
+<aside [mdcDrawerContainer]="drawerType" [(open)]="open">
+  <nav mdcDrawer>
     <div mdcDrawerContent mdcList>
       <a mdcListItem [routerLink]="['myaccount']">
         <i mdcListItemGraphic class="material-icons" aria-hidden="true">account_circle</i>My Account
@@ -10,4 +11,5 @@
         <i mdcListItemGraphic class="material-icons" aria-hidden="true">settings</i>My Settings
       </a>
     </div>
-</nav>
+  </nav>
+</aside>

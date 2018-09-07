@@ -37,6 +37,7 @@ import { MgmtLicensesComponent } from './mgmt-licenses/mgmt-licenses.component';
 import { MgmtPaymentsComponent } from './mgmt-payments/mgmt-payments.component';
 import { MgmtVotingsComponent } from './mgmt-votings/mgmt-votings.component';
 import { MyPaymentsComponent } from './my-payments/my-payments.component';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -71,7 +72,8 @@ import { MyPaymentsComponent } from './my-payments/my-payments.component';
     MgmtLicensesComponent,
     MgmtPaymentsComponent,
     MgmtVotingsComponent,
-    MyPaymentsComponent
+    MyPaymentsComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

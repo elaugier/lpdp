@@ -1,3 +1,14 @@
-<p>
-  top-bar works!
-</p>
+<header [mdcTopAppBar]="type" [viewport]="viewport" [fixedAdjust]="fixedAdjust" [prominent]="prominent" [dense]="dense">
+
+  <div mdcTopAppBarRow>
+    <section mdcTopAppBarSection alignStart>
+      <a href="javascript:void(0)" mdcTopAppBarNavIcon class="material-icons">menu</a>
+      <span mdcTopAppBarTitle>La Passion des Po&egrave;mes</span>
+    </section>
+    <section mdcTopAppBarSection alignEnd>
+      <lpdp-login></lpdp-login>
+    </section>
+  </div>
+
+</header>
+
