@@ -13,7 +13,9 @@ const routes: Routes = [
   {path: 'home', component: ContentComponent, children: [
     {path: '', redirectTo: 'news', pathMatch: 'full'},
     {path: 'news', component: NewsComponent},
-    {path: 'myaccount', component: MyAccountComponent}
+    {path: 'myaccount', component: MyAccountComponent},
+    {path: 'mysecurity', component: MySecurityComponent},
+    {path: 'mysettings', component: MySettingsComponent},
   ]},
   {path: '**', component: ContentComponent}
 ];

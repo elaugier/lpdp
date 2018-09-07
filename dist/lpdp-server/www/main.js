@@ -37,7 +37,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 /* harmony import */ var _news_news_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./news/news.component */ "./src/app/news/news.component.ts");
 /* harmony import */ var _my_account_my_account_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./my-account/my-account.component */ "./src/app/my-account/my-account.component.ts");
-/* harmony import */ var _content_content_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./content/content.component */ "./src/app/content/content.component.ts");
+/* harmony import */ var _my_settings_my_settings_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./my-settings/my-settings.component */ "./src/app/my-settings/my-settings.component.ts");
+/* harmony import */ var _my_security_my_security_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./my-security/my-security.component */ "./src/app/my-security/my-security.component.ts");
+/* harmony import */ var _content_content_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./content/content.component */ "./src/app/content/content.component.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -49,14 +51,18 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 
 
 
+
+
 var routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
-    { path: 'home', component: _content_content_component__WEBPACK_IMPORTED_MODULE_4__["ContentComponent"], children: [
+    { path: 'home', component: _content_content_component__WEBPACK_IMPORTED_MODULE_6__["ContentComponent"], children: [
             { path: '', redirectTo: 'news', pathMatch: 'full' },
             { path: 'news', component: _news_news_component__WEBPACK_IMPORTED_MODULE_2__["NewsComponent"] },
-            { path: 'myaccount', component: _my_account_my_account_component__WEBPACK_IMPORTED_MODULE_3__["MyAccountComponent"] }
+            { path: 'myaccount', component: _my_account_my_account_component__WEBPACK_IMPORTED_MODULE_3__["MyAccountComponent"] },
+            { path: 'mysecurity', component: _my_security_my_security_component__WEBPACK_IMPORTED_MODULE_5__["MySecurityComponent"] },
+            { path: 'mysettings', component: _my_settings_my_settings_component__WEBPACK_IMPORTED_MODULE_4__["MySettingsComponent"] },
         ] },
-    { path: '**', component: _content_content_component__WEBPACK_IMPORTED_MODULE_4__["ContentComponent"] }
+    { path: '**', component: _content_content_component__WEBPACK_IMPORTED_MODULE_6__["ContentComponent"] }
 ];
 var AppRoutingModule = /** @class */ (function () {
     function AppRoutingModule() {
@@ -81,7 +87,7 @@ var AppRoutingModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div>\n  <lpdp-top-bar></lpdp-top-bar>\n</div>\n<div>\n  <lpdp-menu-bar></lpdp-menu-bar>\n</div>\n<div>\n  <router-outlet></router-outlet>\n</div>\n"
+module.exports = "<div>\n  <lpdp-top-bar></lpdp-top-bar>\n</div>\n<div>\n  <lpdp-menu-bar></lpdp-menu-bar>\n</div>\n<div class=\"lpdp-content\">\n  <router-outlet></router-outlet>\n</div>\n"
 
 /***/ }),
 
@@ -228,7 +234,7 @@ var AppModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div>\n  <router-outlet name=\"left\"></router-outlet>\n</div>\n<div>\n  <router-outlet></router-outlet>\n</div>\n<div>\n  <router-outlet name=\"right\"></router-outlet>\n</div>  \n"
+module.exports = "<div>\n  <lpdp-shortcut-bar></lpdp-shortcut-bar>\n</div>\n<div>\n  <router-outlet></router-outlet>\n</div>\n<div>\n  <lpdp-nav-bar></lpdp-nav-bar>\n</div>  \n"
 
 /***/ }),
 
@@ -795,7 +801,7 @@ var NewsComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<nav mdcDrawer>\n    <div mdcDrawerContent mdcList>\n      <a mdcListItem [routerLink]=\"['myAccount']\">\n        <i mdcListItemGraphic class=\"material-icons\" aria-hidden=\"true\">inbox</i>My Account\n      </a>\n      <a mdcListItem [routerLink]=\"['mySecurity']\">\n        <i mdcListItemGraphic class=\"material-icons\" aria-hidden=\"true\">send</i>My Security\n      </a>\n      <a mdcListItem [routerLink]=\"['mySettings']\">\n        <i mdcListItemGraphic class=\"material-icons\" aria-hidden=\"true\">drafts</i>My Settings\n      </a>\n    </div>\n</nav>"
+module.exports = "<nav mdcDrawer>\n    <div mdcDrawerContent mdcList>\n      <a mdcListItem [routerLink]=\"['myaccount']\">\n        <i mdcListItemGraphic class=\"material-icons\" aria-hidden=\"true\">account_circle</i>My Account\n      </a>\n      <a mdcListItem [routerLink]=\"['mysecurity']\">\n        <i mdcListItemGraphic class=\"material-icons\" aria-hidden=\"true\">security</i>My Security\n      </a>\n      <a mdcListItem [routerLink]=\"['mysettings']\">\n        <i mdcListItemGraphic class=\"material-icons\" aria-hidden=\"true\">settings</i>My Settings\n      </a>\n    </div>\n</nav>"
 
 /***/ }),
 
