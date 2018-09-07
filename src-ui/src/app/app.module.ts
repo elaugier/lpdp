@@ -17,6 +17,7 @@ import { MyAccountComponent } from './my-account/my-account.component';
 import { MySettingsComponent } from './my-settings/my-settings.component';
 import { MyMessagesComponent } from './my-messages/my-messages.component';
 import { MyCorrectionRequestsComponent } from './my-correction-requests/my-correction-requests.component';
+import { ContentComponent } from './content/content.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { MyCorrectionRequestsComponent } from './my-correction-requests/my-corre
     MyAccountComponent,
     MySettingsComponent,
     MyMessagesComponent,
-    MyCorrectionRequestsComponent
+    MyCorrectionRequestsComponent,
+    ContentComponent
   ],
   imports: [
     BrowserModule,

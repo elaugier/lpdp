@@ -17,5 +17,6 @@ func FrontendRouter(logger *log.Logger) http.Handler {
 	router.Use(middlewares.Identification(logger))
 	router.Use(middlewares.RequestID(logger))
 	router.Static("/", "./www/")
+
 	return router
 }

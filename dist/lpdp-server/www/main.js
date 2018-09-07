@@ -27,21 +27,17 @@ webpackEmptyAsyncContext.id = "./src/$$_lazy_route_resource lazy recursive";
 /*!***************************************!*\
   !*** ./src/app/app-routing.module.ts ***!
   \***************************************/
-/*! exports provided: routingModule, AppRoutingModule */
+/*! exports provided: AppRoutingModule */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "routingModule", function() { return routingModule; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AppRoutingModule", function() { return AppRoutingModule; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 /* harmony import */ var _news_news_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./news/news.component */ "./src/app/news/news.component.ts");
-/* harmony import */ var _nav_bar_nav_bar_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./nav-bar/nav-bar.component */ "./src/app/nav-bar/nav-bar.component.ts");
-/* harmony import */ var _shortcut_bar_shortcut_bar_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./shortcut-bar/shortcut-bar.component */ "./src/app/shortcut-bar/shortcut-bar.component.ts");
-/* harmony import */ var _my_account_my_account_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./my-account/my-account.component */ "./src/app/my-account/my-account.component.ts");
-/* harmony import */ var _my_settings_my_settings_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./my-settings/my-settings.component */ "./src/app/my-settings/my-settings.component.ts");
-/* harmony import */ var _my_security_my_security_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./my-security/my-security.component */ "./src/app/my-security/my-security.component.ts");
+/* harmony import */ var _my_account_my_account_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./my-account/my-account.component */ "./src/app/my-account/my-account.component.ts");
+/* harmony import */ var _content_content_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./content/content.component */ "./src/app/content/content.component.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -53,90 +49,21 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 
 
 
-
-
-
 var routes = [
-    {
-        path: '',
-        pathMatch: 'full',
-        component: _shortcut_bar_shortcut_bar_component__WEBPACK_IMPORTED_MODULE_4__["ShortcutBarComponent"],
-        outlet: 'left'
-    },
-    {
-        path: '',
-        pathMatch: 'full',
-        component: _news_news_component__WEBPACK_IMPORTED_MODULE_2__["NewsComponent"],
-        outlet: 'center'
-    },
-    {
-        path: '',
-        pathMatch: 'full',
-        component: _nav_bar_nav_bar_component__WEBPACK_IMPORTED_MODULE_3__["NavBarComponent"],
-        outlet: 'right'
-    },
-    {
-        path: 'myAccount',
-        pathMatch: 'full',
-        component: _shortcut_bar_shortcut_bar_component__WEBPACK_IMPORTED_MODULE_4__["ShortcutBarComponent"],
-        outlet: 'left'
-    },
-    {
-        path: 'myAccount',
-        pathMatch: 'full',
-        component: _my_account_my_account_component__WEBPACK_IMPORTED_MODULE_5__["MyAccountComponent"],
-        outlet: 'center'
-    },
-    {
-        path: 'myAccount',
-        pathMatch: 'full',
-        component: _nav_bar_nav_bar_component__WEBPACK_IMPORTED_MODULE_3__["NavBarComponent"],
-        outlet: 'right'
-    },
-    {
-        path: 'mySettings',
-        pathMatch: 'full',
-        component: _shortcut_bar_shortcut_bar_component__WEBPACK_IMPORTED_MODULE_4__["ShortcutBarComponent"],
-        outlet: 'left'
-    },
-    {
-        path: 'mySettings',
-        pathMatch: 'full',
-        component: _my_settings_my_settings_component__WEBPACK_IMPORTED_MODULE_6__["MySettingsComponent"],
-        outlet: 'center'
-    },
-    {
-        path: 'mySettings',
-        pathMatch: 'full',
-        component: _nav_bar_nav_bar_component__WEBPACK_IMPORTED_MODULE_3__["NavBarComponent"],
-        outlet: 'right'
-    },
-    {
-        path: 'mySecurity',
-        pathMatch: 'full',
-        component: _shortcut_bar_shortcut_bar_component__WEBPACK_IMPORTED_MODULE_4__["ShortcutBarComponent"],
-        outlet: 'left'
-    },
-    {
-        path: 'mySecurity',
-        pathMatch: 'full',
-        component: _my_security_my_security_component__WEBPACK_IMPORTED_MODULE_7__["MySecurityComponent"],
-        outlet: 'center'
-    },
-    {
-        path: 'mySecurity',
-        pathMatch: 'full',
-        component: _nav_bar_nav_bar_component__WEBPACK_IMPORTED_MODULE_3__["NavBarComponent"],
-        outlet: 'right'
-    }
+    { path: '', redirectTo: 'home', pathMatch: 'full' },
+    { path: 'home', component: _content_content_component__WEBPACK_IMPORTED_MODULE_4__["ContentComponent"], children: [
+            { path: '', redirectTo: 'news', pathMatch: 'full' },
+            { path: 'news', component: _news_news_component__WEBPACK_IMPORTED_MODULE_2__["NewsComponent"] },
+            { path: 'myaccount', component: _my_account_my_account_component__WEBPACK_IMPORTED_MODULE_3__["MyAccountComponent"] }
+        ] },
+    { path: '**', component: _content_content_component__WEBPACK_IMPORTED_MODULE_4__["ContentComponent"] }
 ];
-var routingModule = _angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"].forRoot(routes);
 var AppRoutingModule = /** @class */ (function () {
     function AppRoutingModule() {
     }
     AppRoutingModule = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"])({
-            imports: [_angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"].forRoot(routes)],
+            imports: [_angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"].forRoot(routes, { useHash: false, enableTracing: true })],
             exports: [_angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"]]
         })
     ], AppRoutingModule);
@@ -154,7 +81,7 @@ var AppRoutingModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"grid-one\">\n  <lpdp-top-bar></lpdp-top-bar>\n</div>\n<div>\n  <lpdp-menu-bar></lpdp-menu-bar>\n</div>\n<div class=\"grid-two\">\n  <div>\n    <router-outlet name=\"left\"></router-outlet>\n  </div>\n  <div>\n    <router-outlet name=\"center\"></router-outlet>\n  </div>\n  <div>\n    <router-outlet name=\"right\"></router-outlet>\n  </div>\n</div>\n"
+module.exports = "<div>\n  <lpdp-top-bar></lpdp-top-bar>\n</div>\n<div>\n  <lpdp-menu-bar></lpdp-menu-bar>\n</div>\n<div>\n  <router-outlet></router-outlet>\n</div>\n"
 
 /***/ }),
 
@@ -232,12 +159,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _my_settings_my_settings_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./my-settings/my-settings.component */ "./src/app/my-settings/my-settings.component.ts");
 /* harmony import */ var _my_messages_my_messages_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./my-messages/my-messages.component */ "./src/app/my-messages/my-messages.component.ts");
 /* harmony import */ var _my_correction_requests_my_correction_requests_component__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./my-correction-requests/my-correction-requests.component */ "./src/app/my-correction-requests/my-correction-requests.component.ts");
+/* harmony import */ var _content_content_component__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./content/content.component */ "./src/app/content/content.component.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -272,7 +201,8 @@ var AppModule = /** @class */ (function () {
                 _my_account_my_account_component__WEBPACK_IMPORTED_MODULE_13__["MyAccountComponent"],
                 _my_settings_my_settings_component__WEBPACK_IMPORTED_MODULE_14__["MySettingsComponent"],
                 _my_messages_my_messages_component__WEBPACK_IMPORTED_MODULE_15__["MyMessagesComponent"],
-                _my_correction_requests_my_correction_requests_component__WEBPACK_IMPORTED_MODULE_16__["MyCorrectionRequestsComponent"]
+                _my_correction_requests_my_correction_requests_component__WEBPACK_IMPORTED_MODULE_16__["MyCorrectionRequestsComponent"],
+                _content_content_component__WEBPACK_IMPORTED_MODULE_17__["ContentComponent"]
             ],
             imports: [
                 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["BrowserModule"],
@@ -285,6 +215,69 @@ var AppModule = /** @class */ (function () {
         })
     ], AppModule);
     return AppModule;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/content/content.component.html":
+/*!************************************************!*\
+  !*** ./src/app/content/content.component.html ***!
+  \************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div>\n  <router-outlet name=\"left\"></router-outlet>\n</div>\n<div>\n  <router-outlet></router-outlet>\n</div>\n<div>\n  <router-outlet name=\"right\"></router-outlet>\n</div>  \n"
+
+/***/ }),
+
+/***/ "./src/app/content/content.component.scss":
+/*!************************************************!*\
+  !*** ./src/app/content/content.component.scss ***!
+  \************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ""
+
+/***/ }),
+
+/***/ "./src/app/content/content.component.ts":
+/*!**********************************************!*\
+  !*** ./src/app/content/content.component.ts ***!
+  \**********************************************/
+/*! exports provided: ContentComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ContentComponent", function() { return ContentComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+var ContentComponent = /** @class */ (function () {
+    function ContentComponent() {
+    }
+    ContentComponent.prototype.ngOnInit = function () {
+    };
+    ContentComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'lpdp-content',
+            template: __webpack_require__(/*! ./content.component.html */ "./src/app/content/content.component.html"),
+            styles: [__webpack_require__(/*! ./content.component.scss */ "./src/app/content/content.component.scss")]
+        }),
+        __metadata("design:paramtypes", [])
+    ], ContentComponent);
+    return ContentComponent;
 }());
 
 
@@ -802,7 +795,7 @@ var NewsComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<nav mdcDrawer>\n    <div mdcDrawerContent mdcList>\n      <a mdcListItem [routerLink]=\"[{ outlets: { left: ['myAccount'], center: ['myAccount'], right:['myAccount']  } }]\">\n        <i mdcListItemGraphic class=\"material-icons\" aria-hidden=\"true\">inbox</i>My Account\n      </a>\n      <a mdcListItem [routerLink]=\"[{ outlets: { left: ['mySecurity'], center: ['mySecurity'], right:['mySecurity']  } }]\">\n        <i mdcListItemGraphic class=\"material-icons\" aria-hidden=\"true\">send</i>My Security\n      </a>\n      <a mdcListItem [routerLink]=\"[{ outlets: { left: ['mySettings'], center: ['mySettings'], right:['mySettings']  } }]\">\n        <i mdcListItemGraphic class=\"material-icons\" aria-hidden=\"true\">drafts</i>My Settings\n      </a>\n    </div>\n</nav>"
+module.exports = "<nav mdcDrawer>\n    <div mdcDrawerContent mdcList>\n      <a mdcListItem [routerLink]=\"['myAccount']\">\n        <i mdcListItemGraphic class=\"material-icons\" aria-hidden=\"true\">inbox</i>My Account\n      </a>\n      <a mdcListItem [routerLink]=\"['mySecurity']\">\n        <i mdcListItemGraphic class=\"material-icons\" aria-hidden=\"true\">send</i>My Security\n      </a>\n      <a mdcListItem [routerLink]=\"['mySettings']\">\n        <i mdcListItemGraphic class=\"material-icons\" aria-hidden=\"true\">drafts</i>My Settings\n      </a>\n    </div>\n</nav>"
 
 /***/ }),
 
