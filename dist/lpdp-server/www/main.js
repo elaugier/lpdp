@@ -357,7 +357,7 @@ var ContentComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<p>\n  login works!\n</p>\n"
+module.exports = "<button mdcButton outlined (click)=\"dialog1.open()\">Login</button>\n\n\n<aside #dialog1=\"mdcDialog\" mdcDialog mdcFocusTrap>\n  <div mdcDialogSurface>\n    <header mdcDialogHeader>\n      <h2 mdcDialogHeaderTitle>Modal Dialog</h2>\n    </header>\n    <section mdcDialogBody>\n        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.\n        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.\n        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.\n        Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n    </section>\n    <footer mdcDialogFooter>\n      <button mdcButton mdcDialogCancel>Decline</button>\n      <button mdcButton mdcDialogAccept>Accept</button>\n    </footer>\n  </div>\n  <div mdcDialogBackdrop></div>\n</aside>"
 
 /***/ }),
 
@@ -2121,7 +2121,7 @@ var NewsComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<aside [mdcDrawerContainer]=\"drawerType\" [(open)]=\"open\">\n  <nav mdcDrawer>\n    <div mdcDrawerContent mdcList>\n      <a mdcListItem [routerLink]=\"['myaccount']\">\n        <i mdcListItemGraphic class=\"material-icons\" aria-hidden=\"true\">account_circle</i>My Account\n      </a>\n      <a mdcListItem [routerLink]=\"['mysecurity']\">\n        <i mdcListItemGraphic class=\"material-icons\" aria-hidden=\"true\">security</i>My Security\n      </a>\n      <a mdcListItem [routerLink]=\"['mysettings']\">\n        <i mdcListItemGraphic class=\"material-icons\" aria-hidden=\"true\">settings</i>My Settings\n      </a>\n    </div>\n  </nav>\n</aside>"
+module.exports = "  <nav mdcDrawer>\n    <div mdcDrawerContent mdcList>\n      <a mdcListItem [routerLink]=\"['myaccount']\">\n        <i mdcListItemGraphic class=\"material-icons\" aria-hidden=\"true\">account_circle</i>My Account\n      </a>\n      <a mdcListItem [routerLink]=\"['mysecurity']\">\n        <i mdcListItemGraphic class=\"material-icons\" aria-hidden=\"true\">security</i>My Security\n      </a>\n      <a mdcListItem [routerLink]=\"['mysettings']\">\n        <i mdcListItemGraphic class=\"material-icons\" aria-hidden=\"true\">settings</i>My Settings\n      </a>\n    </div>\n  </nav>\n"
 
 /***/ }),
 
@@ -2159,8 +2159,6 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 var ShortcutBarComponent = /** @class */ (function () {
     function ShortcutBarComponent() {
-        this.open = false;
-        this.drawerType = 'persistent';
     }
     ShortcutBarComponent.prototype.ngOnInit = function () {
     };

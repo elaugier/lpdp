@@ -7,9 +7,6 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ShortcutBarComponent implements OnInit {
 
-  open = false;
-  drawerType = 'persistent';
-
   constructor() { }
 
   ngOnInit() {
