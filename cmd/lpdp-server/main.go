@@ -22,6 +22,7 @@ import (
 	// jwt "github.com/appleboy/gin-jwt"
 	"github.com/elaugier/lpdp/pkg/config"
 	"github.com/elaugier/lpdp/pkg/db"
+	"github.com/elaugier/lpdp/pkg/logs"
 	"github.com/elaugier/lpdp/pkg/server"
 	"github.com/gin-gonic/gin"
 	"golang.org/x/sync/errgroup"
@@ -29,8 +30,10 @@ import (
 
 var (
 	g      errgroup.Group
-	logger *log.Logger
 	run    bool
+	logger *logs.Instance
+	//Db ...
+	Db db.Instance
 )
 
 func main() {
@@ -47,40 +50,40 @@ func main() {
 	/**
 	 * Logger Initialization
 	 */
-	logger = log.New(os.Stdout, "", log.LstdFlags)
+	logger = logs.GetInstance()
 
 	fullBinaryName, err := osext.Executable()
 	if err != nil {
-		logger.Fatal(err)
+		logger.L.Fatal(err)
 	}
 
 	folderPath, err := osext.ExecutableFolder()
 	if err != nil {
-		logger.Fatal(err)
+		logger.L.Fatal(err)
 	}
 
 	binaryName := strings.Replace(strings.Replace(fullBinaryName, folderPath, "", -1), string(os.PathSeparator), "", -1)
 
-	logger.SetFlags(log.Ldate | log.Ltime | log.Lmicroseconds | log.Lshortfile | log.LUTC)
-	logger.SetPrefix(binaryName + " " + strconv.Itoa(os.Getpid()) + " ")
+	logger.L.SetFlags(log.Ldate | log.Ltime | log.Lmicroseconds | log.Lshortfile | log.LUTC)
+	logger.L.SetPrefix(binaryName + " " + strconv.Itoa(os.Getpid()) + " ")
 
 	configuration, err := config.Get()
 	if err != nil {
-		logger.Fatal(err)
+		logger.L.Fatal(err)
 	}
 
 	timestampStart := strconv.FormatInt(time.Time.UnixNano(time.Now()), 10)
 	logFile := os.ExpandEnv(configuration.GetString("logFolder")) + "/" + timestampStart + "_" + binaryName + ".log"
-	logger.Println("log file location => '" + logFile + "'")
+	logger.L.Println("log file location => '" + logFile + "'")
 	f, err := os.OpenFile(logFile, os.O_WRONLY|os.O_CREATE|os.O_APPEND, 0644)
 	if err != nil {
-		logger.Fatal(err)
+		logger.L.Fatal(err)
 	}
 	multi := io.MultiWriter(f, os.Stdout)
-	logger.SetOutput(multi)
+	logger.L.SetOutput(multi)
 
 	// set log format
-	logger.SetFlags(log.Ldate | log.Ltime | log.Lmicroseconds | log.Lshortfile | log.LUTC)
+	logger.L.SetFlags(log.Ldate | log.Ltime | log.Lmicroseconds | log.Lshortfile | log.LUTC)
 	gin.DefaultWriter = multi
 	gin.DefaultErrorWriter = multi
 	gin.DisableConsoleColor()
@@ -98,27 +101,27 @@ func main() {
 
 	stdout, err := cockroachProc.StdoutPipe()
 	if err != nil {
-		logger.Fatalf("Error on get stdOut of cockroach process")
+		logger.L.Fatalf("Error on get stdOut of cockroach process")
 	}
 	stderr, err := cockroachProc.StderrPipe()
 	if err != nil {
-		logger.Fatalf("Error on get stdErr of cockroach process")
+		logger.L.Fatalf("Error on get stdErr of cockroach process")
 	}
 
-	go Scan(logger, stdout)
-	go Scan(logger, stderr)
+	go Scan(logger.L, stdout)
+	go Scan(logger.L, stderr)
 
 	g.Go(func() error {
 		err = cockroachProc.Start()
 		if err != nil {
-			logger.Fatalf("Error on starting cockroach : %s %s => %v", cockroachPath, cockroachArgs, err)
+			logger.L.Fatalf("Error on starting cockroach : %s %s => %v", cockroachPath, cockroachArgs, err)
 		}
 		bufStdout := new(bytes.Buffer)
 		bufStderr := new(bytes.Buffer)
 		bufStdout.ReadFrom(stdout)
 		bufStderr.ReadFrom(stderr)
 		if err = cockroachProc.Wait(); err != nil {
-			logger.Fatalf("Error when execute %s %s => %v\r\nstdout = '%s'\r\nstderr = '%s'",
+			logger.L.Fatalf("Error when execute %s %s => %v\r\nstdout = '%s'\r\nstderr = '%s'",
 				cockroachPath, cockroachArgs, err, bufStdout.String(), bufStderr.String())
 		}
 		return err
@@ -129,32 +132,32 @@ func main() {
 	frontendHostname := configuration.GetString("frontendHostname")
 	frontendPort := configuration.GetString("frontendPort")
 
-	database := db.NewInstance(true, multi)
+	database := db.GetInstance(true, multi)
 	defer database.Close()
 	//database.Connection.SetLogger(logger)
 	database.DatabaseInitialization()
 
 	backendServerAddr := fmt.Sprintf(":%s", backendPort)
-	logger.Printf("backendServerAddr = '%s'", backendServerAddr)
+	logger.L.Printf("backendServerAddr = '%s'", backendServerAddr)
 
 	backendServer := &http.Server{
 		Addr:           backendServerAddr,
-		Handler:        server.BackendRouter(logger),
+		Handler:        server.BackendRouter(logger.L),
 		ReadTimeout:    5 * time.Second,
 		WriteTimeout:   10 * time.Second,
-		ErrorLog:       logger,
+		ErrorLog:       logger.L,
 		MaxHeaderBytes: 1 << 20,
 	}
 
 	frontendServerAddr := fmt.Sprintf(":%s", frontendPort)
-	logger.Printf("frontendServerAddr = '%s'", frontendServerAddr)
+	logger.L.Printf("frontendServerAddr = '%s'", frontendServerAddr)
 
 	frontendServer := &http.Server{
 		Addr:           frontendServerAddr,
-		Handler:        server.FrontendRouter(logger),
+		Handler:        server.FrontendRouter(logger.L),
 		ReadTimeout:    5 * time.Second,
 		WriteTimeout:   10 * time.Second,
-		ErrorLog:       logger,
+		ErrorLog:       logger.L,
 		MaxHeaderBytes: 1 << 20,
 	}
 
@@ -177,7 +180,7 @@ func main() {
 	})
 
 	if err := g.Wait(); err != nil {
-		logger.Fatal(err)
+		logger.L.Fatal(err)
 	}
 
 }
@@ -197,7 +200,7 @@ func Scan(logger *log.Logger, i io.ReadCloser) {
 
 func logRequest(handler http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		logger.Printf("%30s | %30s | %5s | %s\n", r.Host, r.RemoteAddr, r.Method, r.URL)
+		logger.L.Printf("%30s | %30s | %5s | %s\n", r.Host, r.RemoteAddr, r.Method, r.URL)
 		handler.ServeHTTP(w, r)
 	})
 }

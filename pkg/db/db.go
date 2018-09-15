@@ -12,6 +12,18 @@ import (
 	_ "github.com/jinzhu/gorm/dialects/postgres"
 )
 
+//Inst ...
+var Inst Instance
+
+//GetInstance ...
+func GetInstance(logMode bool, io io.Writer) *Instance {
+	if Inst != (Instance{}) {
+		return &Inst
+	}
+	Inst = *NewInstance(logMode, io)
+	return &Inst
+}
+
 //NewInstance ...
 func NewInstance(logMode bool, io io.Writer) *Instance {
 	configuration, err := config.Get()
@@ -23,19 +35,19 @@ func NewInstance(logMode bool, io io.Writer) *Instance {
 	c.LogMode(true)
 	c.SetLogger(log.New(io, "", log.LstdFlags))
 	return &Instance{
-		Connection: c,
+		c: c,
 	}
 }
 
 //Instance ...
 type Instance struct {
-	Connection *gorm.DB
+	c *gorm.DB
 }
 
 //DatabaseInitialization ...
 func (i Instance) DatabaseInitialization() {
 
-	c := i.Connection
+	c := i.c
 	sql := "CREATE DATABASE IF NOT EXISTS lpdp;"
 	log.Println(sql)
 	c.Exec(sql)
@@ -65,11 +77,17 @@ func (i Instance) DatabaseInitialization() {
 		&models.License{},
 		&models.Like{},
 		&models.Message{},
+		&models.Notification{},
+		&models.Payment{},
 		&models.Post{},
+		&models.Rating{},
+		&models.Read{},
 		&models.Request{},
 		&models.Section{},
 		&models.Tag{},
 		&models.User{},
+		&models.Vote{},
+		&models.Voting{},
 		&models.Warning{},
 		&models.WarningTemplate{},
 	)
@@ -79,5 +97,5 @@ func (i Instance) DatabaseInitialization() {
 
 //Close ...
 func (i Instance) Close() error {
-	return i.Connection.Close()
+	return i.c.Close()
 }
