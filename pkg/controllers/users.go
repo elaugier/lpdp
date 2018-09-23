@@ -3,6 +3,10 @@ package controllers
 import (
 	"net/http"
 
+	"github.com/elaugier/lpdp/pkg/logs"
+
+	"github.com/google/uuid"
+
 	"github.com/elaugier/lpdp/pkg/models"
 	"github.com/gin-gonic/gin"
 )
@@ -12,6 +16,10 @@ type UsersController struct{}
 
 //Get ...
 func (u UsersController) Get(c *gin.Context) {
+	id := c.Param("id")
+	uid, _ := uuid.Parse(id)
+	logs.Inst.L.Println("get uuid %u", uid)
+	//db.Users.GetUser(uid)
 	c.String(http.StatusOK, "Working!")
 }
 

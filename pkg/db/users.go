@@ -1,19 +1,21 @@
 package db
 
-import "github.com/elaugier/lpdp/pkg/models"
+import (
+	"errors"
+
+	"github.com/elaugier/lpdp/pkg/models"
+	"github.com/google/uuid"
+)
 
 //Users ...
 type Users struct {
-	UserFn       func(id int) (*models.User, error)
-	CreateUserFn func(user models.User) (bool, error)
 }
 
-//User ...
-func (s *Users) User(id int) (*models.User, error) {
-	return s.UserFn(id)
-}
-
-//CreateUser ...
-func (s *Users) CreateUser(user models.User) (bool, error) {
-	return s.CreateUserFn(user)
+//GetUser ...
+func (s *Users) GetUser(id uuid.UUID) (*models.User, error) {
+	user := &models.User{}
+	if Inst.c.Find(&user, id).RecordNotFound() {
+		return nil, errors.New("user not found")
+	}
+	return user, nil
 }
