@@ -12,6 +12,7 @@ type AchievementsController struct{}
 
 //Get ...
 func (u AchievementsController) Get(c *gin.Context) {
+	//id := c.Param("id")
 	c.String(http.StatusOK, "Working!")
 }
 

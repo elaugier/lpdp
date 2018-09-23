@@ -3,6 +3,7 @@ package db
 import (
 	"io"
 	"log"
+	"time"
 
 	"github.com/elaugier/lpdp/pkg/config"
 	"github.com/elaugier/lpdp/pkg/models"
@@ -21,6 +22,9 @@ func GetInstance(logMode bool, io io.Writer) *Instance {
 		return &Inst
 	}
 	Inst = *NewInstance(logMode, io)
+	Inst.c.DB().SetMaxIdleConns(10)
+	Inst.c.DB().SetMaxOpenConns(100)
+	Inst.c.DB().SetConnMaxLifetime(time.Hour)
 	return &Inst
 }
 
