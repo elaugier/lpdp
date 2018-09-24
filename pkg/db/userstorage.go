@@ -46,3 +46,18 @@ func (s *UserStorage) GetAll() (map[int64]*models.User, error) {
 	}
 	return userMap, nil
 }
+
+//Insert ...
+func (s *UserStorage) Insert(u models.User) error {
+	return nil
+}
+
+//Update ...
+func (s *UserStorage) Update(u models.User) error {
+	return nil
+}
+
+//Remove ...
+func (s *UserStorage) Remove(id uuid.UUID) error {
+	return nil
+}
