@@ -12,7 +12,8 @@ import (
 )
 
 //UsersController ...
-type UsersController struct{}
+type UsersController struct {
+}
 
 //Get ...
 func (u UsersController) Get(c *gin.Context) {
