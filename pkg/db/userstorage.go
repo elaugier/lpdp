@@ -1,5 +1,7 @@
 package db
 
+//https://github.com/hnakamur/api2go-gorm-gin-crud-example/blob/master/storage/storage_user.go
+
 import (
 	"errors"
 
