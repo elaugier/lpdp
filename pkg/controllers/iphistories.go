@@ -3,6 +3,9 @@ package controllers
 import (
 	"net/http"
 
+	"github.com/google/uuid"
+
+	"github.com/elaugier/lpdp/pkg/db"
 	"github.com/elaugier/lpdp/pkg/models"
 	"github.com/gin-gonic/gin"
 )
@@ -12,7 +15,21 @@ type IPHistoriesController struct{}
 
 //Get ...
 func (u IPHistoriesController) Get(c *gin.Context) {
-	c.String(http.StatusOK, "Working!")
+	id, err := uuid.Parse(c.Param("id"))
+	if err != nil {
+		c.JSON(400, gin.H{
+			"msg": "Cannot get 'id' in url path.",
+		})
+	}
+	var i models.IPHistory
+	conn := db.GetInstance()
+	if err = conn.Where("id = ?", id).First(&i).Error; err != nil {
+		c.JSON(404, gin.H{
+			"msg": "ip history not found.",
+		})
+	} else {
+		c.JSON(200, i)
+	}
 }
 
 //List ...

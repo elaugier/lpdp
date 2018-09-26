@@ -5,6 +5,8 @@ import (
 	"log"
 	"time"
 
+	"github.com/gin-gonic/gin"
+
 	"github.com/elaugier/lpdp/pkg/config"
 	"github.com/elaugier/lpdp/pkg/models"
 	"github.com/jinzhu/gorm"
@@ -17,15 +19,15 @@ import (
 var Inst Instance
 
 //GetInstance ...
-func GetInstance(logMode bool, io io.Writer) *Instance {
+func GetInstance() *gorm.DB {
 	if Inst != (Instance{}) {
-		return &Inst
+		return Inst.c
 	}
-	Inst = *NewInstance(logMode, io)
+	Inst = *NewInstance(true, gin.DefaultWriter)
 	Inst.c.DB().SetMaxIdleConns(10)
 	Inst.c.DB().SetMaxOpenConns(100)
 	Inst.c.DB().SetConnMaxLifetime(time.Hour)
-	return &Inst
+	return Inst.c
 }
 
 //NewInstance ...
@@ -38,13 +40,16 @@ func NewInstance(logMode bool, io io.Writer) *Instance {
 	log.Println("database connected")
 	c.LogMode(true)
 	c.SetLogger(log.New(io, "", log.LstdFlags))
-	return &Instance{
+	i := Instance{
 		c: c,
 	}
+	i.DatabaseInitialization()
+	return &i
 }
 
 //Instance ...
 type Instance struct {
+	//c ...
 	c *gorm.DB
 }
 

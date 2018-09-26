@@ -24,9 +24,9 @@ func NewInstance() *Instance {
 }
 
 //GetInstance ...
-func GetInstance() *Instance {
+func GetInstance() *log.Logger {
 	if Inst == (Instance{}) {
-		return NewInstance()
+		return NewInstance().L
 	}
-	return &Inst
+	return Inst.L
 }
