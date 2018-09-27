@@ -24,10 +24,11 @@ func GetInstance() *gorm.DB {
 		return Inst.c
 	}
 	Inst = *NewInstance(true, gin.DefaultWriter)
-	Inst.c.DB().SetMaxIdleConns(10)
-	Inst.c.DB().SetMaxOpenConns(100)
-	Inst.c.DB().SetConnMaxLifetime(time.Hour)
-	return Inst.c
+	conn := Inst.c
+	conn.DB().SetMaxIdleConns(10)
+	conn.DB().SetMaxOpenConns(100)
+	conn.DB().SetConnMaxLifetime(time.Hour)
+	return conn
 }
 
 //NewInstance ...

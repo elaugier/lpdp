@@ -3,6 +3,8 @@ package controllers
 import (
 	"net/http"
 
+	"github.com/elaugier/lpdp/pkg/logs"
+
 	"github.com/google/uuid"
 
 	"github.com/elaugier/lpdp/pkg/db"
@@ -15,8 +17,11 @@ type IPHistoriesController struct{}
 
 //Get ...
 func (u IPHistoriesController) Get(c *gin.Context) {
+	log := logs.GetInstance()
+	log.Println("try to retieve 'id' in url path")
 	id, err := uuid.Parse(c.Param("id"))
 	if err != nil {
+		log.Println("Cannot get 'id' in url path.")
 		c.JSON(400, gin.H{
 			"msg": "Cannot get 'id' in url path.",
 		})
@@ -24,10 +29,12 @@ func (u IPHistoriesController) Get(c *gin.Context) {
 	var i models.IPHistory
 	conn := db.GetInstance()
 	if err = conn.Where("id = ?", id).First(&i).Error; err != nil {
+		log.Println("ip history not found.")
 		c.JSON(404, gin.H{
 			"msg": "ip history not found.",
 		})
 	} else {
+		log.Println("ip history returned")
 		c.JSON(200, i)
 	}
 }
