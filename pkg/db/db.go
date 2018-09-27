@@ -5,6 +5,8 @@ import (
 	"log"
 	"time"
 
+	"github.com/elaugier/lpdp/pkg/logs"
+
 	"github.com/gin-gonic/gin"
 
 	"github.com/elaugier/lpdp/pkg/config"
@@ -33,14 +35,15 @@ func GetInstance() *gorm.DB {
 
 //NewInstance ...
 func NewInstance(logMode bool, io io.Writer) *Instance {
+	logger := logs.GetInstance()
 	configuration, err := config.Get()
 	c, err := gorm.Open("postgres", configuration.GetString("database.postgres"))
 	if err != nil {
-		log.Fatalf("couldn't connect to database: %v\n", err)
+		logger.Fatalf("couldn't connect to database: %v\n", err)
 	}
-	log.Println("database connected")
+	logger.Println("database connected")
 	c.LogMode(true)
-	c.SetLogger(log.New(io, "", log.LstdFlags))
+	c.SetLogger(logger)
 	i := Instance{
 		c: c,
 	}

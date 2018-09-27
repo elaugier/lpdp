@@ -12,19 +12,14 @@ import (
 	"os"
 	"os/exec"
 	"os/signal"
-	"strconv"
-	"strings"
 	"syscall"
 	"time"
-
-	"github.com/kardianos/osext"
 
 	// jwt "github.com/appleboy/gin-jwt"
 	"github.com/elaugier/lpdp/pkg/config"
 	"github.com/elaugier/lpdp/pkg/db"
 	"github.com/elaugier/lpdp/pkg/logs"
 	"github.com/elaugier/lpdp/pkg/server"
-	"github.com/gin-gonic/gin"
 	"golang.org/x/sync/errgroup"
 )
 
@@ -52,41 +47,11 @@ func main() {
 	 */
 	logger = logs.GetInstance()
 
-	fullBinaryName, err := osext.Executable()
-	if err != nil {
-		logger.Fatal(err)
-	}
-
-	folderPath, err := osext.ExecutableFolder()
-	if err != nil {
-		logger.Fatal(err)
-	}
-
-	binaryName := strings.Replace(strings.Replace(fullBinaryName, folderPath, "", -1), string(os.PathSeparator), "", -1)
-
-	logger.SetFlags(log.Ldate | log.Ltime | log.Lmicroseconds | log.Lshortfile | log.LUTC)
-	logger.SetPrefix(binaryName + " " + strconv.Itoa(os.Getpid()) + " ")
-
 	configuration, err := config.Get()
 	if err != nil {
 		logger.Fatal(err)
 	}
 
-	timestampStart := strconv.FormatInt(time.Time.UnixNano(time.Now()), 10)
-	logFile := os.ExpandEnv(configuration.GetString("logFolder")) + "/" + timestampStart + "_" + binaryName + ".log"
-	logger.Println("log file location => '" + logFile + "'")
-	f, err := os.OpenFile(logFile, os.O_WRONLY|os.O_CREATE|os.O_APPEND, 0644)
-	if err != nil {
-		logger.Fatal(err)
-	}
-	multi := io.MultiWriter(f, os.Stdout)
-	logger.SetOutput(multi)
-
-	// set log format
-	logger.SetFlags(log.Ldate | log.Ltime | log.Lmicroseconds | log.Lshortfile | log.LUTC)
-	gin.DefaultWriter = multi
-	gin.DefaultErrorWriter = multi
-	gin.DisableConsoleColor()
 	/**
 	 * Cockroach Initialization
 	 */
