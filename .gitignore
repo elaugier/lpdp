@@ -28,6 +28,9 @@
 !.vscode/extensions.json
 
 dist/lpdp-server/cockroach-data/**/*
+!dist/lpdp-server/win-lpdp-server.exe
+!dist/lpdp-server/lnx-lpdp-server
+!dist/lpdp-server/mac-lpdp-server
 dist/**/*.crt
 dist/**/*.key
 # End of https://www.gitignore.io/api/go,visualstudiocode

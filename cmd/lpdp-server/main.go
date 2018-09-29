@@ -10,7 +10,6 @@ import (
 	"net/http/httputil"
 	"net/url"
 	"os"
-	"os/exec"
 	"os/signal"
 	"syscall"
 	"time"
@@ -52,17 +51,7 @@ func main() {
 		logger.Fatal(err)
 	}
 
-	/**
-	 * Cockroach Initialization
-	 */
-	cockroachPath := configuration.GetString("cockroachPath")
-	cockroachArgs := configuration.GetString("cockroachArgs")
-	cockroachProc := exec.Command(cockroachPath)
-	cockroachProc.SysProcAttr = &syscall.SysProcAttr{
-		HideWindow:    true,
-		CmdLine:       fmt.Sprintf("%s", cockroachArgs),
-		CreationFlags: 0,
-	}
+	cockroachProc := db.CockroachStarter(configuration)
 
 	stdout, err := cockroachProc.StdoutPipe()
 	if err != nil {
@@ -79,15 +68,15 @@ func main() {
 	g.Go(func() error {
 		err = cockroachProc.Start()
 		if err != nil {
-			logger.Fatalf("Error on starting cockroach : %s %s => %v", cockroachPath, cockroachArgs, err)
+			logger.Fatalf("Error on starting cockroach : %v", err)
 		}
 		bufStdout := new(bytes.Buffer)
 		bufStderr := new(bytes.Buffer)
 		bufStdout.ReadFrom(stdout)
 		bufStderr.ReadFrom(stderr)
 		if err = cockroachProc.Wait(); err != nil {
-			logger.Fatalf("Error when execute %s %s => %v\r\nstdout = '%s'\r\nstderr = '%s'",
-				cockroachPath, cockroachArgs, err, bufStdout.String(), bufStderr.String())
+			logger.Fatalf("Error when execute cockroach => %v\r\nstdout = '%s'\r\nstderr = '%s'",
+				err, bufStdout.String(), bufStderr.String())
 		}
 		return err
 	})

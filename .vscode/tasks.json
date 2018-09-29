@@ -20,7 +20,7 @@
             "type": "shell",
             "command": "lpdp-server.exe",
             "options": {
-                "cwd": "${workspaceFolder}/dist/lpdp-server"
+                "cwd": "${workspaceFolder}/dist/win-lpdp-server.exe"
             },
             "problemMatcher": []
         }
