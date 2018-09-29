@@ -13,8 +13,8 @@ func CockroachStarter(configuration *viper.Viper) *exec.Cmd {
 	/**
 	 * Cockroach Initialization
 	 */
-	cockroachPath := configuration.GetString("cockroachPath")
-	cockroachArgs := configuration.GetString("cockroachArgs")
+	cockroachPath := configuration.GetString("cockroach.win.cockroachPath")
+	cockroachArgs := configuration.GetString("cockroach.win.cockroachArgs")
 	cockroachProc := exec.Command(cockroachPath, cockroachArgs)
 	cockroachProc.SysProcAttr = &syscall.SysProcAttr{
 		HideWindow:    true,

@@ -11,8 +11,8 @@ func CockroachStarter(configuration *viper.Viper) *exec.Cmd {
 	/**
 	 * Cockroach Initialization
 	 */
-	cockroachPath := configuration.GetString("cockroachPath")
-	cockroachArgs := configuration.GetString("cockroachArgs")
+	cockroachPath := configuration.GetString("cockroach.mac.cockroachPath")
+	cockroachArgs := configuration.GetString("cockroach.mac.cockroachArgs")
 	cockroachProc := exec.Command(cockroachPath, cockroachArgs)
 	return cockroachProc
 }
