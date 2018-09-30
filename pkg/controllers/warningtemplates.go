@@ -24,22 +24,33 @@ func (u WarningTemplatesController) Get(c *gin.Context) {
 			"msg": "Cannot get 'id' in url path.",
 		})
 	}
-	var i models.WarningTemplate
+	var w models.WarningTemplate
 	conn := db.GetInstance()
-	if err = conn.Where("id = ?", id).First(&i).Error; err != nil {
+	if err = conn.Where("id = ?", id).First(&w).Error; err != nil {
 		log.Println("warning template not found.")
 		c.JSON(404, gin.H{
 			"msg": "warning template not found.",
 		})
 	} else {
 		log.Println("warning template returned")
-		c.JSON(200, i)
+		c.JSON(200, w)
 	}
 }
 
 //List ...
 func (u WarningTemplatesController) List(c *gin.Context) {
-	c.String(http.StatusOK, "Working!")
+	log := logs.GetInstance()
+	var w []models.WarningTemplate
+	conn := db.GetInstance()
+	if err := conn.Find(&w).Error; err != nil {
+		log.Println("warning template not found.")
+		c.JSON(404, gin.H{
+			"msg": "warning template not found.",
+		})
+	} else {
+		log.Println("warning template returned")
+		c.JSON(200, w)
+	}
 }
 
 //Add ...

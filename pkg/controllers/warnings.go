@@ -39,7 +39,18 @@ func (u WarningsController) Get(c *gin.Context) {
 
 //List ...
 func (u WarningsController) List(c *gin.Context) {
-	c.String(http.StatusOK, "Working!")
+	log := logs.GetInstance()
+	var w []models.Warning
+	conn := db.GetInstance()
+	if err := conn.Find(&w).Error; err != nil {
+		log.Println("warning not found.")
+		c.JSON(404, gin.H{
+			"msg": "warning not found.",
+		})
+	} else {
+		log.Println("warning returned")
+		c.JSON(200, w)
+	}
 }
 
 //Add ...

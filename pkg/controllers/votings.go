@@ -24,22 +24,33 @@ func (u VotingsController) Get(c *gin.Context) {
 			"msg": "Cannot get 'id' in url path.",
 		})
 	}
-	var i models.Voting
+	var v models.Voting
 	conn := db.GetInstance()
-	if err = conn.Where("id = ?", id).First(&i).Error; err != nil {
+	if err = conn.Where("id = ?", id).First(&v).Error; err != nil {
 		log.Println("voting not found.")
 		c.JSON(404, gin.H{
 			"msg": "voting not found.",
 		})
 	} else {
 		log.Println("voting returned")
-		c.JSON(200, i)
+		c.JSON(200, v)
 	}
 }
 
 //List ...
 func (u VotingsController) List(c *gin.Context) {
-	c.String(http.StatusOK, "Working!")
+	log := logs.GetInstance()
+	var v []models.Voting
+	conn := db.GetInstance()
+	if err := conn.Find(&v).Error; err != nil {
+		log.Println("voting not found.")
+		c.JSON(404, gin.H{
+			"msg": "voting not found.",
+		})
+	} else {
+		log.Println("voting returned")
+		c.JSON(200, v)
+	}
 }
 
 //Add ...
