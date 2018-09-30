@@ -27,22 +27,33 @@ func (u UsersController) Get(c *gin.Context) {
 			"msg": "Cannot get 'id' in url path.",
 		})
 	}
-	var i models.User
+	var user models.User
 	conn := db.GetInstance()
-	if err = conn.Where("id = ?", id).First(&i).Error; err != nil {
+	if err = conn.Where("id = ?", id).First(&user).Error; err != nil {
 		log.Println("user not found.")
 		c.JSON(404, gin.H{
 			"msg": "user not found.",
 		})
 	} else {
 		log.Println("user returned")
-		c.JSON(200, i)
+		c.JSON(200, user)
 	}
 }
 
 //List ...
 func (u UsersController) List(c *gin.Context) {
-	c.String(http.StatusOK, "Working!")
+	log := logs.GetInstance()
+	var users []models.User
+	conn := db.GetInstance()
+	if err := conn.Find(&users).Error; err != nil {
+		log.Println("user not found.")
+		c.JSON(404, gin.H{
+			"msg": "user not found.",
+		})
+	} else {
+		log.Println("user returned")
+		c.JSON(200, users)
+	}
 }
 
 //Add ...

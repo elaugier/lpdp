@@ -40,16 +40,16 @@ func (u VotesController) Get(c *gin.Context) {
 //List ...
 func (u VotesController) List(c *gin.Context) {
 	log := logs.GetInstance()
-	var v []models.Vote
+	var votes []models.Vote
 	conn := db.GetInstance()
-	if err := conn.Find(&v).Error; err != nil {
+	if err := conn.Find(&votes).Error; err != nil {
 		log.Println("vote not found.")
 		c.JSON(404, gin.H{
 			"msg": "vote not found.",
 		})
 	} else {
 		log.Println("vote returned")
-		c.JSON(200, v)
+		c.JSON(200, votes)
 	}
 }
 
