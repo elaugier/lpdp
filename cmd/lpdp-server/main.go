@@ -36,20 +36,29 @@ func main() {
 	c := make(chan os.Signal)
 	signal.Notify(c, os.Interrupt, syscall.SIGTERM)
 
-	go func() {
-		<-c
-		run = false
-	}()
-
 	/**
 	 * Logger Initialization
 	 */
 	logger = logs.GetInstance()
 
+	go func() {
+		<-c
+		logger.Println("intercept interruption : SIGTERM")
+		run = false
+	}()
+
 	configuration, err := config.Get()
 	if err != nil {
 		logger.Fatal(err)
 	}
+
+	//Log configuration
+	logger.Printf("cockroach.win.cockroachPath : '%s'", configuration.GetString("cockroach.win.cockroachPath"))
+	logger.Printf("cockroach.win.cockroachArgs : '%s'", configuration.GetString("cockroach.win.cockroachArgs"))
+	logger.Printf("cockroach.lnx.cockroachPath : '%s'", configuration.GetString("cockroach.lnx.cockroachPath"))
+	logger.Printf("cockroach.lnx.cockroachArgs : '%s'", configuration.GetString("cockroach.lnx.cockroachArgs"))
+	logger.Printf("cockroach.mac.cockroachPath : '%s'", configuration.GetString("cockroach.mac.cockroachPath"))
+	logger.Printf("cockroach.mac.cockroachArgs : '%s'", configuration.GetString("cockroach.mac.cockroachArgs"))
 
 	cockroachProc := db.CockroachStarter(configuration)
 
@@ -88,7 +97,6 @@ func main() {
 
 	database := db.GetInstance()
 	defer database.Close()
-	//database.Connection.SetLogger(logger)
 
 	backendServerAddr := fmt.Sprintf(":%s", backendPort)
 	logger.Printf("backendServerAddr = '%s'", backendServerAddr)

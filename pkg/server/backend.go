@@ -18,6 +18,7 @@ func BackendRouter(logger *log.Logger) http.Handler {
 
 	router.Use(middlewares.Identification(logger))
 	router.Use(middlewares.RequestID(logger))
+	router.Use(middlewares.Authentication(logger))
 
 	//corsConfig := cors.DefaultConfig()
 	//router.Use(cors.New(corsConfig))

@@ -4,14 +4,14 @@
     "cockroach": {
         "lnx": {
             "cockroachArgs": "start --certs-dir=cockroach/certs --advertise-host=localhost",
-            "cockroachPath": "cockroach/cockroach"
+            "cockroachPath": "cockroach/lnx-cockroach"
         },
         "mac": {
             "cockroachArgs": "start --certs-dir=cockroach/certs --advertise-host=localhost",
-            "cockroachPath": "cockroach/cockroach"
+            "cockroachPath": "cockroach/mac-cockroach"
         },
         "win": {
-            "cockroachArgs": "/c \"cockroach\\cockroach.exe start --certs-dir=cockroach\\certs --advertise-host=localhost\"",
+            "cockroachArgs": "/c \"cockroach\\win-cockroach.exe start --certs-dir=cockroach\\certs --advertise-host=localhost\"",
             "cockroachPath": "c:\\windows\\system32\\cmd.exe"
         }
     },

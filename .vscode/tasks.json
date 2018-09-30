@@ -18,9 +18,9 @@
         {
             "label": "start server",
             "type": "shell",
-            "command": "lpdp-server.exe",
+            "command": "win-lpdp-server.exe",
             "options": {
-                "cwd": "${workspaceFolder}/dist/win-lpdp-server.exe"
+                "cwd": "${workspaceFolder}/dist/lpdp-server"
             },
             "problemMatcher": []
         }
