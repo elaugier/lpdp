@@ -19,7 +19,7 @@ type AchievementsController struct{}
 func (u AchievementsController) Get(c *gin.Context) {
 	log := logs.GetInstance()
 	log.Println("try to retieve 'id' in url path")
-	id, err := uuid.Parse(c.Param("id"))
+	id, err := uuid.Parse(c.Params.ByName("id"))
 	if err != nil {
 		log.Println("Cannot get 'id' in url path.")
 		c.JSON(400, gin.H{
@@ -67,12 +67,27 @@ func (u AchievementsController) Add(c *gin.Context) {
 
 //Modify ...
 func (u AchievementsController) Modify(c *gin.Context) {
-	var json models.Achievement
-	if err := c.ShouldBindJSON(&json); err != nil {
+	log := logs.GetInstance()
+	var achievement models.Achievement
+	id, err := uuid.Parse(c.Params.ByName("id"))
+	if err != nil {
+		log.Println("Cannot get 'id' in url path.")
+		c.JSON(400, gin.H{
+			"msg": "Cannot get 'id' in url path.",
+		})
+	}
+	conn := db.GetInstance()
+	if err = conn.Where("id = ?", id).First(&achievement).Error; err != nil {
+		c.AbortWithStatus(http.StatusNotFound)
+		log.Println("achievement not found.")
+	}
+	if err := c.ShouldBindJSON(&achievement); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
-	c.String(http.StatusOK, "Working!")
+	c.BindJSON(&achievement)
+	conn.Save(&achievement)
+	c.JSON(200, achievement)
 }
 
 //Remove ...

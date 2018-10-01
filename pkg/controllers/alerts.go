@@ -17,7 +17,7 @@ type AlertsController struct{}
 func (u AlertsController) Get(c *gin.Context) {
 	log := logs.GetInstance()
 	log.Println("try to retieve 'id' in url path")
-	id, err := uuid.Parse(c.Param("id"))
+	id, err := uuid.Parse(c.Params.ByName("id"))
 	if err != nil {
 		log.Println("Cannot get 'id' in url path.")
 		c.JSON(400, gin.H{
