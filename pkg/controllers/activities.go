@@ -26,22 +26,33 @@ func (u ActivitiesController) Get(c *gin.Context) {
 			"msg": "Cannot get 'id' in url path.",
 		})
 	}
-	var i models.Activity
+	var activity models.Activity
 	conn := db.GetInstance()
-	if err = conn.Where("id = ?", id).First(&i).Error; err != nil {
+	if err = conn.Where("id = ?", id).First(&activity).Error; err != nil {
 		log.Println("activity not found.")
 		c.JSON(404, gin.H{
 			"msg": "activity not found.",
 		})
 	} else {
 		log.Println("activity returned")
-		c.JSON(200, i)
+		c.JSON(200, activity)
 	}
 }
 
 //List ...
 func (u ActivitiesController) List(c *gin.Context) {
-	c.String(http.StatusOK, "Working!")
+	log := logs.GetInstance()
+	var activities []models.Activity
+	conn := db.GetInstance()
+	if err := conn.Find(&activities).Error; err != nil {
+		log.Println("activity not found.")
+		c.JSON(404, gin.H{
+			"msg": "activity not found.",
+		})
+	} else {
+		log.Println("activity returned")
+		c.JSON(200, activities)
+	}
 }
 
 //Add ...

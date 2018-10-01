@@ -24,22 +24,33 @@ func (u SectionsController) Get(c *gin.Context) {
 			"msg": "Cannot get 'id' in url path.",
 		})
 	}
-	var i models.Section
+	var section models.Section
 	conn := db.GetInstance()
-	if err = conn.Where("id = ?", id).First(&i).Error; err != nil {
+	if err = conn.Where("id = ?", id).First(&section).Error; err != nil {
 		log.Println("section not found.")
 		c.JSON(404, gin.H{
 			"msg": "section not found.",
 		})
 	} else {
 		log.Println("section returned")
-		c.JSON(200, i)
+		c.JSON(200, section)
 	}
 }
 
 //List ...
 func (u SectionsController) List(c *gin.Context) {
-	c.String(http.StatusOK, "Working!")
+	log := logs.GetInstance()
+	var sections []models.Section
+	conn := db.GetInstance()
+	if err := conn.Find(&sections).Error; err != nil {
+		log.Println("section not found.")
+		c.JSON(404, gin.H{
+			"msg": "section not found.",
+		})
+	} else {
+		log.Println("section returned")
+		c.JSON(200, sections)
+	}
 }
 
 //Add ...

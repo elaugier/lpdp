@@ -24,22 +24,33 @@ func (u TagsController) Get(c *gin.Context) {
 			"msg": "Cannot get 'id' in url path.",
 		})
 	}
-	var i models.Tag
+	var tag models.Tag
 	conn := db.GetInstance()
-	if err = conn.Where("id = ?", id).First(&i).Error; err != nil {
+	if err = conn.Where("id = ?", id).First(&tag).Error; err != nil {
 		log.Println("tag not found.")
 		c.JSON(404, gin.H{
 			"msg": "tag not found.",
 		})
 	} else {
 		log.Println("tag returned")
-		c.JSON(200, i)
+		c.JSON(200, tag)
 	}
 }
 
 //List ...
 func (u TagsController) List(c *gin.Context) {
-	c.String(http.StatusOK, "Working!")
+	log := logs.GetInstance()
+	var tags []models.Tag
+	conn := db.GetInstance()
+	if err := conn.Find(&tags).Error; err != nil {
+		log.Println("tag not found.")
+		c.JSON(404, gin.H{
+			"msg": "tag not found.",
+		})
+	} else {
+		log.Println("tag returned")
+		c.JSON(200, tags)
+	}
 }
 
 //Add ...

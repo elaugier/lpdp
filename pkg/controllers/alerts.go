@@ -24,22 +24,33 @@ func (u AlertsController) Get(c *gin.Context) {
 			"msg": "Cannot get 'id' in url path.",
 		})
 	}
-	var i models.Alert
+	var alert models.Alert
 	conn := db.GetInstance()
-	if err = conn.Where("id = ?", id).First(&i).Error; err != nil {
+	if err = conn.Where("id = ?", id).First(&alert).Error; err != nil {
 		log.Println("alert not found.")
 		c.JSON(404, gin.H{
 			"msg": "alert not found.",
 		})
 	} else {
 		log.Println("alert returned")
-		c.JSON(200, i)
+		c.JSON(200, alert)
 	}
 }
 
 //List ...
 func (u AlertsController) List(c *gin.Context) {
-	c.String(http.StatusOK, "Working!")
+	log := logs.GetInstance()
+	var alert []models.Alert
+	conn := db.GetInstance()
+	if err := conn.Find(&alert).Error; err != nil {
+		log.Println("alert not found.")
+		c.JSON(404, gin.H{
+			"msg": "alert not found.",
+		})
+	} else {
+		log.Println("alert returned")
+		c.JSON(200, alert)
+	}
 }
 
 //Add ...

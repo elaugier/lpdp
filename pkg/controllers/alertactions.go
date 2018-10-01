@@ -26,22 +26,33 @@ func (u AlertActionsController) Get(c *gin.Context) {
 			"msg": "Cannot get 'id' in url path.",
 		})
 	}
-	var i models.AlertAction
+	var alertaction models.AlertAction
 	conn := db.GetInstance()
-	if err = conn.Where("id = ?", id).First(&i).Error; err != nil {
+	if err = conn.Where("id = ?", id).First(&alertaction).Error; err != nil {
 		log.Println("alert not found.")
 		c.JSON(404, gin.H{
 			"msg": "alert not found.",
 		})
 	} else {
 		log.Println("alert returned")
-		c.JSON(200, i)
+		c.JSON(200, alertaction)
 	}
 }
 
 //List ...
 func (u AlertActionsController) List(c *gin.Context) {
-	c.String(http.StatusOK, "Working!")
+	log := logs.GetInstance()
+	var alertactions []models.AlertAction
+	conn := db.GetInstance()
+	if err := conn.Find(&alertactions).Error; err != nil {
+		log.Println("action not found.")
+		c.JSON(404, gin.H{
+			"msg": "action not found.",
+		})
+	} else {
+		log.Println("action returned")
+		c.JSON(200, alertactions)
+	}
 }
 
 //Add ...

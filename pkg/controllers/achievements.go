@@ -26,22 +26,33 @@ func (u AchievementsController) Get(c *gin.Context) {
 			"msg": "Cannot get 'id' in url path.",
 		})
 	}
-	var i models.Achievement
+	var achievement models.Achievement
 	conn := db.GetInstance()
-	if err = conn.Where("id = ?", id).First(&i).Error; err != nil {
+	if err = conn.Where("id = ?", id).First(&achievement).Error; err != nil {
 		log.Println("achievement not found.")
 		c.JSON(404, gin.H{
 			"msg": "achievement not found.",
 		})
 	} else {
 		log.Println("achievement returned")
-		c.JSON(200, i)
+		c.JSON(200, achievement)
 	}
 }
 
 //List ...
 func (u AchievementsController) List(c *gin.Context) {
-	c.String(http.StatusOK, "Working!")
+	log := logs.GetInstance()
+	var achievements []models.Achievement
+	conn := db.GetInstance()
+	if err := conn.Find(&achievements).Error; err != nil {
+		log.Println("achievement not found.")
+		c.JSON(404, gin.H{
+			"msg": "achievement not found.",
+		})
+	} else {
+		log.Println("achievement returned")
+		c.JSON(200, achievements)
+	}
 }
 
 //Add ...
