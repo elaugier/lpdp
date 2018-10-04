@@ -10,70 +10,144 @@ import (
 	"github.com/google/uuid"
 )
 
-//AlertsController ...
-type AlertsController struct{}
+//AlertController ...
+type AlertController struct{}
 
 //Get ...
-func (u AlertsController) Get(c *gin.Context) {
+func (u AlertController) Get(c *gin.Context) {
+
 	log := logs.GetInstance()
+
 	log.Println("try to retieve 'id' in url path")
+
 	id, err := uuid.Parse(c.Params.ByName("id"))
 	if err != nil {
 		log.Println("Cannot get 'id' in url path.")
-		c.JSON(400, gin.H{
+		c.JSON(http.StatusBadRequest, gin.H{
 			"msg": "Cannot get 'id' in url path.",
 		})
 	}
+
 	var alert models.Alert
+
 	conn := db.GetInstance()
+
 	if err = conn.Where("id = ?", id).First(&alert).Error; err != nil {
 		log.Println("alert not found.")
-		c.JSON(404, gin.H{
+		c.JSON(http.StatusNotFound, gin.H{
 			"msg": "alert not found.",
 		})
 	} else {
 		log.Println("alert returned")
-		c.JSON(200, alert)
+		c.JSON(http.StatusOK, alert)
 	}
+
 }
 
 //List ...
-func (u AlertsController) List(c *gin.Context) {
+func (u AlertController) List(c *gin.Context) {
+
 	log := logs.GetInstance()
+
 	var alert []models.Alert
+
 	conn := db.GetInstance()
 	if err := conn.Find(&alert).Error; err != nil {
 		log.Println("alert not found.")
-		c.JSON(404, gin.H{
+		c.JSON(http.StatusNotFound, gin.H{
 			"msg": "alert not found.",
 		})
 	} else {
 		log.Println("alert returned")
-		c.JSON(200, alert)
+		c.JSON(http.StatusOK, alert)
 	}
+
 }
 
 //Add ...
-func (u AlertsController) Add(c *gin.Context) {
-	var json models.Alert
-	if err := c.ShouldBindJSON(&json); err != nil {
+func (u AlertController) Add(c *gin.Context) {
+
+	var alert models.Alert
+
+	if err := c.ShouldBindJSON(&alert); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
-	c.String(http.StatusOK, "Working!")
+
+	if err := c.BindJSON(&alert); err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	conn := db.GetInstance()
+	conn.Save(&alert)
+
+	c.JSON(http.StatusCreated, alert)
+
 }
 
 //Modify ...
-func (u AlertsController) Modify(c *gin.Context) {
-	var json models.Alert
-	if err := c.ShouldBindJSON(&json); err != nil {
+func (u AlertController) Modify(c *gin.Context) {
+
+	log := logs.GetInstance()
+
+	var alert models.Alert
+
+	id, err := uuid.Parse(c.Params.ByName("id"))
+	if err != nil {
+		log.Println("Cannot get 'id' in url path.")
+		c.JSON(http.StatusNotFound, gin.H{
+			"msg": "Cannot get 'id' in url path.",
+		})
+	}
+
+	conn := db.GetInstance()
+
+	if err = conn.Where("id = ?", id).First(&alert).Error; err != nil {
+		c.AbortWithStatus(http.StatusNotFound)
+		log.Println("alert not found.")
+	}
+
+	if err := c.ShouldBindJSON(&alert); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
-	c.String(http.StatusOK, "Working!")
+
+	if err := c.BindJSON(&alert); err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	conn.Save(&alert)
+
+	c.JSON(http.StatusOK, alert)
 }
 
 //Remove ...
-func (u AlertsController) Remove(c *gin.Context) {
-	c.String(http.StatusOK, "Working!")
+func (u AlertController) Remove(c *gin.Context) {
+
+	log := logs.GetInstance()
+
+	id, err := uuid.Parse(c.Params.ByName("id"))
+	if err != nil {
+		log.Println("Cannot get 'id' in url path.")
+		c.JSON(http.StatusBadRequest, gin.H{
+			"msg": "Cannot get 'id' in url path.",
+		})
+	}
+
+	var alert models.Alert
+
+	conn := db.GetInstance()
+
+	if err = conn.Where("id = ?", id).Delete(&alert).Error; err != nil {
+		log.Println("alert not found.")
+		c.JSON(http.StatusNotFound, gin.H{
+			"msg": "alert not found.",
+		})
+	} else {
+		log.Println("alert returned")
+		c.JSON(http.StatusOK, alert)
+	}
+
 }
