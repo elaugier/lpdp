@@ -15,54 +15,139 @@ type BadgeTypesController struct{}
 
 //Get ...
 func (u BadgeTypesController) Get(c *gin.Context) {
+
 	log := logs.GetInstance()
+
 	log.Println("try to retieve 'id' in url path")
+
 	id, err := uuid.Parse(c.Params.ByName("id"))
 	if err != nil {
 		log.Println("Cannot get 'id' in url path.")
-		c.JSON(400, gin.H{
+		c.JSON(http.StatusBadRequest, gin.H{
 			"msg": "Cannot get 'id' in url path.",
 		})
 	}
-	var i models.BadgeType
+
+	var badgetype models.BadgeType
+
 	conn := db.GetInstance()
-	if err = conn.Where("id = ?", id).First(&i).Error; err != nil {
+
+	if err = conn.Where("id = ?", id).First(&badgetype).Error; err != nil {
 		log.Println("badge type not found.")
-		c.JSON(404, gin.H{
+		c.JSON(http.StatusNotFound, gin.H{
 			"msg": "badge type not found.",
 		})
 	} else {
 		log.Println("badge type returned")
-		c.JSON(200, i)
+		c.JSON(http.StatusOK, badgetype)
 	}
+
 }
 
 //List ...
 func (u BadgeTypesController) List(c *gin.Context) {
-	c.String(http.StatusOK, "Working!")
+
+	log := logs.GetInstance()
+
+	var badgetypes []models.BadgeType
+
+	conn := db.GetInstance()
+	if err := conn.Find(&badgetypes).Error; err != nil {
+		log.Println("badge type not found.")
+		c.JSON(http.StatusNotFound, gin.H{
+			"msg": "badge type not found.",
+		})
+	} else {
+		log.Println("badge type returned")
+		c.JSON(http.StatusOK, badgetypes)
+	}
+
 }
 
 //Add ...
 func (u BadgeTypesController) Add(c *gin.Context) {
-	var json models.BadgeType
-	if err := c.ShouldBindJSON(&json); err != nil {
+
+	var badgetype models.BadgeType
+
+	if err := c.ShouldBindJSON(&badgetype); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
-	c.String(http.StatusOK, "Working!")
+
+	if err := c.BindJSON(&badgetype); err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	conn := db.GetInstance()
+	conn.Save(&badgetype)
+
+	c.JSON(http.StatusCreated, badgetype)
+
 }
 
 //Modify ...
 func (u BadgeTypesController) Modify(c *gin.Context) {
-	var json models.BadgeType
-	if err := c.ShouldBindJSON(&json); err != nil {
+
+	log := logs.GetInstance()
+
+	var badgetype models.BadgeType
+
+	id, err := uuid.Parse(c.Params.ByName("id"))
+	if err != nil {
+		log.Println("Cannot get 'id' in url path.")
+		c.JSON(http.StatusNotFound, gin.H{
+			"msg": "Cannot get 'id' in url path.",
+		})
+	}
+
+	conn := db.GetInstance()
+
+	if err = conn.Where("id = ?", id).First(&badgetype).Error; err != nil {
+		c.AbortWithStatus(http.StatusNotFound)
+		log.Println("badgetype not found.")
+	}
+
+	if err := c.ShouldBindJSON(&badgetype); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
-	c.String(http.StatusOK, "Working!")
+
+	if err := c.BindJSON(&badgetype); err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	conn.Save(&badgetype)
+
+	c.JSON(http.StatusOK, badgetype)
 }
 
 //Remove ...
 func (u BadgeTypesController) Remove(c *gin.Context) {
-	c.String(http.StatusOK, "Working!")
+
+	log := logs.GetInstance()
+
+	id, err := uuid.Parse(c.Params.ByName("id"))
+	if err != nil {
+		log.Println("Cannot get 'id' in url path.")
+		c.JSON(http.StatusBadRequest, gin.H{
+			"msg": "Cannot get 'id' in url path.",
+		})
+	}
+
+	var badgetype models.BadgeType
+
+	conn := db.GetInstance()
+
+	if err = conn.Where("id = ?", id).Delete(&badgetype).Error; err != nil {
+		log.Println("badge type not found.")
+		c.JSON(http.StatusNotFound, gin.H{
+			"msg": "badge type not found.",
+		})
+	} else {
+		log.Println("badge type returned")
+		c.JSON(http.StatusOK, badgetype)
+	}
+
 }
