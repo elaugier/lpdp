@@ -10,11 +10,11 @@ import (
 	"github.com/google/uuid"
 )
 
-//AlertController ...
-type AlertController struct{}
+//AlertsController ...
+type AlertsController struct{}
 
 //Get ...
-func (u AlertController) Get(c *gin.Context) {
+func (u AlertsController) Get(c *gin.Context) {
 
 	log := logs.GetInstance()
 
@@ -45,7 +45,7 @@ func (u AlertController) Get(c *gin.Context) {
 }
 
 //List ...
-func (u AlertController) List(c *gin.Context) {
+func (u AlertsController) List(c *gin.Context) {
 
 	log := logs.GetInstance()
 
@@ -65,7 +65,7 @@ func (u AlertController) List(c *gin.Context) {
 }
 
 //Add ...
-func (u AlertController) Add(c *gin.Context) {
+func (u AlertsController) Add(c *gin.Context) {
 
 	var alert models.Alert
 
@@ -87,7 +87,7 @@ func (u AlertController) Add(c *gin.Context) {
 }
 
 //Modify ...
-func (u AlertController) Modify(c *gin.Context) {
+func (u AlertsController) Modify(c *gin.Context) {
 
 	log := logs.GetInstance()
 
@@ -124,7 +124,7 @@ func (u AlertController) Modify(c *gin.Context) {
 }
 
 //Remove ...
-func (u AlertController) Remove(c *gin.Context) {
+func (u AlertsController) Remove(c *gin.Context) {
 
 	log := logs.GetInstance()
 
