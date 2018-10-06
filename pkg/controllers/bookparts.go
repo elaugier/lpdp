@@ -15,54 +15,139 @@ type BookPartsController struct{}
 
 //Get ...
 func (u BookPartsController) Get(c *gin.Context) {
+
 	log := logs.GetInstance()
+
 	log.Println("try to retieve 'id' in url path")
+
 	id, err := uuid.Parse(c.Params.ByName("id"))
 	if err != nil {
 		log.Println("Cannot get 'id' in url path.")
-		c.JSON(400, gin.H{
+		c.JSON(http.StatusBadRequest, gin.H{
 			"msg": "Cannot get 'id' in url path.",
 		})
 	}
-	var i models.BookPart
+
+	var bookpart models.BookPart
+
 	conn := db.GetInstance()
-	if err = conn.Where("id = ?", id).First(&i).Error; err != nil {
-		log.Println("book part not found.")
-		c.JSON(404, gin.H{
-			"msg": "book part not found.",
+
+	if err = conn.Where("id = ?", id).First(&bookpart).Error; err != nil {
+		log.Println("bookpart not found.")
+		c.JSON(http.StatusNotFound, gin.H{
+			"msg": "bookpart not found.",
 		})
 	} else {
-		log.Println("book part returned")
-		c.JSON(200, i)
+		log.Println("bookpart returned")
+		c.JSON(http.StatusOK, bookpart)
 	}
+
 }
 
 //List ...
 func (u BookPartsController) List(c *gin.Context) {
-	c.String(http.StatusOK, "Working!")
+
+	log := logs.GetInstance()
+
+	var bookparts []models.BookPart
+
+	conn := db.GetInstance()
+	if err := conn.Find(&bookparts).Error; err != nil {
+		log.Println("bookpart not found.")
+		c.JSON(http.StatusNotFound, gin.H{
+			"msg": "bookpart not found.",
+		})
+	} else {
+		log.Println("bookpart returned")
+		c.JSON(http.StatusOK, bookparts)
+	}
+
 }
 
 //Add ...
 func (u BookPartsController) Add(c *gin.Context) {
-	var json models.BookPart
-	if err := c.ShouldBindJSON(&json); err != nil {
+
+	var bookpart models.BookPart
+
+	if err := c.ShouldBindJSON(&bookpart); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
-	c.String(http.StatusOK, "Working!")
+
+	if err := c.BindJSON(&bookpart); err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	conn := db.GetInstance()
+	conn.Save(&bookpart)
+
+	c.JSON(http.StatusCreated, bookpart)
+
 }
 
 //Modify ...
 func (u BookPartsController) Modify(c *gin.Context) {
-	var json models.BookPart
-	if err := c.ShouldBindJSON(&json); err != nil {
+
+	log := logs.GetInstance()
+
+	var bookpart models.BookPart
+
+	id, err := uuid.Parse(c.Params.ByName("id"))
+	if err != nil {
+		log.Println("Cannot get 'id' in url path.")
+		c.JSON(http.StatusNotFound, gin.H{
+			"msg": "Cannot get 'id' in url path.",
+		})
+	}
+
+	conn := db.GetInstance()
+
+	if err = conn.Where("id = ?", id).First(&bookpart).Error; err != nil {
+		c.AbortWithStatus(http.StatusNotFound)
+		log.Println("bookpart not found.")
+	}
+
+	if err := c.ShouldBindJSON(&bookpart); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
-	c.String(http.StatusOK, "Working!")
+
+	if err := c.BindJSON(&bookpart); err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	conn.Save(&bookpart)
+
+	c.JSON(http.StatusOK, bookpart)
 }
 
 //Remove ...
 func (u BookPartsController) Remove(c *gin.Context) {
-	c.String(http.StatusOK, "Working!")
+
+	log := logs.GetInstance()
+
+	id, err := uuid.Parse(c.Params.ByName("id"))
+	if err != nil {
+		log.Println("Cannot get 'id' in url path.")
+		c.JSON(http.StatusBadRequest, gin.H{
+			"msg": "Cannot get 'id' in url path.",
+		})
+	}
+
+	var bookpart models.BookPart
+
+	conn := db.GetInstance()
+
+	if err = conn.Where("id = ?", id).Delete(&bookpart).Error; err != nil {
+		log.Println("bookpart not found.")
+		c.JSON(http.StatusNotFound, gin.H{
+			"msg": "bookpart not found.",
+		})
+	} else {
+		log.Println("bookpart returned")
+		c.JSON(http.StatusOK, bookpart)
+	}
+
 }
