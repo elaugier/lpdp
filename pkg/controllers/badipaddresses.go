@@ -15,54 +15,139 @@ type BadIPAddressesController struct{}
 
 //Get ...
 func (u BadIPAddressesController) Get(c *gin.Context) {
+
 	log := logs.GetInstance()
+
 	log.Println("try to retieve 'id' in url path")
+
 	id, err := uuid.Parse(c.Params.ByName("id"))
 	if err != nil {
 		log.Println("Cannot get 'id' in url path.")
-		c.JSON(400, gin.H{
+		c.JSON(http.StatusBadRequest, gin.H{
 			"msg": "Cannot get 'id' in url path.",
 		})
 	}
-	var i models.BadIPAddress
+
+	var badipaddress models.BadIPAddress
+
 	conn := db.GetInstance()
-	if err = conn.Where("id = ?", id).First(&i).Error; err != nil {
-		log.Println("ip not found.")
-		c.JSON(404, gin.H{
-			"msg": "ip not found.",
+
+	if err = conn.Where("id = ?", id).First(&badipaddress).Error; err != nil {
+		log.Println("ip address not found.")
+		c.JSON(http.StatusNotFound, gin.H{
+			"msg": "ip address not found.",
 		})
 	} else {
-		log.Println("ip returned")
-		c.JSON(200, i)
+		log.Println("ip address returned")
+		c.JSON(http.StatusOK, badipaddress)
 	}
+
 }
 
 //List ...
 func (u BadIPAddressesController) List(c *gin.Context) {
-	c.String(http.StatusOK, "Working!")
+
+	log := logs.GetInstance()
+
+	var badipaddresses []models.BadIPAddress
+
+	conn := db.GetInstance()
+	if err := conn.Find(&badipaddresses).Error; err != nil {
+		log.Println("ip address not found.")
+		c.JSON(http.StatusNotFound, gin.H{
+			"msg": "ip address not found.",
+		})
+	} else {
+		log.Println("ip address returned")
+		c.JSON(http.StatusOK, badipaddresses)
+	}
+
 }
 
 //Add ...
 func (u BadIPAddressesController) Add(c *gin.Context) {
-	var json models.BadIPAddress
-	if err := c.ShouldBindJSON(&json); err != nil {
+
+	var badipaddress models.BadIPAddress
+
+	if err := c.ShouldBindJSON(&badipaddress); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
-	c.String(http.StatusOK, "Working!")
+
+	if err := c.BindJSON(&badipaddress); err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	conn := db.GetInstance()
+	conn.Save(&badipaddress)
+
+	c.JSON(http.StatusCreated, badipaddress)
+
 }
 
 //Modify ...
 func (u BadIPAddressesController) Modify(c *gin.Context) {
-	var json models.BadIPAddress
-	if err := c.ShouldBindJSON(&json); err != nil {
+
+	log := logs.GetInstance()
+
+	var badipaddress models.BadIPAddress
+
+	id, err := uuid.Parse(c.Params.ByName("id"))
+	if err != nil {
+		log.Println("Cannot get 'id' in url path.")
+		c.JSON(http.StatusNotFound, gin.H{
+			"msg": "Cannot get 'id' in url path.",
+		})
+	}
+
+	conn := db.GetInstance()
+
+	if err = conn.Where("id = ?", id).First(&badipaddress).Error; err != nil {
+		c.AbortWithStatus(http.StatusNotFound)
+		log.Println("ip address not found.")
+	}
+
+	if err := c.ShouldBindJSON(&badipaddress); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
-	c.String(http.StatusOK, "Working!")
+
+	if err := c.BindJSON(&badipaddress); err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	conn.Save(&badipaddress)
+
+	c.JSON(http.StatusOK, badipaddress)
 }
 
 //Remove ...
 func (u BadIPAddressesController) Remove(c *gin.Context) {
-	c.String(http.StatusOK, "Working!")
+
+	log := logs.GetInstance()
+
+	id, err := uuid.Parse(c.Params.ByName("id"))
+	if err != nil {
+		log.Println("Cannot get 'id' in url path.")
+		c.JSON(http.StatusBadRequest, gin.H{
+			"msg": "Cannot get 'id' in url path.",
+		})
+	}
+
+	var badipaddress models.BadIPAddress
+
+	conn := db.GetInstance()
+
+	if err = conn.Where("id = ?", id).Delete(&badipaddress).Error; err != nil {
+		log.Println("ip address not found.")
+		c.JSON(http.StatusNotFound, gin.H{
+			"msg": "ip address not found.",
+		})
+	} else {
+		log.Println("ip address returned")
+		c.JSON(http.StatusOK, badipaddress)
+	}
+
 }
