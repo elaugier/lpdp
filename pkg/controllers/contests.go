@@ -15,54 +15,139 @@ type ContestsController struct{}
 
 //Get ...
 func (u ContestsController) Get(c *gin.Context) {
+
 	log := logs.GetInstance()
+
 	log.Println("try to retieve 'id' in url path")
+
 	id, err := uuid.Parse(c.Params.ByName("id"))
 	if err != nil {
 		log.Println("Cannot get 'id' in url path.")
-		c.JSON(400, gin.H{
+		c.JSON(http.StatusBadRequest, gin.H{
 			"msg": "Cannot get 'id' in url path.",
 		})
 	}
-	var i models.Contest
+
+	var contest models.Contest
+
 	conn := db.GetInstance()
-	if err = conn.Where("id = ?", id).First(&i).Error; err != nil {
+
+	if err = conn.Where("id = ?", id).First(&contest).Error; err != nil {
 		log.Println("contest not found.")
-		c.JSON(404, gin.H{
+		c.JSON(http.StatusNotFound, gin.H{
 			"msg": "contest not found.",
 		})
 	} else {
 		log.Println("contest returned")
-		c.JSON(200, i)
+		c.JSON(http.StatusOK, contest)
 	}
+
 }
 
 //List ...
 func (u ContestsController) List(c *gin.Context) {
-	c.String(http.StatusOK, "Working!")
+
+	log := logs.GetInstance()
+
+	var contests []models.Contest
+
+	conn := db.GetInstance()
+	if err := conn.Find(&contests).Error; err != nil {
+		log.Println("contest not found.")
+		c.JSON(http.StatusNotFound, gin.H{
+			"msg": "contest not found.",
+		})
+	} else {
+		log.Println("contest returned")
+		c.JSON(http.StatusOK, contests)
+	}
+
 }
 
 //Add ...
 func (u ContestsController) Add(c *gin.Context) {
-	var json models.Contest
-	if err := c.ShouldBindJSON(&json); err != nil {
+
+	var contest models.Contest
+
+	if err := c.ShouldBindJSON(&contest); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
-	c.String(http.StatusOK, "Working!")
+
+	if err := c.BindJSON(&contest); err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	conn := db.GetInstance()
+	conn.Save(&contest)
+
+	c.JSON(http.StatusCreated, contest)
+
 }
 
 //Modify ...
 func (u ContestsController) Modify(c *gin.Context) {
-	var json models.Contest
-	if err := c.ShouldBindJSON(&json); err != nil {
+
+	log := logs.GetInstance()
+
+	var contest models.Contest
+
+	id, err := uuid.Parse(c.Params.ByName("id"))
+	if err != nil {
+		log.Println("Cannot get 'id' in url path.")
+		c.JSON(http.StatusNotFound, gin.H{
+			"msg": "Cannot get 'id' in url path.",
+		})
+	}
+
+	conn := db.GetInstance()
+
+	if err = conn.Where("id = ?", id).First(&contest).Error; err != nil {
+		c.AbortWithStatus(http.StatusNotFound)
+		log.Println("contest not found.")
+	}
+
+	if err := c.ShouldBindJSON(&contest); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
-	c.String(http.StatusOK, "Working!")
+
+	if err := c.BindJSON(&contest); err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	conn.Save(&contest)
+
+	c.JSON(http.StatusOK, contest)
 }
 
 //Remove ...
 func (u ContestsController) Remove(c *gin.Context) {
-	c.String(http.StatusOK, "Working!")
+
+	log := logs.GetInstance()
+
+	id, err := uuid.Parse(c.Params.ByName("id"))
+	if err != nil {
+		log.Println("Cannot get 'id' in url path.")
+		c.JSON(http.StatusBadRequest, gin.H{
+			"msg": "Cannot get 'id' in url path.",
+		})
+	}
+
+	var contest models.Contest
+
+	conn := db.GetInstance()
+
+	if err = conn.Where("id = ?", id).Delete(&contest).Error; err != nil {
+		log.Println("contest not found.")
+		c.JSON(http.StatusNotFound, gin.H{
+			"msg": "contest not found.",
+		})
+	} else {
+		log.Println("contest returned")
+		c.JSON(http.StatusOK, contest)
+	}
+
 }
