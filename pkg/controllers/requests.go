@@ -15,54 +15,139 @@ type RequestsController struct{}
 
 //Get ...
 func (u RequestsController) Get(c *gin.Context) {
+
 	log := logs.GetInstance()
+
 	log.Println("try to retieve 'id' in url path")
+
 	id, err := uuid.Parse(c.Params.ByName("id"))
 	if err != nil {
 		log.Println("Cannot get 'id' in url path.")
-		c.JSON(400, gin.H{
+		c.JSON(http.StatusBadRequest, gin.H{
 			"msg": "Cannot get 'id' in url path.",
 		})
 	}
-	var i models.Request
+
+	var request models.Request
+
 	conn := db.GetInstance()
-	if err = conn.Where("id = ?", id).First(&i).Error; err != nil {
+
+	if err = conn.Where("id = ?", id).First(&request).Error; err != nil {
 		log.Println("request not found.")
-		c.JSON(404, gin.H{
+		c.JSON(http.StatusNotFound, gin.H{
 			"msg": "request not found.",
 		})
 	} else {
 		log.Println("request returned")
-		c.JSON(200, i)
+		c.JSON(http.StatusOK, request)
 	}
+
 }
 
 //List ...
 func (u RequestsController) List(c *gin.Context) {
-	c.String(http.StatusOK, "Working!")
+
+	log := logs.GetInstance()
+
+	var requests []models.Request
+
+	conn := db.GetInstance()
+	if err := conn.Find(&requests).Error; err != nil {
+		log.Println("request not found.")
+		c.JSON(http.StatusNotFound, gin.H{
+			"msg": "request not found.",
+		})
+	} else {
+		log.Println("request returned")
+		c.JSON(http.StatusOK, requests)
+	}
+
 }
 
 //Add ...
 func (u RequestsController) Add(c *gin.Context) {
-	var json models.Request
-	if err := c.ShouldBindJSON(&json); err != nil {
+
+	var request models.Request
+
+	if err := c.ShouldBindJSON(&request); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
-	c.String(http.StatusOK, "Working!")
+
+	if err := c.BindJSON(&request); err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	conn := db.GetInstance()
+	conn.Save(&request)
+
+	c.JSON(http.StatusCreated, request)
+
 }
 
 //Modify ...
 func (u RequestsController) Modify(c *gin.Context) {
-	var json models.Request
-	if err := c.ShouldBindJSON(&json); err != nil {
+
+	log := logs.GetInstance()
+
+	var request models.Request
+
+	id, err := uuid.Parse(c.Params.ByName("id"))
+	if err != nil {
+		log.Println("Cannot get 'id' in url path.")
+		c.JSON(http.StatusNotFound, gin.H{
+			"msg": "Cannot get 'id' in url path.",
+		})
+	}
+
+	conn := db.GetInstance()
+
+	if err = conn.Where("id = ?", id).First(&request).Error; err != nil {
+		c.AbortWithStatus(http.StatusNotFound)
+		log.Println("request not found.")
+	}
+
+	if err := c.ShouldBindJSON(&request); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
-	c.String(http.StatusOK, "Working!")
+
+	if err := c.BindJSON(&request); err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	conn.Save(&request)
+
+	c.JSON(http.StatusOK, request)
 }
 
 //Remove ...
 func (u RequestsController) Remove(c *gin.Context) {
-	c.String(http.StatusOK, "Working!")
+
+	log := logs.GetInstance()
+
+	id, err := uuid.Parse(c.Params.ByName("id"))
+	if err != nil {
+		log.Println("Cannot get 'id' in url path.")
+		c.JSON(http.StatusBadRequest, gin.H{
+			"msg": "Cannot get 'id' in url path.",
+		})
+	}
+
+	var request models.Request
+
+	conn := db.GetInstance()
+
+	if err = conn.Where("id = ?", id).Delete(&request).Error; err != nil {
+		log.Println("request not found.")
+		c.JSON(http.StatusNotFound, gin.H{
+			"msg": "request not found.",
+		})
+	} else {
+		log.Println("request returned")
+		c.JSON(http.StatusOK, request)
+	}
+
 }

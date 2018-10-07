@@ -15,65 +15,139 @@ type WarningTemplatesController struct{}
 
 //Get ...
 func (u WarningTemplatesController) Get(c *gin.Context) {
+
 	log := logs.GetInstance()
+
 	log.Println("try to retieve 'id' in url path")
+
 	id, err := uuid.Parse(c.Params.ByName("id"))
 	if err != nil {
 		log.Println("Cannot get 'id' in url path.")
-		c.JSON(400, gin.H{
+		c.JSON(http.StatusBadRequest, gin.H{
 			"msg": "Cannot get 'id' in url path.",
 		})
 	}
-	var w models.WarningTemplate
+
+	var warningtemplate models.WarningTemplate
+
 	conn := db.GetInstance()
-	if err = conn.Where("id = ?", id).First(&w).Error; err != nil {
-		log.Println("warning template not found.")
-		c.JSON(404, gin.H{
-			"msg": "warning template not found.",
+
+	if err = conn.Where("id = ?", id).First(&warningtemplate).Error; err != nil {
+		log.Println("warningtemplate not found.")
+		c.JSON(http.StatusNotFound, gin.H{
+			"msg": "warningtemplate not found.",
 		})
 	} else {
-		log.Println("warning template returned")
-		c.JSON(200, w)
+		log.Println("warningtemplate returned")
+		c.JSON(http.StatusOK, warningtemplate)
 	}
+
 }
 
 //List ...
 func (u WarningTemplatesController) List(c *gin.Context) {
+
 	log := logs.GetInstance()
-	var w []models.WarningTemplate
+
+	var warningtemplates []models.WarningTemplate
+
 	conn := db.GetInstance()
-	if err := conn.Find(&w).Error; err != nil {
-		log.Println("warning template not found.")
-		c.JSON(404, gin.H{
-			"msg": "warning template not found.",
+	if err := conn.Find(&warningtemplates).Error; err != nil {
+		log.Println("warningtemplate not found.")
+		c.JSON(http.StatusNotFound, gin.H{
+			"msg": "warningtemplate not found.",
 		})
 	} else {
-		log.Println("warning template returned")
-		c.JSON(200, w)
+		log.Println("warningtemplate returned")
+		c.JSON(http.StatusOK, warningtemplates)
 	}
+
 }
 
 //Add ...
 func (u WarningTemplatesController) Add(c *gin.Context) {
-	var json models.WarningTemplate
-	if err := c.ShouldBindJSON(&json); err != nil {
+
+	var warningtemplate models.WarningTemplate
+
+	if err := c.ShouldBindJSON(&warningtemplate); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
-	c.String(http.StatusOK, "Working!")
+
+	if err := c.BindJSON(&warningtemplate); err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	conn := db.GetInstance()
+	conn.Save(&warningtemplate)
+
+	c.JSON(http.StatusCreated, warningtemplate)
+
 }
 
 //Modify ...
 func (u WarningTemplatesController) Modify(c *gin.Context) {
-	var json models.WarningTemplate
-	if err := c.ShouldBindJSON(&json); err != nil {
+
+	log := logs.GetInstance()
+
+	var warningtemplate models.WarningTemplate
+
+	id, err := uuid.Parse(c.Params.ByName("id"))
+	if err != nil {
+		log.Println("Cannot get 'id' in url path.")
+		c.JSON(http.StatusNotFound, gin.H{
+			"msg": "Cannot get 'id' in url path.",
+		})
+	}
+
+	conn := db.GetInstance()
+
+	if err = conn.Where("id = ?", id).First(&warningtemplate).Error; err != nil {
+		c.AbortWithStatus(http.StatusNotFound)
+		log.Println("warningtemplate not found.")
+	}
+
+	if err := c.ShouldBindJSON(&warningtemplate); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
-	c.String(http.StatusOK, "Working!")
+
+	if err := c.BindJSON(&warningtemplate); err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	conn.Save(&warningtemplate)
+
+	c.JSON(http.StatusOK, warningtemplate)
 }
 
 //Remove ...
 func (u WarningTemplatesController) Remove(c *gin.Context) {
-	c.String(http.StatusOK, "Working!")
+
+	log := logs.GetInstance()
+
+	id, err := uuid.Parse(c.Params.ByName("id"))
+	if err != nil {
+		log.Println("Cannot get 'id' in url path.")
+		c.JSON(http.StatusBadRequest, gin.H{
+			"msg": "Cannot get 'id' in url path.",
+		})
+	}
+
+	var warningtemplate models.WarningTemplate
+
+	conn := db.GetInstance()
+
+	if err = conn.Where("id = ?", id).Delete(&warningtemplate).Error; err != nil {
+		log.Println("warningtemplate not found.")
+		c.JSON(http.StatusNotFound, gin.H{
+			"msg": "warningtemplate not found.",
+		})
+	} else {
+		log.Println("warningtemplate returned")
+		c.JSON(http.StatusOK, warningtemplate)
+	}
+
 }

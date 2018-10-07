@@ -15,65 +15,139 @@ type WarningsController struct{}
 
 //Get ...
 func (u WarningsController) Get(c *gin.Context) {
+
 	log := logs.GetInstance()
+
 	log.Println("try to retieve 'id' in url path")
+
 	id, err := uuid.Parse(c.Params.ByName("id"))
 	if err != nil {
 		log.Println("Cannot get 'id' in url path.")
-		c.JSON(400, gin.H{
+		c.JSON(http.StatusBadRequest, gin.H{
 			"msg": "Cannot get 'id' in url path.",
 		})
 	}
-	var i models.Warning
+
+	var warning models.Warning
+
 	conn := db.GetInstance()
-	if err = conn.Where("id = ?", id).First(&i).Error; err != nil {
+
+	if err = conn.Where("id = ?", id).First(&warning).Error; err != nil {
 		log.Println("warning not found.")
-		c.JSON(404, gin.H{
+		c.JSON(http.StatusNotFound, gin.H{
 			"msg": "warning not found.",
 		})
 	} else {
 		log.Println("warning returned")
-		c.JSON(200, i)
+		c.JSON(http.StatusOK, warning)
 	}
+
 }
 
 //List ...
 func (u WarningsController) List(c *gin.Context) {
+
 	log := logs.GetInstance()
-	var w []models.Warning
+
+	var warnings []models.Warning
+
 	conn := db.GetInstance()
-	if err := conn.Find(&w).Error; err != nil {
+	if err := conn.Find(&warnings).Error; err != nil {
 		log.Println("warning not found.")
-		c.JSON(404, gin.H{
+		c.JSON(http.StatusNotFound, gin.H{
 			"msg": "warning not found.",
 		})
 	} else {
 		log.Println("warning returned")
-		c.JSON(200, w)
+		c.JSON(http.StatusOK, warnings)
 	}
+
 }
 
 //Add ...
 func (u WarningsController) Add(c *gin.Context) {
-	var json models.Warning
-	if err := c.ShouldBindJSON(&json); err != nil {
+
+	var warning models.Warning
+
+	if err := c.ShouldBindJSON(&warning); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
-	c.String(http.StatusOK, "Working!")
+
+	if err := c.BindJSON(&warning); err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	conn := db.GetInstance()
+	conn.Save(&warning)
+
+	c.JSON(http.StatusCreated, warning)
+
 }
 
 //Modify ...
 func (u WarningsController) Modify(c *gin.Context) {
-	var json models.Warning
-	if err := c.ShouldBindJSON(&json); err != nil {
+
+	log := logs.GetInstance()
+
+	var warning models.Warning
+
+	id, err := uuid.Parse(c.Params.ByName("id"))
+	if err != nil {
+		log.Println("Cannot get 'id' in url path.")
+		c.JSON(http.StatusNotFound, gin.H{
+			"msg": "Cannot get 'id' in url path.",
+		})
+	}
+
+	conn := db.GetInstance()
+
+	if err = conn.Where("id = ?", id).First(&warning).Error; err != nil {
+		c.AbortWithStatus(http.StatusNotFound)
+		log.Println("warning not found.")
+	}
+
+	if err := c.ShouldBindJSON(&warning); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
-	c.String(http.StatusOK, "Working!")
+
+	if err := c.BindJSON(&warning); err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	conn.Save(&warning)
+
+	c.JSON(http.StatusOK, warning)
 }
 
 //Remove ...
 func (u WarningsController) Remove(c *gin.Context) {
-	c.String(http.StatusOK, "Working!")
+
+	log := logs.GetInstance()
+
+	id, err := uuid.Parse(c.Params.ByName("id"))
+	if err != nil {
+		log.Println("Cannot get 'id' in url path.")
+		c.JSON(http.StatusBadRequest, gin.H{
+			"msg": "Cannot get 'id' in url path.",
+		})
+	}
+
+	var warning models.Warning
+
+	conn := db.GetInstance()
+
+	if err = conn.Where("id = ?", id).Delete(&warning).Error; err != nil {
+		log.Println("warning not found.")
+		c.JSON(http.StatusNotFound, gin.H{
+			"msg": "warning not found.",
+		})
+	} else {
+		log.Println("warning returned")
+		c.JSON(http.StatusOK, warning)
+	}
+
 }
