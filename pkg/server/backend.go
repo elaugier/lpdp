@@ -96,7 +96,7 @@ func BackendRouter(logger *log.Logger) http.Handler {
 	router.PUT("/bookparts/:id", bookparts.Modify)
 	router.DELETE("/bookparts/:id", bookparts.Remove)
 
-	coauthors := new(controllers.CoauthorsController)
+	coauthors := new(controllers.CoAuthorsController)
 	router.GET("/coauthors/:id", coauthors.Get)
 	router.GET("/coauthors", coauthors.List)
 	router.POST("/coauthors", coauthors.Add)
