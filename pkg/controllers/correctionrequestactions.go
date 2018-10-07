@@ -10,11 +10,11 @@ import (
 	"github.com/google/uuid"
 )
 
-//CorrectionRequestsController ...
-type CorrectionRequestsController struct{}
+//CorrectionRequestActionsController ...
+type CorrectionRequestActionsController struct{}
 
 //Get ...
-func (u CorrectionRequestsController) Get(c *gin.Context) {
+func (u CorrectionRequestActionsController) Get(c *gin.Context) {
 
 	log := logs.GetInstance()
 
@@ -28,70 +28,70 @@ func (u CorrectionRequestsController) Get(c *gin.Context) {
 		})
 	}
 
-	var correctionrequest models.CorrectionRequest
+	var correctionrequestaction models.CorrectionRequestAction
 
 	conn := db.GetInstance()
 
-	if err = conn.Where("id = ?", id).First(&correctionrequest).Error; err != nil {
-		log.Println("correctionrequest not found.")
+	if err = conn.Where("id = ?", id).First(&correctionrequestaction).Error; err != nil {
+		log.Println("correctionrequestaction not found.")
 		c.JSON(http.StatusNotFound, gin.H{
-			"msg": "correctionrequest not found.",
+			"msg": "correctionrequestaction not found.",
 		})
 	} else {
-		log.Println("correctionrequest returned")
-		c.JSON(http.StatusOK, correctionrequest)
+		log.Println("correctionrequestaction returned")
+		c.JSON(http.StatusOK, correctionrequestaction)
 	}
 
 }
 
 //List ...
-func (u CorrectionRequestsController) List(c *gin.Context) {
+func (u CorrectionRequestActionsController) List(c *gin.Context) {
 
 	log := logs.GetInstance()
 
-	var correctionrequests []models.CorrectionRequest
+	var correctionrequestactions []models.CorrectionRequestAction
 
 	conn := db.GetInstance()
-	if err := conn.Find(&correctionrequests).Error; err != nil {
-		log.Println("correctionrequest not found.")
+	if err := conn.Find(&correctionrequestactions).Error; err != nil {
+		log.Println("correctionrequestaction not found.")
 		c.JSON(http.StatusNotFound, gin.H{
-			"msg": "correctionrequest not found.",
+			"msg": "correctionrequestaction not found.",
 		})
 	} else {
-		log.Println("correctionrequest returned")
-		c.JSON(http.StatusOK, correctionrequests)
+		log.Println("correctionrequestaction returned")
+		c.JSON(http.StatusOK, correctionrequestactions)
 	}
 
 }
 
 //Add ...
-func (u CorrectionRequestsController) Add(c *gin.Context) {
+func (u CorrectionRequestActionsController) Add(c *gin.Context) {
 
-	var correctionrequest models.CorrectionRequest
+	var correctionrequestaction models.CorrectionRequestAction
 
-	if err := c.ShouldBindJSON(&correctionrequest); err != nil {
+	if err := c.ShouldBindJSON(&correctionrequestaction); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
-	if err := c.BindJSON(&correctionrequest); err != nil {
+	if err := c.BindJSON(&correctionrequestaction); err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
 
 	conn := db.GetInstance()
-	conn.Save(&correctionrequest)
+	conn.Save(&correctionrequestaction)
 
-	c.JSON(http.StatusCreated, correctionrequest)
+	c.JSON(http.StatusCreated, correctionrequestaction)
 
 }
 
 //Modify ...
-func (u CorrectionRequestsController) Modify(c *gin.Context) {
+func (u CorrectionRequestActionsController) Modify(c *gin.Context) {
 
 	log := logs.GetInstance()
 
-	var correctionrequest models.CorrectionRequest
+	var correctionrequestaction models.CorrectionRequestAction
 
 	id, err := uuid.Parse(c.Params.ByName("id"))
 	if err != nil {
@@ -103,28 +103,28 @@ func (u CorrectionRequestsController) Modify(c *gin.Context) {
 
 	conn := db.GetInstance()
 
-	if err = conn.Where("id = ?", id).First(&correctionrequest).Error; err != nil {
+	if err = conn.Where("id = ?", id).First(&correctionrequestaction).Error; err != nil {
 		c.AbortWithStatus(http.StatusNotFound)
-		log.Println("correctionrequest not found.")
+		log.Println("correctionrequestaction not found.")
 	}
 
-	if err := c.ShouldBindJSON(&correctionrequest); err != nil {
+	if err := c.ShouldBindJSON(&correctionrequestaction); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
-	if err := c.BindJSON(&correctionrequest); err != nil {
+	if err := c.BindJSON(&correctionrequestaction); err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
 
-	conn.Save(&correctionrequest)
+	conn.Save(&correctionrequestaction)
 
-	c.JSON(http.StatusOK, correctionrequest)
+	c.JSON(http.StatusOK, correctionrequestaction)
 }
 
 //Remove ...
-func (u CorrectionRequestsController) Remove(c *gin.Context) {
+func (u CorrectionRequestActionsController) Remove(c *gin.Context) {
 
 	log := logs.GetInstance()
 
@@ -136,18 +136,18 @@ func (u CorrectionRequestsController) Remove(c *gin.Context) {
 		})
 	}
 
-	var correctionrequest models.CorrectionRequest
+	var correctionrequestaction models.CorrectionRequestAction
 
 	conn := db.GetInstance()
 
-	if err = conn.Where("id = ?", id).Delete(&correctionrequest).Error; err != nil {
-		log.Println("correctionrequest not found.")
+	if err = conn.Where("id = ?", id).Delete(&correctionrequestaction).Error; err != nil {
+		log.Println("correctionrequestaction not found.")
 		c.JSON(http.StatusNotFound, gin.H{
-			"msg": "correctionrequest not found.",
+			"msg": "correctionrequestaction not found.",
 		})
 	} else {
-		log.Println("correctionrequest returned")
-		c.JSON(http.StatusOK, correctionrequest)
+		log.Println("correctionrequestaction returned")
+		c.JSON(http.StatusOK, correctionrequestaction)
 	}
 
 }
