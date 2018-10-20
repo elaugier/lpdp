@@ -14,6 +14,8 @@ func Authentication(logger *log.Logger) gin.HandlerFunc {
 		token := c.Request.Header.Get("Authorization")
 		if len(token) == 0 {
 			logger.Println("No Authentication")
+		} else {
+			logger.Printf("get Authorization header: '%s'", token)
 		}
 		c.Next()
 		logger.Println("Exit from Authentication middleware")
