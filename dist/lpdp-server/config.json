@@ -1,6 +1,14 @@
 {
-    "backendHostname": "lpdpbackend.local",
-    "backendPort": "1204",
+    "jwt": {
+        "secret": "ZYF8La5SLTTXemG4Gdrxbb9MwtEdJ4jjL3Dg5mh5i3mwJ2VdG9xY4S94udE3kh435B6Vx2B8iqEj6yz6n5iSvJ4k3iJyVjx842eVk7ZZ88q6DK3Aw39N8Nn47j4dwSy53ffHNE4ASwEVtfbT4X87WTDJAv8bb2842529Fkk8zv6gx7p2k24DBKfUrD64JG3fTbD48m5D7Z3jmyfw8r2qB9P8FJ342sYP5397RJEC8aQD7HbrtskLKF9X5a585LCN"
+    },
+    "gospell": {
+        "aff": "hunspell/fr-toutesvariantes.aff",
+        "dic": "hunspell/fr-toutesvariantes.dic"
+    },
+    "database": {
+        "postgres": "postgresql://root@localhost:26257?sslmode=require&sslrootcert=cockroach\\certs\\ca.crt&sslcert=cockroach\\certs\\client.root.crt&sslkey=cockroach\\certs\\client.root.key"
+    },
     "cockroach": {
         "lnx": {
             "cockroachArgs": "start --certs-dir=cockroach/certs --advertise-host=localhost",
@@ -15,14 +23,9 @@
             "cockroachPath": "c:\\windows\\system32\\cmd.exe"
         }
     },
-    "database": {
-        "postgres": "postgresql://root@localhost:26257?sslmode=require&sslrootcert=cockroach\\certs\\ca.crt&sslcert=cockroach\\certs\\client.root.crt&sslkey=cockroach\\certs\\client.root.key"
-    },
-    "frontendHostname": "lpdpfrontend.local",
+    "logFolder": "$TEMP",
+    "backendPort": "1204",
     "frontendPort": "1203",
-    "gospell": {
-        "aff": "hunspell/fr-toutesvariantes.aff",
-        "dic": "hunspell/fr-toutesvariantes.dic"
-    },
-    "logFolder": "$TEMP"
+    "backendHostname": "lpdpbackend.local",
+    "frontendHostname": "lpdpfrontend.local"
 }
