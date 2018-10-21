@@ -6,6 +6,7 @@ import (
 	"strings"
 
 	jwt "github.com/dgrijalva/jwt-go"
+	"github.com/elaugier/lpdp/pkg/config"
 	"github.com/gin-gonic/gin"
 )
 
@@ -25,7 +26,11 @@ func Authentication(logger *log.Logger) gin.HandlerFunc {
 				if _, ok := ptoken.Method.(*jwt.SigningMethodHMAC); !ok {
 					return nil, fmt.Errorf("Unexpected signing method: %v", ptoken.Header["alg"])
 				}
-				return []byte("ZYF8La5SLTTXemG4Gdrxbb9MwtEdJ4jjL3Dg5mh5i3mwJ2VdG9xY4S94udE3kh435B6Vx2B8iqEj6yz6n5iSvJ4k3iJyVjx842eVk7ZZ88q6DK3Aw39N8Nn47j4dwSy53ffHNE4ASwEVtfbT4X87WTDJAv8bb2842529Fkk8zv6gx7p2k24DBKfUrD64JG3fTbD48m5D7Z3jmyfw8r2qB9P8FJ342sYP5397RJEC8aQD7HbrtskLKF9X5a585LCN"), nil
+				configuration, err := config.Get()
+				if err != nil {
+					logger.Fatal(err)
+				}
+				return []byte(configuration.GetString("jwt:secret")), nil
 			})
 
 			if claims, ok := jwtToken.Claims.(jwt.MapClaims); ok && jwtToken.Valid {
