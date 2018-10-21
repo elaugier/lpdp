@@ -3,6 +3,7 @@ package controllers
 import (
 	"net/http"
 
+	"github.com/elaugier/lpdp/pkg/db"
 	"github.com/elaugier/lpdp/pkg/models"
 	"github.com/gin-gonic/gin"
 )
@@ -28,7 +29,11 @@ func (u LoginController) Login(c *gin.Context) {
 		return
 	}
 
-	if json.User != "admin" || json.Password != "123" {
+	db := db.GetInstance()
+	count := 0
+	db.Where("Email = ? AND Password = ?", json.User, json.Password).Count(&count)
+
+	if count == 0 {
 		c.JSON(http.StatusUnauthorized, gin.H{"status": "unauthorized"})
 		return
 	}

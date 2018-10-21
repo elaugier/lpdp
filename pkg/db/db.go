@@ -62,11 +62,11 @@ func (i Instance) DatabaseInitialization() {
 
 	c := i.c
 	sql := "CREATE DATABASE IF NOT EXISTS lpdp;"
-	log.Println(sql)
+	log.Printf("Database Initialization : '%s'", sql)
 	c.Exec(sql)
 	sql = "USE lpdp;"
-	log.Println(sql)
-	c.Exec("USE lpdp;")
+	log.Printf("Database Initialization : '%s'", sql)
+	c.Exec(sql)
 	c.AutoMigrate(
 		&models.Achievement{},
 		&models.Activity{},
@@ -104,7 +104,8 @@ func (i Instance) DatabaseInitialization() {
 		&models.Warning{},
 		&models.WarningTemplate{},
 	)
-
+	var admin models.User
+	c.FirstOrCreate(&admin, models.User{UserName: "admin"})
 	return
 }
 
