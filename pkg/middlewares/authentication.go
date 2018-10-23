@@ -13,6 +13,10 @@ import (
 //Authentication ...
 func Authentication(logger *log.Logger) gin.HandlerFunc {
 	logger.Println("Initialization of Authentication middleware")
+	configuration, err := config.Get()
+	if err != nil {
+		logger.Fatal(err)
+	}
 	return func(c *gin.Context) {
 		logger.Println("Enter Authentication middleware")
 		token := c.Request.Header.Get("Authorization")
@@ -26,19 +30,18 @@ func Authentication(logger *log.Logger) gin.HandlerFunc {
 				if _, ok := ptoken.Method.(*jwt.SigningMethodHMAC); !ok {
 					return nil, fmt.Errorf("Unexpected signing method: %v", ptoken.Header["alg"])
 				}
-				configuration, err := config.Get()
-				if err != nil {
-					logger.Fatal(err)
-				}
 				return []byte(configuration.GetString("jwt:secret")), nil
 			})
-
-			if claims, ok := jwtToken.Claims.(jwt.MapClaims); ok && jwtToken.Valid {
-				for i, s := range claims {
-					logger.Printf("token claims : '%s' = '%s'", i, s)
-				}
+			if err != nil {
+				logger.Println("No Authentication Token found")
 			} else {
-				logger.Println(err)
+				if claims, ok := jwtToken.Claims.(jwt.MapClaims); ok && jwtToken.Valid {
+					for i, s := range claims {
+						logger.Printf("token claims : '%s' = '%s'", i, s)
+					}
+				} else {
+					logger.Println(err)
+				}
 			}
 		}
 		c.Next()
