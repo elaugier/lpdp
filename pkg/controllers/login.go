@@ -4,6 +4,7 @@ import (
 	"net/http"
 
 	"github.com/dgrijalva/jwt-go"
+	"github.com/jinzhu/gorm"
 
 	"github.com/elaugier/lpdp/pkg/config"
 	"github.com/elaugier/lpdp/pkg/db"
@@ -44,6 +45,12 @@ func (u LoginController) Login(c *gin.Context) {
 	db.Where("Email = ? AND Password = ?", json.User, json.Password).Count(&count)
 	if count == 0 {
 		c.JSON(http.StatusUnauthorized, gin.H{"status": "unauthorized"})
+		return
+	}
+
+	var user models.User
+	if err := db.Where("Email = ? AND Password = ?", json.User, json.Password).First(&user).Error; gorm.IsRecordNotFoundError(err) {
+		c.JSON(http.StatusUnauthorized, gin.H{"status": "bad user or bad password"})
 		return
 	}
 
