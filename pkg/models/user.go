@@ -42,3 +42,29 @@ type User struct {
 func (User) TableName() string {
 	return "users"
 }
+
+//UserRole ...
+type UserRole int
+
+const (
+	//Guest ...
+	Guest UserRole = 0
+	//Member ...
+	Member UserRole = 1
+	//Moderator ...
+	Moderator UserRole = 2
+	//Administrator ...
+	Administrator UserRole = 3
+	//SuperUser ...
+	SuperUser UserRole = 4
+)
+
+//MemberType ...
+type MemberType int
+
+const (
+	//Regular ...
+	Regular MemberType = 0
+	//Privilege ...
+	Privilege MemberType = 1
+)

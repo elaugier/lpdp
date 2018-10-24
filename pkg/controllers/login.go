@@ -2,6 +2,9 @@ package controllers
 
 import (
 	"net/http"
+	"time"
+
+	"github.com/google/uuid"
 
 	"github.com/dgrijalva/jwt-go"
 	"github.com/jinzhu/gorm"
@@ -54,8 +57,22 @@ func (u LoginController) Login(c *gin.Context) {
 		return
 	}
 
+	// 'iat' => $issuedAt,         // Issued at: time when the token was generated
+	// 'jti' => $tokenId,          // Json Token Id: an unique identifier for the token
+	// 'iss' => $serverName,       // Issuer
+	// 'nbf' => $notBefore,        // Not before
+	// 'exp' => $expire,           // Expire
+	// 'data' => [
+	// 	'id' => $element->id,
+	// 	'email' => $element->email,
+	// 	'pseudo' => $element->pseudo,
+	// 	'accountType' => $accountTypes[$element->accountType],
+	// 	'memberRole' => $memberRoles[$element->memberRole],
+	// ]
+
 	token := jwt.NewWithClaims(jwt.SigningMethodHS512, jwt.MapClaims{
-		"test": "test",
+		"iat": time.Now().Unix(),
+		"jti": uuid.New().String(),
 	})
 	configuration, err := config.Get()
 	if err != nil {
