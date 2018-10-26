@@ -1,0 +1,410 @@
+{
+  "openapi" : "3.0.2",
+  "info" : {
+    "title" : "lpdp",
+    "description" : "api of website La Passion des poèmes",
+    "version" : "1.0.0"
+  },
+  "paths" : {
+    "/users" : {
+      "summary" : "Path used to manage the list of Users.",
+      "description" : "The REST endpoint/path used to list and create zero or more `User` entities.  This path contains a `GET` and `POST` operation to perform the list and create tasks, respectively.",
+      "get" : {
+        "summary" : "List All Users",
+        "description" : "Gets a list of all `User` entities.",
+        "operationId" : "getUsers",
+        "responses" : {
+          "200" : {
+            "description" : "Successful response - returns an array of `User` entities.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/User"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "summary" : "Create a User",
+        "description" : "Creates a new instance of a `User`.",
+        "operationId" : "createUser",
+        "requestBody" : {
+          "description" : "A new `User` to be created.",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/User"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "201" : {
+            "description" : "Successful response."
+          }
+        }
+      }
+    },
+    "/users/{userId}" : {
+      "summary" : "Path used to manage a single User.",
+      "description" : "The REST endpoint/path used to get, update, and delete single instances of an `User`.  This path contains `GET`, `PUT`, and `DELETE` operations used to perform the get, update, and delete tasks, respectively.",
+      "get" : {
+        "summary" : "Get a User",
+        "description" : "Gets the details of a single instance of a `User`.",
+        "operationId" : "getUser",
+        "responses" : {
+          "200" : {
+            "description" : "Successful response - returns a single `User`.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/User"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put" : {
+        "summary" : "Update a User",
+        "description" : "Updates an existing `User`.",
+        "operationId" : "updateUser",
+        "requestBody" : {
+          "description" : "Updated `User` information.",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/User"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "202" : {
+            "description" : "Successful response."
+          }
+        }
+      },
+      "delete" : {
+        "summary" : "Delete a User",
+        "description" : "Deletes an existing `User`.",
+        "operationId" : "deleteUser",
+        "responses" : {
+          "204" : {
+            "description" : "Successful response."
+          }
+        }
+      },
+      "parameters" : [ {
+        "name" : "userId",
+        "in" : "path",
+        "description" : "A unique identifier for a `User`.",
+        "required" : true,
+        "schema" : {
+          "type" : "string"
+        }
+      } ]
+    },
+    "/achievements" : {
+      "summary" : "Path used to manage the list of Achievements.",
+      "description" : "The REST endpoint/path used to list and create zero or more `Achievement` entities.  This path contains a `GET` and `POST` operation to perform the list and create tasks, respectively.",
+      "get" : {
+        "summary" : "List All Achievements",
+        "description" : "Gets a list of all `Achievement` entities.",
+        "operationId" : "getAchievements",
+        "responses" : {
+          "200" : {
+            "description" : "Successful response - returns an array of `Achievement` entities.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Achievement"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "summary" : "Create a Achievement",
+        "description" : "Creates a new instance of a `Achievement`.",
+        "operationId" : "createAchievement",
+        "requestBody" : {
+          "description" : "A new `Achievement` to be created.",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Achievement"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "201" : {
+            "description" : "Successful response."
+          }
+        }
+      }
+    },
+    "/achievements/{achievementId}" : {
+      "summary" : "Path used to manage a single Achievement.",
+      "description" : "The REST endpoint/path used to get, update, and delete single instances of an `Achievement`.  This path contains `GET`, `PUT`, and `DELETE` operations used to perform the get, update, and delete tasks, respectively.",
+      "get" : {
+        "summary" : "Get a Achievement",
+        "description" : "Gets the details of a single instance of a `Achievement`.",
+        "operationId" : "getAchievement",
+        "responses" : {
+          "200" : {
+            "description" : "Successful response - returns a single `Achievement`.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Achievement"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put" : {
+        "summary" : "Update a Achievement",
+        "description" : "Updates an existing `Achievement`.",
+        "operationId" : "updateAchievement",
+        "requestBody" : {
+          "description" : "Updated `Achievement` information.",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Achievement"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "202" : {
+            "description" : "Successful response."
+          }
+        }
+      },
+      "delete" : {
+        "summary" : "Delete a Achievement",
+        "description" : "Deletes an existing `Achievement`.",
+        "operationId" : "deleteAchievement",
+        "responses" : {
+          "204" : {
+            "description" : "Successful response."
+          }
+        }
+      },
+      "parameters" : [ {
+        "name" : "achievementId",
+        "in" : "path",
+        "description" : "A unique identifier for a `Achievement`.",
+        "required" : true,
+        "schema" : {
+          "type" : "string"
+        }
+      } ]
+    },
+    "/activities" : {
+      "summary" : "Path used to manage the list of Activities.",
+      "description" : "The REST endpoint/path used to list and create zero or more `Activity` entities.  This path contains a `GET` and `POST` operation to perform the list and create tasks, respectively.",
+      "get" : {
+        "summary" : "List All Activities",
+        "description" : "Gets a list of all `Activity` entities.",
+        "operationId" : "getActivities",
+        "responses" : {
+          "200" : {
+            "description" : "Successful response - returns an array of `Activity` entities.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Activity"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "summary" : "Create a Activity",
+        "description" : "Creates a new instance of a `Activity`.",
+        "operationId" : "createActivity",
+        "requestBody" : {
+          "description" : "A new `Activity` to be created.",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Activity"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "201" : {
+            "description" : "Successful response."
+          }
+        }
+      }
+    },
+    "/activities/{activityId}" : {
+      "summary" : "Path used to manage a single Activity.",
+      "description" : "The REST endpoint/path used to get, update, and delete single instances of an `Activity`.  This path contains `GET`, `PUT`, and `DELETE` operations used to perform the get, update, and delete tasks, respectively.",
+      "get" : {
+        "summary" : "Get a Activity",
+        "description" : "Gets the details of a single instance of a `Activity`.",
+        "operationId" : "getActivity",
+        "responses" : {
+          "200" : {
+            "description" : "Successful response - returns a single `Activity`.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Activity"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put" : {
+        "summary" : "Update a Activity",
+        "description" : "Updates an existing `Activity`.",
+        "operationId" : "updateActivity",
+        "requestBody" : {
+          "description" : "Updated `Activity` information.",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Activity"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "202" : {
+            "description" : "Successful response."
+          }
+        }
+      },
+      "delete" : {
+        "summary" : "Delete a Activity",
+        "description" : "Deletes an existing `Activity`.",
+        "operationId" : "deleteActivity",
+        "responses" : {
+          "204" : {
+            "description" : "Successful response."
+          }
+        }
+      },
+      "parameters" : [ {
+        "name" : "activityId",
+        "in" : "path",
+        "description" : "A unique identifier for a `Activity`.",
+        "required" : true,
+        "schema" : {
+          "type" : "string"
+        }
+      } ]
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "User" : {
+        "title" : "Root Type for User",
+        "description" : "The root of the User type's schema.",
+        "required" : [ "uuid" ],
+        "type" : "object",
+        "properties" : {
+          "uuid" : {
+            "type" : "string"
+          },
+          "created_at" : {
+            "type" : "string"
+          },
+          "updated_at" : {
+            "format" : "date-time",
+            "type" : "string"
+          }
+        },
+        "example" : "{\n    \"uuid\": \"string\",\n    \"created_at\": \"timestamp\",\n    \"updated_at\": \"timestamp\"\n}"
+      },
+      "Achievement" : {
+        "title" : "Root Type for Achievement",
+        "description" : "The root of the Achievement type's schema.",
+        "required" : [ "id", "created_at", "owner_ref", "title" ],
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "string"
+          },
+          "created_at" : {
+            "format" : "date-time",
+            "type" : "string"
+          },
+          "update_at" : {
+            "format" : "date-time",
+            "type" : "string"
+          },
+          "remove_at" : {
+            "format" : "date-time",
+            "type" : "string"
+          },
+          "title" : {
+            "type" : "string"
+          },
+          "owner_ref" : {
+            "type" : "string"
+          }
+        },
+        "example" : "{\n    \"id\": \"string\",\n    \"created_at\": \"string\",\n    \"update_at\": \"string\",\n    \"remove_at\": \"string\",\n    \"title\": \"string\",\n    \"owner_ref\": \"string\"\n}"
+      },
+      "Activity" : {
+        "title" : "Root Type for Activity",
+        "description" : "The root of the Activity type's schema.",
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "string"
+          },
+          "created_at" : {
+            "type" : "string"
+          },
+          "update_at" : {
+            "type" : "string"
+          },
+          "remove_at" : {
+            "type" : "string"
+          },
+          "message" : {
+            "type" : "string"
+          },
+          "type" : {
+            "type" : "string"
+          },
+          "owner_ref" : {
+            "type" : "string"
+          }
+        },
+        "example" : "{\n    \"id\": \"string\",\n    \"created_at\": \"string\",\n    \"update_at\": \"string\",\n    \"remove_at\": \"string\",\n    \"message\": \"string\",\n    \"type\": \"string\",\n    \"owner_ref\": \"string\"\n}"
+      }
+    }
+  }
+}
