@@ -86,6 +86,7 @@
       "summary" : "Path used to manage a single User.",
       "description" : "The REST endpoint/path used to get, update, and delete single instances of an `User`.  This path contains `GET`, `PUT`, and `DELETE` operations used to perform the get, update, and delete tasks, respectively.",
       "get" : {
+        "tags" : [ "User" ],
         "summary" : "Get a User",
         "description" : "Gets the details of a single instance of a `User`.",
         "operationId" : "getUser",
@@ -103,6 +104,7 @@
         }
       },
       "put" : {
+        "tags" : [ "User" ],
         "summary" : "Update a User",
         "description" : "Updates an existing `User`.",
         "operationId" : "updateUser",
@@ -124,6 +126,7 @@
         }
       },
       "delete" : {
+        "tags" : [ "User" ],
         "summary" : "Delete a User",
         "description" : "Deletes an existing `User`.",
         "operationId" : "deleteUser",
@@ -147,6 +150,7 @@
       "summary" : "Path used to manage the list of Achievements.",
       "description" : "The REST endpoint/path used to list and create zero or more `Achievement` entities.  This path contains a `GET` and `POST` operation to perform the list and create tasks, respectively.",
       "get" : {
+        "tags" : [ "Achievement" ],
         "summary" : "List All Achievements",
         "description" : "Gets a list of all `Achievement` entities.",
         "operationId" : "getAchievements",
@@ -167,6 +171,7 @@
         }
       },
       "post" : {
+        "tags" : [ "Achievement" ],
         "summary" : "Create a Achievement",
         "description" : "Creates a new instance of a `Achievement`.",
         "operationId" : "createAchievement",
@@ -192,6 +197,7 @@
       "summary" : "Path used to manage a single Achievement.",
       "description" : "The REST endpoint/path used to get, update, and delete single instances of an `Achievement`.  This path contains `GET`, `PUT`, and `DELETE` operations used to perform the get, update, and delete tasks, respectively.",
       "get" : {
+        "tags" : [ "Achievement" ],
         "summary" : "Get a Achievement",
         "description" : "Gets the details of a single instance of a `Achievement`.",
         "operationId" : "getAchievement",
@@ -209,6 +215,7 @@
         }
       },
       "put" : {
+        "tags" : [ "Achievement" ],
         "summary" : "Update a Achievement",
         "description" : "Updates an existing `Achievement`.",
         "operationId" : "updateAchievement",
@@ -230,6 +237,7 @@
         }
       },
       "delete" : {
+        "tags" : [ "Achievement" ],
         "summary" : "Delete a Achievement",
         "description" : "Deletes an existing `Achievement`.",
         "operationId" : "deleteAchievement",
@@ -253,6 +261,7 @@
       "summary" : "Path used to manage the list of Activities.",
       "description" : "The REST endpoint/path used to list and create zero or more `Activity` entities.  This path contains a `GET` and `POST` operation to perform the list and create tasks, respectively.",
       "get" : {
+        "tags" : [ "Activity" ],
         "summary" : "List All Activities",
         "description" : "Gets a list of all `Activity` entities.",
         "operationId" : "getActivities",
@@ -273,6 +282,7 @@
         }
       },
       "post" : {
+        "tags" : [ "Activity" ],
         "summary" : "Create a Activity",
         "description" : "Creates a new instance of a `Activity`.",
         "operationId" : "createActivity",
@@ -298,6 +308,7 @@
       "summary" : "Path used to manage a single Activity.",
       "description" : "The REST endpoint/path used to get, update, and delete single instances of an `Activity`.  This path contains `GET`, `PUT`, and `DELETE` operations used to perform the get, update, and delete tasks, respectively.",
       "get" : {
+        "tags" : [ "Activity" ],
         "summary" : "Get a Activity",
         "description" : "Gets the details of a single instance of a `Activity`.",
         "operationId" : "getActivity",
@@ -315,6 +326,7 @@
         }
       },
       "put" : {
+        "tags" : [ "Activity" ],
         "summary" : "Update a Activity",
         "description" : "Updates an existing `Activity`.",
         "operationId" : "updateActivity",
@@ -336,6 +348,7 @@
         }
       },
       "delete" : {
+        "tags" : [ "Activity" ],
         "summary" : "Delete a Activity",
         "description" : "Deletes an existing `Activity`.",
         "operationId" : "deleteActivity",
@@ -359,6 +372,7 @@
       "summary" : "Path used to manage the list of tags.",
       "description" : "The REST endpoint/path used to list and create zero or more `tag` entities.  This path contains a `GET` and `POST` operation to perform the list and create tasks, respectively.",
       "get" : {
+        "tags" : [ "Tag" ],
         "summary" : "List All tags",
         "description" : "Gets a list of all `tag` entities.",
         "operationId" : "gettags",
@@ -370,7 +384,7 @@
                 "schema" : {
                   "type" : "array",
                   "items" : {
-                    "$ref" : "#/components/schemas/tag"
+                    "$ref" : "#/components/schemas/Tag"
                   }
                 }
               }
@@ -379,6 +393,7 @@
         }
       },
       "post" : {
+        "tags" : [ "Tag" ],
         "summary" : "Create a tag",
         "description" : "Creates a new instance of a `tag`.",
         "operationId" : "createtag",
@@ -387,7 +402,7 @@
           "content" : {
             "application/json" : {
               "schema" : {
-                "$ref" : "#/components/schemas/tag"
+                "$ref" : "#/components/schemas/Tag"
               }
             }
           },
@@ -404,6 +419,7 @@
       "summary" : "Path used to manage a single tag.",
       "description" : "The REST endpoint/path used to get, update, and delete single instances of an `tag`.  This path contains `GET`, `PUT`, and `DELETE` operations used to perform the get, update, and delete tasks, respectively.",
       "get" : {
+        "tags" : [ "Tag" ],
         "summary" : "Get a tag",
         "description" : "Gets the details of a single instance of a `tag`.",
         "operationId" : "gettag",
@@ -413,7 +429,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/tag"
+                  "$ref" : "#/components/schemas/Tag"
                 }
               }
             }
@@ -421,6 +437,7 @@
         }
       },
       "put" : {
+        "tags" : [ "Tag" ],
         "summary" : "Update a tag",
         "description" : "Updates an existing `tag`.",
         "operationId" : "updatetag",
@@ -429,7 +446,7 @@
           "content" : {
             "application/json" : {
               "schema" : {
-                "$ref" : "#/components/schemas/tag"
+                "$ref" : "#/components/schemas/Tag"
               }
             }
           },
@@ -442,6 +459,7 @@
         }
       },
       "delete" : {
+        "tags" : [ "Tag" ],
         "summary" : "Delete a tag",
         "description" : "Deletes an existing `tag`.",
         "operationId" : "deletetag",
@@ -455,6 +473,117 @@
         "name" : "tagId",
         "in" : "path",
         "description" : "A unique identifier for a `tag`.",
+        "required" : true,
+        "schema" : {
+          "type" : "string"
+        }
+      } ]
+    },
+    "/alert" : {
+      "summary" : "Path used to manage the list of Alert{S.",
+      "description" : "The REST endpoint/path used to list and create zero or more `Alert{` entities.  This path contains a `GET` and `POST` operation to perform the list and create tasks, respectively.",
+      "get" : {
+        "tags" : [ "Alert" ],
+        "summary" : "List All Alert{S",
+        "description" : "Gets a list of all `Alert{` entities.",
+        "operationId" : "getAlert{S",
+        "responses" : {
+          "200" : {
+            "description" : "Successful response - returns an array of `Alert{` entities.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Alert"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "Alert" ],
+        "summary" : "Create a Alert{",
+        "description" : "Creates a new instance of a `Alert{`.",
+        "operationId" : "createAlert{",
+        "requestBody" : {
+          "description" : "A new `Alert{` to be created.",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Alert"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "201" : {
+            "description" : "Successful response."
+          }
+        }
+      }
+    },
+    "/alert/{alertId}" : {
+      "summary" : "Path used to manage a single Alert.",
+      "description" : "The REST endpoint/path used to get, update, and delete single instances of an `Alert`.  This path contains `GET`, `PUT`, and `DELETE` operations used to perform the get, update, and delete tasks, respectively.",
+      "get" : {
+        "tags" : [ "Alert" ],
+        "summary" : "Get a Alert",
+        "description" : "Gets the details of a single instance of a `Alert`.",
+        "operationId" : "getAlert",
+        "responses" : {
+          "200" : {
+            "description" : "Successful response - returns a single `Alert`.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Alert"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "Alert" ],
+        "summary" : "Update a Alert",
+        "description" : "Updates an existing `Alert`.",
+        "operationId" : "updateAlert",
+        "requestBody" : {
+          "description" : "Updated `Alert` information.",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Alert"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "202" : {
+            "description" : "Successful response."
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "Alert" ],
+        "summary" : "Delete a Alert",
+        "description" : "Deletes an existing `Alert`.",
+        "operationId" : "deleteAlert",
+        "responses" : {
+          "204" : {
+            "description" : "Successful response."
+          }
+        }
+      },
+      "parameters" : [ {
+        "name" : "alertId",
+        "in" : "path",
+        "description" : "A unique identifier for a `Alert`.",
         "required" : true,
         "schema" : {
           "type" : "string"
@@ -511,7 +640,7 @@
             "type" : "string"
           }
         },
-        "example" : "{\n    \"id\": \"string\",\n    \"created_at\": \"string\",\n    \"update_at\": \"string\",\n    \"remove_at\": \"string\",\n    \"title\": \"string\",\n    \"owner_ref\": \"string\"\n}"
+        "example" : "{\n    \"id\":\"1dfb5823-0cd3-4b3a-a266-bb8b0ed2cd9d\",\n    \"created_at\":\"2018-10-27T04:39:43Z\",\n    \"updated_at\":\"2018-10-27T04:45:43Z\",\n    \"deleted_at\":\"2018-10-27T05:56:56Z\",\n    \"title\":\"vainqueur des Poèmes de l'année 2089\",\n    \"owner_ref\": \"0f2d353b-9dc4-4616-baf4-b84e57403960\"\n}"
       },
       "Activity" : {
         "title" : "Root Type for Activity",
@@ -542,7 +671,36 @@
         },
         "example" : "{\n    \"id\": \"string\",\n    \"created_at\": \"string\",\n    \"update_at\": \"string\",\n    \"remove_at\": \"string\",\n    \"message\": \"string\",\n    \"type\": \"string\",\n    \"owner_ref\": \"string\"\n}"
       },
-      "tag" : {
+      "Alert" : {
+        "title" : "Root Type for Alert{",
+        "description" : "The root of the Alert{ type's schema.",
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "string"
+          },
+          "created_at" : {
+            "format" : "date-time",
+            "type" : "string"
+          },
+          "updated_at" : {
+            "format" : "date-time",
+            "type" : "string"
+          },
+          "deleted_at" : {
+            "format" : "date-time",
+            "type" : "string"
+          },
+          "type" : {
+            "type" : "string"
+          },
+          "details" : {
+            "type" : "string"
+          }
+        },
+        "example" : "{\n    \"id\":\"1dfb5823-0cd3-4b3a-a266-bb8b0ed2cd9d\",\n    \"created_at\":\"2018-10-27T04:39:43Z\",\n    \"updated_at\":\"2018-10-27T04:45:43Z\",\n    \"deleted_at\":\"2018-10-27T05:56:56Z\",\n    \"type\":\"plagiat\",\n    \"details\":\"plagiat d'une chanson de Brel\",\n    \"user_ref\": \"0f2d353b-9dc4-4616-baf4-b84e57403960\"\n}"
+      },
+      "Tag" : {
         "title" : "Root Type for tag",
         "description" : "The root of the tag type's schema.",
         "type" : "object",
@@ -578,6 +736,18 @@
   },
   "tags" : [ {
     "name" : "User",
+    "description" : ""
+  }, {
+    "name" : "Tag",
+    "description" : ""
+  }, {
+    "name" : "Achievement",
+    "description" : ""
+  }, {
+    "name" : "Activity",
+    "description" : ""
+  }, {
+    "name" : "Alert",
     "description" : ""
   } ]
 }
