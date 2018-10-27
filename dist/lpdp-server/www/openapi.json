@@ -1,8 +1,17 @@
 {
   "openapi" : "3.0.2",
   "info" : {
-    "title" : "lpdp",
+    "title" : "API for \"La Passion des poèmes\" website",
     "description" : "api of website La Passion des poèmes",
+    "contact" : {
+      "name" : "eGenGuru LPDP team",
+      "url" : "https://egen.guru",
+      "email" : "teamLPDP@egen.guru"
+    },
+    "license" : {
+      "name" : "GNU GPLv3",
+      "url" : "https://www.gnu.org/licenses/gpl.txt"
+    },
     "version" : "1.0.0"
   },
   "paths" : {
@@ -10,9 +19,30 @@
       "summary" : "Path used to manage the list of Users.",
       "description" : "The REST endpoint/path used to list and create zero or more `User` entities.  This path contains a `GET` and `POST` operation to perform the list and create tasks, respectively.",
       "get" : {
+        "tags" : [ "User" ],
         "summary" : "List All Users",
         "description" : "Gets a list of all `User` entities.",
         "operationId" : "getUsers",
+        "parameters" : [ {
+          "name" : "filter",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          }
+        }, {
+          "name" : "order",
+          "in" : "query",
+          "schema" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          }
+        } ],
         "responses" : {
           "200" : {
             "description" : "Successful response - returns an array of `User` entities.",
@@ -30,6 +60,7 @@
         }
       },
       "post" : {
+        "tags" : [ "User" ],
         "summary" : "Create a User",
         "description" : "Creates a new instance of a `User`.",
         "operationId" : "createUser",
@@ -323,6 +354,112 @@
           "type" : "string"
         }
       } ]
+    },
+    "/tags" : {
+      "summary" : "Path used to manage the list of tags.",
+      "description" : "The REST endpoint/path used to list and create zero or more `tag` entities.  This path contains a `GET` and `POST` operation to perform the list and create tasks, respectively.",
+      "get" : {
+        "summary" : "List All tags",
+        "description" : "Gets a list of all `tag` entities.",
+        "operationId" : "gettags",
+        "responses" : {
+          "200" : {
+            "description" : "Successful response - returns an array of `tag` entities.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/tag"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "summary" : "Create a tag",
+        "description" : "Creates a new instance of a `tag`.",
+        "operationId" : "createtag",
+        "requestBody" : {
+          "description" : "A new `tag` to be created.",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/tag"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "201" : {
+            "description" : "Successful response."
+          }
+        }
+      }
+    },
+    "/tags/{tagId}" : {
+      "summary" : "Path used to manage a single tag.",
+      "description" : "The REST endpoint/path used to get, update, and delete single instances of an `tag`.  This path contains `GET`, `PUT`, and `DELETE` operations used to perform the get, update, and delete tasks, respectively.",
+      "get" : {
+        "summary" : "Get a tag",
+        "description" : "Gets the details of a single instance of a `tag`.",
+        "operationId" : "gettag",
+        "responses" : {
+          "200" : {
+            "description" : "Successful response - returns a single `tag`.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/tag"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put" : {
+        "summary" : "Update a tag",
+        "description" : "Updates an existing `tag`.",
+        "operationId" : "updatetag",
+        "requestBody" : {
+          "description" : "Updated `tag` information.",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/tag"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "202" : {
+            "description" : "Successful response."
+          }
+        }
+      },
+      "delete" : {
+        "summary" : "Delete a tag",
+        "description" : "Deletes an existing `tag`.",
+        "operationId" : "deletetag",
+        "responses" : {
+          "204" : {
+            "description" : "Successful response."
+          }
+        }
+      },
+      "parameters" : [ {
+        "name" : "tagId",
+        "in" : "path",
+        "description" : "A unique identifier for a `tag`.",
+        "required" : true,
+        "schema" : {
+          "type" : "string"
+        }
+      } ]
     }
   },
   "components" : {
@@ -404,7 +541,43 @@
           }
         },
         "example" : "{\n    \"id\": \"string\",\n    \"created_at\": \"string\",\n    \"update_at\": \"string\",\n    \"remove_at\": \"string\",\n    \"message\": \"string\",\n    \"type\": \"string\",\n    \"owner_ref\": \"string\"\n}"
+      },
+      "tag" : {
+        "title" : "Root Type for tag",
+        "description" : "The root of the tag type's schema.",
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "string"
+          },
+          "code" : {
+            "type" : "string"
+          },
+          "label" : {
+            "type" : "string"
+          },
+          "enabled" : {
+            "type" : "string"
+          },
+          "start_at" : {
+            "type" : "string"
+          },
+          "closed_at" : {
+            "type" : "string"
+          },
+          "type" : {
+            "type" : "string"
+          },
+          "mature" : {
+            "type" : "string"
+          }
+        },
+        "example" : "{\n    \"id\": \"string\",\n    \"code\": \"string\",\n    \"label\": \"string\",\n    \"enabled\": \"boolean\",\n    \"start_at\": \"string\",\n    \"closed_at\": \"string\",\n    \"type\": \"string\",\n    \"mature\": \"boolean\"\n}"
       }
     }
-  }
+  },
+  "tags" : [ {
+    "name" : "User",
+    "description" : ""
+  } ]
 }
