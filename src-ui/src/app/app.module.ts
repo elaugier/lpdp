@@ -38,6 +38,8 @@ import { MgmtPaymentsComponent } from './mgmt-payments/mgmt-payments.component';
 import { MgmtVotingsComponent } from './mgmt-votings/mgmt-votings.component';
 import { MyPaymentsComponent } from './my-payments/my-payments.component';
 import { LoginComponent } from './login/login.component';
+import { GraphQLModule } from './graphql.module';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -79,7 +81,7 @@ import { LoginComponent } from './login/login.component';
     BrowserModule,
     AppRoutingModule,
     FormsModule,      // using FormsModule is optional
-    MaterialModule
+    MaterialModule, GraphQLModule, HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
