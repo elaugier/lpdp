@@ -3,8 +3,10 @@
 @set LDFLAGS=-w -s -X main.Version=%VERSION%
 @echo ldflags = %LDFLAGS%
 rem go clean -r -x -cache
+cd pkg
 go build ./...
 go install ./...
+cd ..
 go env
 go build -v -ldflags "%LDFLAGS%" -o dist\lpdp-server\win-lpdp-server.exe cmd\lpdp-server\main.go
 set GOOS=linux
