@@ -294,6 +294,7 @@ func BackendRouter(logger *log.Logger) http.Handler {
 	return router
 }
 
+// Handler ...
 func Handler() gin.HandlerFunc {
 
 	schema, err := graphql.NewSchema(graphql.SchemaConfig{})
