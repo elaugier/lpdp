@@ -22,8 +22,23 @@ func GetSchema() (graphql.Schema, error) {
 				Type:        graphql.NewNonNull(graphql.DateTime),
 				Description: "creation date of user",
 			},
+			"UpdatedAt": &graphql.Field{
+				Type:        graphql.NewNonNull(graphql.DateTime),
+				Description: "update date of user",
+			},
 		},
 	})
 
-	return graphql.NewSchema(graphql.SchemaConfig{})
+	queryType := graphql.NewObject(graphql.ObjectConfig{
+		Name: "Query",
+		Fields: graphql.Fields{
+			"user": &graphql.Field{
+				Type: userInterface,
+			},
+		},
+	})
+
+	return graphql.NewSchema(graphql.SchemaConfig{
+		Query: queryType,
+	})
 }
