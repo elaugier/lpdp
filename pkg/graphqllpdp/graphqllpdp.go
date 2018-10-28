@@ -77,6 +77,123 @@ func GetSchema() (graphql.Schema, error) {
 		},
 	})
 
+	alertInterface := graphql.NewInterface(graphql.InterfaceConfig{
+		Name:        "Alert",
+		Description: "Alert for LPDP Post or Comment",
+		Fields: graphql.Fields{
+			"ID": &graphql.Field{
+				Type:        graphql.NewNonNull(graphql.String),
+				Description: "alert id",
+			},
+			"CreatedAt": &graphql.Field{
+				Type:        graphql.NewNonNull(graphql.DateTime),
+				Description: "creation date of alert",
+			},
+			"UpdatedAt": &graphql.Field{
+				Type:        graphql.NewNonNull(graphql.DateTime),
+				Description: "update date of alert",
+			},
+			"DeletedAt": &graphql.Field{
+				Type:        graphql.NewNonNull(graphql.DateTime),
+				Description: "deletion date of alert",
+			},
+			"Type": &graphql.Field{
+				Type:        graphql.String,
+				Description: "type of alert",
+			},
+			"Details": &graphql.Field{
+				Type:        graphql.String,
+				Description: "Details of alert",
+			},
+			"PostRef": &graphql.Field{
+				Type:        graphql.String,
+				Description: "post targeted by the alert",
+			},
+			"CommentRef": &graphql.Field{
+				Type:        graphql.String,
+				Description: "comment targeted of alert",
+			},
+			"UserRef": &graphql.Field{
+				Type:        graphql.String,
+				Description: "owner of alert",
+			},
+		},
+	})
+
+	alertActionInterface := graphql.NewInterface(graphql.InterfaceConfig{
+		Name:        "AlertAction",
+		Description: "Alert action for LPDP Alert",
+		Fields: graphql.Fields{
+			"ID": &graphql.Field{
+				Type:        graphql.NewNonNull(graphql.String),
+				Description: "alert action id",
+			},
+			"CreatedAt": &graphql.Field{
+				Type:        graphql.NewNonNull(graphql.DateTime),
+				Description: "creation date of alert action",
+			},
+			"UpdatedAt": &graphql.Field{
+				Type:        graphql.NewNonNull(graphql.DateTime),
+				Description: "update date of alert action",
+			},
+			"DeletedAt": &graphql.Field{
+				Type:        graphql.NewNonNull(graphql.DateTime),
+				Description: "deletion date of alert action",
+			},
+			"Title": &graphql.Field{
+				Type:        graphql.String,
+				Description: "title of alert action",
+			},
+			"Details": &graphql.Field{
+				Type:        graphql.String,
+				Description: "Details of alert action",
+			},
+			"AlertRef": &graphql.Field{
+				Type:        graphql.String,
+				Description: "alert targeted by the alert action",
+			},
+			"UserRef": &graphql.Field{
+				Type:        graphql.String,
+				Description: "owner of alert action",
+			},
+		},
+	})
+
+	badgeInterface := graphql.NewInterface(graphql.InterfaceConfig{
+		Name:        "Badge",
+		Description: "Badge for LPDP Member",
+		Fields: graphql.Fields{
+			"ID": &graphql.Field{
+				Type:        graphql.NewNonNull(graphql.String),
+				Description: "badge id",
+			},
+			"CreatedAt": &graphql.Field{
+				Type:        graphql.NewNonNull(graphql.DateTime),
+				Description: "creation date of badge",
+			},
+			"UpdatedAt": &graphql.Field{
+				Type:        graphql.NewNonNull(graphql.DateTime),
+				Description: "update date of badge",
+			},
+			"DeletedAt": &graphql.Field{
+				Type:        graphql.NewNonNull(graphql.DateTime),
+				Description: "deletion date of badge",
+			},
+			"Message": &graphql.Field{
+				Type:        graphql.String,
+				Description: "message of badge",
+			},
+			"Type": &graphql.Field{
+				Type:        graphql.String,
+				Description: "type of badge",
+			},
+			"OwnerRef": &graphql.Field{
+				Type:        graphql.String,
+				Description: "owner of badge",
+			},
+		},
+	})
+
 	userInterface := graphql.NewInterface(graphql.InterfaceConfig{
 		Name:        "User",
 		Description: "Member of LPDP",
@@ -104,14 +221,38 @@ func GetSchema() (graphql.Schema, error) {
 		},
 	})
 
-	queryType := graphql.NewObject(graphql.ObjectConfig{
+	rootQuery := graphql.NewObject(graphql.ObjectConfig{
 		Name: "Query",
 		Fields: graphql.Fields{
+			"achievements": &graphql.Field{
+				Type: graphql.NewList(achievementInterface),
+			},
 			"achievement": &graphql.Field{
 				Type: achievementInterface,
 			},
 			"activity": &graphql.Field{
 				Type: activityInterface,
+			},
+			"alerts": &graphql.Field{
+				Type: graphql.NewList(alertInterface),
+			},
+			"alert": &graphql.Field{
+				Type: alertInterface,
+			},
+			"alertactions": &graphql.Field{
+				Type: graphql.NewList(alertActionInterface),
+			},
+			"alertaction": &graphql.Field{
+				Type: alertActionInterface,
+			},
+			"badges": &graphql.Field{
+				Type: graphql.NewList(badgeInterface),
+			},
+			"badge": &graphql.Field{
+				Type: badgeInterface,
+			},
+			"users": &graphql.Field{
+				Type: graphql.NewList(userInterface),
 			},
 			"user": &graphql.Field{
 				Type: userInterface,
@@ -119,7 +260,13 @@ func GetSchema() (graphql.Schema, error) {
 		},
 	})
 
+	rootMutation := graphql.NewObject(graphql.ObjectConfig{
+		Name:   "Mutation",
+		Fields: graphql.Fields{},
+	})
+
 	return graphql.NewSchema(graphql.SchemaConfig{
-		Query: queryType,
+		Query:    rootQuery,
+		Mutation: rootMutation,
 	})
 }
