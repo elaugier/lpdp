@@ -50,6 +50,12 @@ func GetSchema() (graphql.Schema, error) {
 			"badgeType": &graphql.Field{
 				Type: badgeTypeInterface(),
 			},
+			"badIPAddresses": &graphql.Field{
+				Type: graphql.NewList(badIPAddressInterface()),
+			},
+			"badIPAddress": &graphql.Field{
+				Type: badIPAddressInterface(),
+			},
 			"users": &graphql.Field{
 				Type: graphql.NewList(userInterface()),
 			},
@@ -60,8 +66,20 @@ func GetSchema() (graphql.Schema, error) {
 	})
 
 	rootMutation := graphql.NewObject(graphql.ObjectConfig{
-		Name:   "Mutation",
-		Fields: graphql.Fields{},
+		Name: "Mutation",
+		Fields: graphql.Fields{
+			"createAchievement": &graphql.Field{
+				Type: achievementInterface(),
+				Args: graphql.FieldConfigArgument{
+					"title": &graphql.ArgumentConfig{
+						Type: graphql.NewNonNull(graphql.String),
+					},
+					"owner_ref": &graphql.ArgumentConfig{
+						Type: graphql.NewNonNull(graphql.String),
+					},
+				},
+			},
+		},
 	})
 
 	return graphql.NewSchema(graphql.SchemaConfig{
