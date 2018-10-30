@@ -12,6 +12,7 @@ type BookPart struct {
 	CreatedAt time.Time `json:"created_at"`
 	UpdatedAt time.Time `json:"updated_at"`
 	DeletedAt time.Time `json:"deleted_at"`
+	Title     string    `json:"title"`
 	BookRef   uuid.UUID `sql:"type:uuid"`
 }
 

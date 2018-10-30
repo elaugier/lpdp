@@ -62,6 +62,12 @@ func GetSchema() (graphql.Schema, error) {
 			"book": &graphql.Field{
 				Type: bookInterface(),
 			},
+			"bookparts": &graphql.Field{
+				Type: graphql.NewList(bookPartInterface()),
+			},
+			"bookpart": &graphql.Field{
+				Type: bookPartInterface(),
+			},
 			"users": &graphql.Field{
 				Type: graphql.NewList(userInterface()),
 			},
