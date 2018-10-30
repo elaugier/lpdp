@@ -56,6 +56,12 @@ func GetSchema() (graphql.Schema, error) {
 			"badIPAddress": &graphql.Field{
 				Type: badIPAddressInterface(),
 			},
+			"books": &graphql.Field{
+				Type: graphql.NewList(bookInterface()),
+			},
+			"book": &graphql.Field{
+				Type: bookInterface(),
+			},
 			"users": &graphql.Field{
 				Type: graphql.NewList(userInterface()),
 			},
