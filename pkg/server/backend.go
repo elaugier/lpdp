@@ -1,10 +1,11 @@
 package server
 
 import (
-	"fmt"
+	"errors"
 	"log"
 	"net/http"
 
+	"github.com/elaugier/lpdp/pkg/logs"
 	"github.com/graphql-go/graphql"
 	"github.com/graphql-go/handler"
 
@@ -288,18 +289,23 @@ func BackendRouter(logger *log.Logger) http.Handler {
 	router.PUT("/warningtemplates/:id", warningtemplates.Modify)
 	router.DELETE("/warningtemplates/:id", warningtemplates.Remove)
 
-	h := Handler()
-	router.POST("/graphql", h)
+	h, err := Handler()
+	if err == nil {
+		router.POST("/graphql", h)
+	}
 
 	return router
 }
 
 // Handler ...
-func Handler() gin.HandlerFunc {
+func Handler() (gin.HandlerFunc, error) {
+
+	logger := logs.GetInstance()
 
 	schema, err := graphql.NewSchema(graphql.SchemaConfig{})
 	if err != nil {
-		panic(fmt.Sprintf("schema error : %s", "error"))
+		logger.Printf("error : %s", err)
+		return nil, errors.New("Error on loading Graphql Schema")
 	}
 
 	// Creates a GraphQL-go HTTP handler with the defined schema
@@ -310,5 +316,5 @@ func Handler() gin.HandlerFunc {
 
 	return func(c *gin.Context) {
 		h.ServeHTTP(c.Writer, c.Request)
-	}
+	}, nil
 }

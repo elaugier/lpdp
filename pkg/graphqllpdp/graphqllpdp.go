@@ -1,6 +1,7 @@
 package graphqllpdp
 
 import (
+	"github.com/elaugier/lpdp/pkg/db"
 	"github.com/graphql-go/graphql"
 )
 
@@ -73,6 +74,13 @@ func GetSchema() (graphql.Schema, error) {
 			},
 			"user": &graphql.Field{
 				Type: userInterface(),
+			},
+			"tags": &graphql.Field{
+				Type:    graphql.NewList(tagInterface()),
+				Resolve: db.GetTagsQuery,
+			},
+			"tag": &graphql.Field{
+				Type: tagInterface(),
 			},
 		},
 	})
