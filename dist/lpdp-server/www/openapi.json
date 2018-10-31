@@ -2,7 +2,7 @@
   "openapi" : "3.0.2",
   "info" : {
     "title" : "API for \"La Passion des poèmes\" website",
-    "description" : "api of website La Passion des poèmes",
+    "description" : "API of website La Passion des poèmes",
     "contact" : {
       "name" : "eGenGuru LPDP team",
       "url" : "https://egen.guru",
@@ -168,7 +168,10 @@
               }
             }
           }
-        }
+        },
+        "security" : [ {
+          "bearerAuth" : [ ]
+        } ]
       },
       "post" : {
         "tags" : [ "Achievement" ],
@@ -190,7 +193,10 @@
           "201" : {
             "description" : "Successful response."
           }
-        }
+        },
+        "security" : [ {
+          "bearerAuth" : [ ]
+        } ]
       }
     },
     "/achievements/{achievementId}" : {
@@ -212,7 +218,10 @@
               }
             }
           }
-        }
+        },
+        "security" : [ {
+          "bearerAuth" : [ ]
+        } ]
       },
       "put" : {
         "tags" : [ "Achievement" ],
@@ -234,7 +243,10 @@
           "202" : {
             "description" : "Successful response."
           }
-        }
+        },
+        "security" : [ {
+          "bearerAuth" : [ ]
+        } ]
       },
       "delete" : {
         "tags" : [ "Achievement" ],
@@ -245,7 +257,10 @@
           "204" : {
             "description" : "Successful response."
           }
-        }
+        },
+        "security" : [ {
+          "bearerAuth" : [ ]
+        } ]
       },
       "parameters" : [ {
         "name" : "achievementId",
@@ -731,6 +746,12 @@
           }
         },
         "example" : "{\n    \"id\": \"string\",\n    \"code\": \"string\",\n    \"label\": \"string\",\n    \"enabled\": \"boolean\",\n    \"start_at\": \"string\",\n    \"closed_at\": \"string\",\n    \"type\": \"string\",\n    \"mature\": \"boolean\"\n}"
+      }
+    },
+    "securitySchemes" : {
+      "bearerAuth" : {
+        "type" : "http",
+        "scheme" : "bearer"
       }
     }
   },
