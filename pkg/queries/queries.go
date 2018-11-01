@@ -47,5 +47,14 @@ func GetRootFields() graphql.Fields {
 			Type:    graphql.NewList(models.TagT),
 			Resolve: db.GetTagQuery,
 		},
+		"Warning": &graphql.Field{
+			Type: graphql.NewList(models.WarningT),
+		},
+		"WarningAction": &graphql.Field{
+			Type: graphql.NewList(models.WarningActionT),
+		},
+		"WarningTemplate": &graphql.Field{
+			Type: graphql.NewList(models.WarningTemplateT),
+		},
 	}
 }
