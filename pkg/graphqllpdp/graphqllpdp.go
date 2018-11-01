@@ -43,6 +43,9 @@ func GetSchema() (graphql.Schema, error) {
 			"BookPart": &graphql.Field{
 				Type: graphql.NewList(models.BookPartT),
 			},
+			"CoAuthor": &graphql.Field{
+				Type: graphql.NewList(models.CoAuthorT),
+			},
 			"User": &graphql.Field{
 				Type:    graphql.NewList(models.UserT),
 				Resolve: db.GetUserQuery,
