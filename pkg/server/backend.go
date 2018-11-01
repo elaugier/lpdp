@@ -11,6 +11,8 @@ import (
 
 	"github.com/elaugier/lpdp/pkg/controllers"
 	"github.com/elaugier/lpdp/pkg/middlewares"
+	"github.com/elaugier/lpdp/pkg/mutations"
+	"github.com/elaugier/lpdp/pkg/queries"
 	"github.com/gin-gonic/gin"
 )
 
@@ -302,7 +304,18 @@ func Handler() (gin.HandlerFunc, error) {
 
 	logger := logs.GetInstance()
 
-	schema, err := graphql.NewSchema(graphql.SchemaConfig{})
+	schemaConfig := graphql.SchemaConfig{
+		Query: graphql.NewObject(graphql.ObjectConfig{
+			Name:   "RootQuery",
+			Fields: queries.GetRootFields(),
+		}),
+		Mutation: graphql.NewObject(graphql.ObjectConfig{
+			Name:   "RootMutation",
+			Fields: mutations.GetRootFields(),
+		}),
+	}
+
+	schema, err := graphql.NewSchema(schemaConfig)
 	if err != nil {
 		logger.Printf("error : %s", err)
 		return nil, errors.New("Error on loading Graphql Schema")
