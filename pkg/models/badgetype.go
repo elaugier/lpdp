@@ -3,6 +3,8 @@ package models
 import (
 	"time"
 
+	"github.com/graphql-go/graphql"
+
 	"github.com/google/uuid"
 )
 
@@ -20,3 +22,31 @@ type BadgeType struct {
 func (BadgeType) TableName() string {
 	return "badgetypes"
 }
+
+//BadgeTypeT ...
+var BadgeTypeT = graphql.NewObject(graphql.ObjectConfig{
+	Name:        "BadgeType",
+	Description: "Badge Type",
+	Fields: graphql.Fields{
+		"ID": &graphql.Field{
+			Type:        graphql.NewNonNull(graphql.String),
+			Description: "badge type id",
+		},
+		"CreatedAt": &graphql.Field{
+			Type:        graphql.NewNonNull(graphql.DateTime),
+			Description: "creation date of badge type",
+		},
+		"UpdatedAt": &graphql.Field{
+			Type:        graphql.NewNonNull(graphql.DateTime),
+			Description: "update date of badge type",
+		},
+		"DeletedAt": &graphql.Field{
+			Type:        graphql.NewNonNull(graphql.DateTime),
+			Description: "deletion date of badge type",
+		},
+		"Title": &graphql.Field{
+			Type:        graphql.String,
+			Description: "title of badge type",
+		},
+	},
+})

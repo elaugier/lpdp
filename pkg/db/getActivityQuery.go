@@ -5,11 +5,11 @@ import (
 	"github.com/graphql-go/graphql"
 )
 
-//GetTagsQuery ...
-func GetTagsQuery(params graphql.ResolveParams) (interface{}, error) {
-	var tags []models.Tag
+//GetActivityQuery ...
+func GetActivityQuery(params graphql.ResolveParams) (interface{}, error) {
+	var activities []models.Activity
 
 	// ... Implémenter la logique de base de données ici
 
-	return tags, nil
+	return activities, nil
 }

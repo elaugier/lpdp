@@ -3,6 +3,8 @@ package models
 import (
 	"time"
 
+	"github.com/graphql-go/graphql"
+
 	"github.com/google/uuid"
 )
 
@@ -42,6 +44,34 @@ type User struct {
 func (User) TableName() string {
 	return "users"
 }
+
+//UserT ...
+var UserT = graphql.NewObject(graphql.ObjectConfig{
+	Name:        "User",
+	Description: "Member of LPDP",
+	Fields: graphql.Fields{
+		"ID": &graphql.Field{
+			Type:        graphql.NewNonNull(graphql.String),
+			Description: "user id",
+		},
+		"CreatedAt": &graphql.Field{
+			Type:        graphql.NewNonNull(graphql.DateTime),
+			Description: "creation date of user",
+		},
+		"UpdatedAt": &graphql.Field{
+			Type:        graphql.NewNonNull(graphql.DateTime),
+			Description: "update date of user",
+		},
+		"DeletedAt": &graphql.Field{
+			Type:        graphql.NewNonNull(graphql.DateTime),
+			Description: "deletion date of user",
+		},
+		"Email": &graphql.Field{
+			Type:        graphql.String,
+			Description: "email address of user",
+		},
+	},
+})
 
 //UserRole ...
 type UserRole int

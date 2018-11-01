@@ -2,6 +2,7 @@ package graphqllpdp
 
 import (
 	"github.com/elaugier/lpdp/pkg/db"
+	"github.com/elaugier/lpdp/pkg/models"
 	"github.com/graphql-go/graphql"
 )
 
@@ -13,83 +14,51 @@ var (
 func GetSchema() (graphql.Schema, error) {
 
 	rootQuery := graphql.NewObject(graphql.ObjectConfig{
-		Name: "Query",
+		Name: "RootQuery",
 		Fields: graphql.Fields{
-			"achievements": &graphql.Field{
-				Type: graphql.NewList(achievementInterface()),
+			"Achievement": &graphql.Field{
+				Type: graphql.NewList(models.AchievementT),
 			},
-			"achievement": &graphql.Field{
-				Type: achievementInterface(),
+			"Activity": &graphql.Field{
+				Type: graphql.NewList(models.ActivityT),
 			},
-			"activities": &graphql.Field{
-				Type: graphql.NewList(activityInterface()),
+			"Alert": &graphql.Field{
+				Type: graphql.NewList(models.AlertT),
 			},
-			"activity": &graphql.Field{
-				Type: activityInterface(),
+			"AlertAction": &graphql.Field{
+				Type: graphql.NewList(models.AlertActionT),
 			},
-			"alerts": &graphql.Field{
-				Type: graphql.NewList(alertInterface()),
+			"Badge": &graphql.Field{
+				Type: graphql.NewList(models.BadgeT),
 			},
-			"alert": &graphql.Field{
-				Type: alertInterface(),
+			"BadgeType": &graphql.Field{
+				Type: graphql.NewList(models.BadgeTypeT),
 			},
-			"alertactions": &graphql.Field{
-				Type: graphql.NewList(alertActionInterface()),
+			"BadIPAddress": &graphql.Field{
+				Type: graphql.NewList(models.BadIPAddressT),
 			},
-			"alertaction": &graphql.Field{
-				Type: alertActionInterface(),
+			"Book": &graphql.Field{
+				Type: graphql.NewList(models.BookT),
 			},
-			"badges": &graphql.Field{
-				Type: graphql.NewList(badgeInterface()),
+			"BookPart": &graphql.Field{
+				Type: graphql.NewList(models.BookPartT),
 			},
-			"badge": &graphql.Field{
-				Type: badgeInterface(),
+			"User": &graphql.Field{
+				Type:    graphql.NewList(models.UserT),
+				Resolve: db.GetUserQuery,
 			},
-			"badgeTypes": &graphql.Field{
-				Type: graphql.NewList(badgeTypeInterface()),
-			},
-			"badgeType": &graphql.Field{
-				Type: badgeTypeInterface(),
-			},
-			"badIPAddresses": &graphql.Field{
-				Type: graphql.NewList(badIPAddressInterface()),
-			},
-			"badIPAddress": &graphql.Field{
-				Type: badIPAddressInterface(),
-			},
-			"books": &graphql.Field{
-				Type: graphql.NewList(bookInterface()),
-			},
-			"book": &graphql.Field{
-				Type: bookInterface(),
-			},
-			"bookparts": &graphql.Field{
-				Type: graphql.NewList(bookPartInterface()),
-			},
-			"bookpart": &graphql.Field{
-				Type: bookPartInterface(),
-			},
-			"users": &graphql.Field{
-				Type: graphql.NewList(userInterface()),
-			},
-			"user": &graphql.Field{
-				Type: userInterface(),
-			},
-			"tags": &graphql.Field{
-				Type:    graphql.NewList(tagInterface()),
-				Resolve: db.GetTagsQuery,
-			},
-			"tag": &graphql.Field{
-				Type: tagInterface(),
+			"Tag": &graphql.Field{
+				Type:    graphql.NewList(models.TagT),
+				Resolve: db.GetTagQuery,
 			},
 		},
 	})
 
 	rootMutation := graphql.NewObject(graphql.ObjectConfig{
-		Name: "Mutation",
+		Name: "RootMutation",
 		Fields: graphql.Fields{
 			"createAchievement": &graphql.Field{
-				Type: achievementInterface(),
+				Type: models.AchievementT,
 				Args: graphql.FieldConfigArgument{
 					"title": &graphql.ArgumentConfig{
 						Type: graphql.NewNonNull(graphql.String),

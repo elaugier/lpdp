@@ -4,6 +4,7 @@ import (
 	"time"
 
 	"github.com/google/uuid"
+	"github.com/graphql-go/graphql"
 )
 
 //Activity ...
@@ -21,3 +22,39 @@ type Activity struct {
 func (Activity) TableName() string {
 	return "activities"
 }
+
+//ActivityT ...
+var ActivityT = graphql.NewObject(graphql.ObjectConfig{
+	Name:        "Activity",
+	Description: "Activity for LPDP Member",
+	Fields: graphql.Fields{
+		"ID": &graphql.Field{
+			Type:        graphql.NewNonNull(graphql.String),
+			Description: "activity id",
+		},
+		"CreatedAt": &graphql.Field{
+			Type:        graphql.NewNonNull(graphql.DateTime),
+			Description: "creation date of activity",
+		},
+		"UpdatedAt": &graphql.Field{
+			Type:        graphql.NewNonNull(graphql.DateTime),
+			Description: "update date of activity",
+		},
+		"DeletedAt": &graphql.Field{
+			Type:        graphql.NewNonNull(graphql.DateTime),
+			Description: "deletion date of activity",
+		},
+		"Message": &graphql.Field{
+			Type:        graphql.String,
+			Description: "message of activity",
+		},
+		"Type": &graphql.Field{
+			Type:        graphql.String,
+			Description: "type of activity",
+		},
+		"OwnerRef": &graphql.Field{
+			Type:        graphql.String,
+			Description: "owner of activity",
+		},
+	},
+})
