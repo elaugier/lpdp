@@ -169,7 +169,7 @@
             }
           }
         },
-        "security" : [ {
+        "security" : [ { }, {
           "bearerAuth" : [ ]
         } ]
       },
@@ -294,7 +294,10 @@
               }
             }
           }
-        }
+        },
+        "security" : [ { }, {
+          "bearerAuth" : [ ]
+        } ]
       },
       "post" : {
         "tags" : [ "Activity" ],
