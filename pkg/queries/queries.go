@@ -43,6 +43,9 @@ func GetRootFields() graphql.Fields {
 			Type:    graphql.NewList(models.UserT),
 			Resolve: db.GetUserQuery,
 		},
+		"Section": &graphql.Field{
+			Type: graphql.NewList(models.SectionT),
+		},
 		"Tag": &graphql.Field{
 			Type:    graphql.NewList(models.TagT),
 			Resolve: db.GetTagQuery,

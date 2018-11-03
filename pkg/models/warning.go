@@ -13,6 +13,7 @@ type Warning struct {
 	CreatedAt          time.Time       `json:"created_at"`
 	UpdatedAt          time.Time       `json:"updated_at"`
 	DeletedAt          time.Time       `json:"deleted_at"`
+	Status             string          `gorm:"type:varchar(10)" json:"status"`
 	WarningTemplateRef uuid.UUID       `json:"warning_template_ref"`
 	WarningActions     []WarningAction `gorm:"foreignkey:WarningRef"`
 }
@@ -42,6 +43,10 @@ var WarningT = graphql.NewObject(graphql.ObjectConfig{
 		"DeletedAt": &graphql.Field{
 			Type:        graphql.NewNonNull(graphql.DateTime),
 			Description: "deletion date",
+		},
+		"Status": &graphql.Field{
+			Type:        graphql.NewNonNull(graphql.String),
+			Description: "Status",
 		},
 		"WarningTemplateRef": &graphql.Field{
 			Type:        graphql.NewNonNull(graphql.String),
