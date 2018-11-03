@@ -19,5 +19,8 @@ func GetRootFields() graphql.Fields {
 				},
 			},
 		},
+		"createSection": &graphql.Field{
+			Type: models.SectionT,
+		},
 	}
 }
