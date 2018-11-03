@@ -10,13 +10,16 @@ import (
 func GetRootFields() graphql.Fields {
 	return graphql.Fields{
 		"Achievement": &graphql.Field{
-			Type: graphql.NewList(models.AchievementT),
+			Type:    graphql.NewList(models.AchievementT),
+			Resolve: db.GetAchievementQuery,
 		},
 		"Activity": &graphql.Field{
-			Type: graphql.NewList(models.ActivityT),
+			Type:    graphql.NewList(models.ActivityT),
+			Resolve: db.GetActivityQuery,
 		},
 		"Alert": &graphql.Field{
-			Type: graphql.NewList(models.AlertT),
+			Type:    graphql.NewList(models.AlertT),
+			Resolve: db.GetAlertQuery,
 		},
 		"AlertAction": &graphql.Field{
 			Type: graphql.NewList(models.AlertActionT),
@@ -44,7 +47,8 @@ func GetRootFields() graphql.Fields {
 			Resolve: db.GetUserQuery,
 		},
 		"Section": &graphql.Field{
-			Type: graphql.NewList(models.SectionT),
+			Type:    graphql.NewList(models.SectionT),
+			Resolve: db.GetSectionQuery,
 		},
 		"Tag": &graphql.Field{
 			Type:    graphql.NewList(models.TagT),
