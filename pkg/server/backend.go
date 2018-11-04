@@ -152,6 +152,13 @@ func BackendRouter(logger *log.Logger) http.Handler {
 	router.PUT("/correctionrequestactions/:id", correctionrequestactions.Modify)
 	router.DELETE("/correctionrequestactions/:id", correctionrequestactions.Remove)
 
+	exitreasons := new(controllers.ExitReasonsController)
+	router.GET("/exitreasons/:id", exitreasons.Get)
+	router.GET("/exitreasons", exitreasons.List)
+	router.POST("/exitreasons", exitreasons.Add)
+	router.PUT("/exitreasons/:id", exitreasons.Modify)
+	router.DELETE("/exitreasons/:id", exitreasons.Remove)
+
 	iphistories := new(controllers.IPHistoriesController)
 	router.GET("/iphistories/:id", iphistories.Get)
 	router.GET("/iphistories", iphistories.List)

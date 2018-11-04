@@ -84,6 +84,7 @@ func (i Instance) DatabaseInitialization() {
 		&models.ContestRound{},
 		&models.CorrectionRequest{},
 		&models.CorrectionRequestAction{},
+		&models.ExitReason{},
 		&models.IPHistory{},
 		&models.JudgingPanel{},
 		&models.JudgingPanelMember{},
