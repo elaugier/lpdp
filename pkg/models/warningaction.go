@@ -13,6 +13,8 @@ type WarningAction struct {
 	CreatedAt  time.Time `json:"created_at"`
 	UpdatedAt  time.Time `json:"updated_at"`
 	DeletedAt  time.Time `json:"deleted_at"`
+	Message    string    `json:"message"`
+	ActionType string    `json:"action_type"`
 	WarningRef uuid.UUID `json:"warning_ref"`
 }
 
@@ -41,6 +43,14 @@ var WarningActionT = graphql.NewObject(graphql.ObjectConfig{
 		"DeletedAt": &graphql.Field{
 			Type:        graphql.NewNonNull(graphql.DateTime),
 			Description: "deletion date",
+		},
+		"Message": &graphql.Field{
+			Type:        graphql.NewNonNull(graphql.String),
+			Description: "Message of the action",
+		},
+		"ActionType": &graphql.Field{
+			Type:        graphql.NewNonNull(graphql.String),
+			Description: "Type of action",
 		},
 		"WarningRef": &graphql.Field{
 			Type:        graphql.NewNonNull(graphql.String),
