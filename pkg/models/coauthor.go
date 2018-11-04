@@ -14,8 +14,8 @@ type CoAuthor struct {
 	CreatedAt   time.Time `json:"created_at"`
 	UpdatedAt   time.Time `json:"updated_at"`
 	DeletedAt   time.Time `json:"deleted_at"`
-	CoAuthorRef uuid.UUID `json:"coauthor_ref"`
-	PostRef     uuid.UUID `json:"post_ref"`
+	CoAuthorRef uuid.UUID `sql:"type:uuid" json:"coauthor_ref"`
+	PostRef     uuid.UUID `sql:"type:uuid" json:"post_ref"`
 }
 
 //TableName ...
