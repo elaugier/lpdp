@@ -23,6 +23,7 @@ type User struct {
 	Pseudo             string              `gorm:"type:varchar(100);unique_index" json:"pseudo"`
 	BirthDate          time.Time           `json:"birthdate"`
 	Gender             uint                `json:"gender"`
+	TimeZone           string              `gorm:"type:varchar(100)" json:"time_zone"`
 	PostalAddress      string              `gorm:"type:varchar(100)" json:"postal_address"`
 	PostalAddress2     string              `gorm:"type:varchar(100)" json:"postal_address_2"`
 	Job                string              `gorm:"type:varchar(100)" json:"job"`
@@ -104,6 +105,10 @@ var UserT = graphql.NewObject(graphql.ObjectConfig{
 		"Gender": &graphql.Field{
 			Type:        graphql.Int,
 			Description: "User gender",
+		},
+		"TimeZone": &graphql.Field{
+			Type:        graphql.String,
+			Description: "User time zone",
 		},
 		"PostalAddress": &graphql.Field{
 			Type:        graphql.String,
