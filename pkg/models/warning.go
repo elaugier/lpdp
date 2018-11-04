@@ -14,7 +14,7 @@ type Warning struct {
 	UpdatedAt          time.Time       `json:"updated_at"`
 	DeletedAt          time.Time       `json:"deleted_at"`
 	Status             string          `gorm:"type:varchar(10)" json:"status"`
-	WarningTemplateRef uuid.UUID       `json:"warning_template_ref"`
+	WarningTemplateRef uuid.UUID       `sql:"type:uuid" json:"warning_template_ref"`
 	WarningActions     []WarningAction `gorm:"foreignkey:WarningRef"`
 }
 

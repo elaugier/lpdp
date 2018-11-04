@@ -15,7 +15,7 @@ type BookPart struct {
 	UpdatedAt time.Time `json:"updated_at"`
 	DeletedAt time.Time `json:"deleted_at"`
 	Title     string    `json:"title"`
-	BookRef   uuid.UUID `sql:"type:uuid"`
+	BookRef   uuid.UUID `sql:"type:uuid" json:"book_ref"`
 }
 
 //TableName ...

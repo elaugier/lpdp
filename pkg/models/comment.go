@@ -13,7 +13,7 @@ type Comment struct {
 	UpdatedAt time.Time `json:"updated_at"`
 	DeletedAt time.Time `json:"deleted_at"`
 	Content   string    `sql:"type:text"`
-	AuthorRef uuid.UUID `sql:"type:uuid"`
+	AuthorRef uuid.UUID `sql:"type:uuid" json:"author_ref"`
 	Likes     []Like    `gorm:"foreignkey:CommentRef"`
 }
 

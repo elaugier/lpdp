@@ -15,7 +15,7 @@ type WarningAction struct {
 	DeletedAt  time.Time `json:"deleted_at"`
 	Message    string    `json:"message"`
 	ActionType string    `json:"action_type"`
-	WarningRef uuid.UUID `json:"warning_ref"`
+	WarningRef uuid.UUID `sql:"type:uuid" json:"warning_ref"`
 }
 
 //TableName ...
