@@ -300,6 +300,7 @@ func BackendRouter(logger *log.Logger) http.Handler {
 
 	h, err := Handler()
 	if err == nil {
+		router.GET("/graphql", h)
 		router.POST("/graphql", h)
 	}
 
@@ -313,12 +314,14 @@ func Handler() (gin.HandlerFunc, error) {
 
 	schemaConfig := graphql.SchemaConfig{
 		Query: graphql.NewObject(graphql.ObjectConfig{
-			Name:   "RootQuery",
-			Fields: queries.GetRootFields(),
+			Name:        "RootQuery",
+			Fields:      queries.GetRootFields(),
+			Description: "Root for all queries.",
 		}),
 		Mutation: graphql.NewObject(graphql.ObjectConfig{
-			Name:   "RootMutation",
-			Fields: mutations.GetRootFields(),
+			Name:        "RootMutation",
+			Fields:      mutations.GetRootFields(),
+			Description: "Root of all mutations",
 		}),
 	}
 
@@ -330,8 +333,9 @@ func Handler() (gin.HandlerFunc, error) {
 
 	// Creates a GraphQL-go HTTP handler with the defined schema
 	h := handler.New(&handler.Config{
-		Schema: &schema,
-		Pretty: true,
+		Schema:   &schema,
+		Pretty:   true,
+		GraphiQL: true,
 	})
 
 	return func(c *gin.Context) {

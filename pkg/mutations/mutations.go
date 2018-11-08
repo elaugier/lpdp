@@ -18,9 +18,20 @@ func GetRootFields() graphql.Fields {
 					Type: graphql.NewNonNull(graphql.String),
 				},
 			},
+			Description: "Create a new achievement.",
 		},
 		"createSection": &graphql.Field{
 			Type: models.SectionT,
+		},
+		"updateAchievement": &graphql.Field{
+			Type: models.AchievementT,
+			Args: graphql.FieldConfigArgument{
+				"id": &graphql.ArgumentConfig{
+					Type:        graphql.NewNonNull(graphql.String),
+					Description: "id of the achievement",
+				},
+			},
+			Description: "Delete an achievement.",
 		},
 	}
 }
