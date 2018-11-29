@@ -3,6 +3,8 @@ package models
 import (
 	"time"
 
+	"github.com/graphql-go/graphql"
+
 	"github.com/google/uuid"
 )
 
@@ -27,3 +29,30 @@ type Post struct {
 func (Post) TableName() string {
 	return "posts"
 }
+
+var PostT = graphql.NewObject(graphql.ObjectConfig{
+	Name:        "Post",
+	Description: "Post",
+	Fields: graphql.Fields{
+		"ID": &graphql.Field{
+			Type:        graphql.NewNonNull(graphql.String),
+			Description: "Post Identifier",
+		},
+		"CreatedAt": &graphql.Field{
+			Type:        graphql.NewNonNull(graphql.DateTime),
+			Description: "Creation Date of Post",
+		},
+		"UpdatedAt": &graphql.Field{
+			Type:        graphql.NewNonNull(graphql.DateTime),
+			Description: "Update Date of Post",
+		},
+		"DeletedAt": &graphql.Field{
+			Type:        graphql.NewNonNull(graphql.DateTime),
+			Description: "Deletion Date of Post",
+		},
+		"Title": &graphql.Field{
+			Type:        graphql.String,
+			Description: "Post Title",
+		},
+	},
+})
