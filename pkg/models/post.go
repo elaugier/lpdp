@@ -30,6 +30,7 @@ func (Post) TableName() string {
 	return "posts"
 }
 
+//PostT ...
 var PostT = graphql.NewObject(graphql.ObjectConfig{
 	Name:        "Post",
 	Description: "Post",
