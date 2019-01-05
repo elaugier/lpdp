@@ -186,12 +186,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _mgmt_votings_mgmt_votings_component__WEBPACK_IMPORTED_MODULE_35__ = __webpack_require__(/*! ./mgmt-votings/mgmt-votings.component */ "./src/app/mgmt-votings/mgmt-votings.component.ts");
 /* harmony import */ var _my_payments_my_payments_component__WEBPACK_IMPORTED_MODULE_36__ = __webpack_require__(/*! ./my-payments/my-payments.component */ "./src/app/my-payments/my-payments.component.ts");
 /* harmony import */ var _login_login_component__WEBPACK_IMPORTED_MODULE_37__ = __webpack_require__(/*! ./login/login.component */ "./src/app/login/login.component.ts");
+/* harmony import */ var _graphql_module__WEBPACK_IMPORTED_MODULE_38__ = __webpack_require__(/*! ./graphql.module */ "./src/app/graphql.module.ts");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_39__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
+
 
 
 
@@ -274,7 +278,7 @@ var AppModule = /** @class */ (function () {
                 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["BrowserModule"],
                 _app_routing_module__WEBPACK_IMPORTED_MODULE_4__["AppRoutingModule"],
                 _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormsModule"],
-                _blox_material__WEBPACK_IMPORTED_MODULE_3__["MaterialModule"]
+                _blox_material__WEBPACK_IMPORTED_MODULE_3__["MaterialModule"], _graphql_module__WEBPACK_IMPORTED_MODULE_38__["GraphQLModule"], _angular_common_http__WEBPACK_IMPORTED_MODULE_39__["HttpClientModule"]
             ],
             providers: [],
             bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_5__["AppComponent"]]
@@ -344,6 +348,60 @@ var ContentComponent = /** @class */ (function () {
         __metadata("design:paramtypes", [])
     ], ContentComponent);
     return ContentComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/graphql.module.ts":
+/*!***********************************!*\
+  !*** ./src/app/graphql.module.ts ***!
+  \***********************************/
+/*! exports provided: createApollo, GraphQLModule */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createApollo", function() { return createApollo; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GraphQLModule", function() { return GraphQLModule; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var apollo_angular__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! apollo-angular */ "./node_modules/apollo-angular/fesm5/ng.apollo.js");
+/* harmony import */ var apollo_angular_link_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! apollo-angular-link-http */ "./node_modules/apollo-angular-link-http/fesm5/ng.apolloLink.http.js");
+/* harmony import */ var apollo_cache_inmemory__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! apollo-cache-inmemory */ "./node_modules/apollo-cache-inmemory/lib/index.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+
+
+
+var uri = ''; // <-- add the URL of the GraphQL server here
+function createApollo(httpLink) {
+    return {
+        link: httpLink.create({ uri: uri }),
+        cache: new apollo_cache_inmemory__WEBPACK_IMPORTED_MODULE_3__["InMemoryCache"](),
+    };
+}
+var GraphQLModule = /** @class */ (function () {
+    function GraphQLModule() {
+    }
+    GraphQLModule = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"])({
+            exports: [apollo_angular__WEBPACK_IMPORTED_MODULE_1__["ApolloModule"], apollo_angular_link_http__WEBPACK_IMPORTED_MODULE_2__["HttpLinkModule"]],
+            providers: [
+                {
+                    provide: apollo_angular__WEBPACK_IMPORTED_MODULE_1__["APOLLO_OPTIONS"],
+                    useFactory: createApollo,
+                    deps: [apollo_angular_link_http__WEBPACK_IMPORTED_MODULE_2__["HttpLink"]],
+                },
+            ],
+        })
+    ], GraphQLModule);
+    return GraphQLModule;
 }());
 
 
