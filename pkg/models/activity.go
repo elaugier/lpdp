@@ -41,19 +41,19 @@ var ActivityT = graphql.NewObject(graphql.ObjectConfig{
 			Description: "update date of activity",
 		},
 		"DeletedAt": &graphql.Field{
-			Type:        graphql.NewNonNull(graphql.DateTime),
+			Type:        graphql.DateTime,
 			Description: "deletion date of activity",
 		},
 		"Message": &graphql.Field{
-			Type:        graphql.String,
+			Type:        graphql.NewNonNull(graphql.String),
 			Description: "message of activity",
 		},
 		"Type": &graphql.Field{
-			Type:        graphql.String,
+			Type:        graphql.NewNonNull(graphql.String),
 			Description: "type of activity",
 		},
 		"OwnerRef": &graphql.Field{
-			Type:        graphql.String,
+			Type:        graphql.NewNonNull(graphql.String),
 			Description: "owner of activity",
 		},
 	},

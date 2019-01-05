@@ -15,13 +15,14 @@ type User struct {
 	UpdatedAt          time.Time           `json:"updated_at"`
 	DeletedAt          time.Time           `json:"deleted_at"`
 	Email              string              `gorm:"type:varchar(500);unique_index" json:"email"`
+	IsEmailVerified    bool                `gorm:"type:boolean;unique_index" json:"is_email_verified"`
 	UserName           string              `gorm:"type:varchar(100);unique_index" json:"username"`
 	Password           string              `gorm:"type:varchar(100)" json:"password"`
 	FirstName          string              `gorm:"type:varchar(100)" json:"firstname"`
 	LastName           string              `gorm:"type:varchar(100)" json:"lastname"`
 	SurName            string              `gorm:"type:varchar(100)" json:"surname"`
 	Pseudo             string              `gorm:"type:varchar(100);unique_index" json:"pseudo"`
-	BirthDate          time.Time           `json:"birthdate"`
+	DateOfBirth        time.Time           `json:"date_of_birth"`
 	Gender             uint                `json:"gender"`
 	TimeZone           string              `gorm:"type:varchar(100)" json:"time_zone"`
 	PostalAddress      string              `gorm:"type:varchar(100)" json:"postal_address"`
@@ -74,6 +75,10 @@ var UserT = graphql.NewObject(graphql.ObjectConfig{
 			Type:        graphql.String,
 			Description: "email address of user",
 		},
+		"IsEmailVerified": &graphql.Field{
+			Type:        graphql.Boolean,
+			Description: "Email check",
+		},
 		"UserName": &graphql.Field{
 			Type:        graphql.NewNonNull(graphql.String),
 			Description: "User Name",
@@ -98,7 +103,7 @@ var UserT = graphql.NewObject(graphql.ObjectConfig{
 			Type:        graphql.String,
 			Description: "User Pseudo",
 		},
-		"BirthDate": &graphql.Field{
+		"DateOfBirth": &graphql.Field{
 			Type:        graphql.NewNonNull(graphql.DateTime),
 			Description: "birthdate of user",
 		},
@@ -136,7 +141,7 @@ var UserT = graphql.NewObject(graphql.ObjectConfig{
 		},
 		"Role": &graphql.Field{
 			Type:        graphql.String,
-			Description: "User Role",
+			Description: "User Role\nAuthorized Values are:\n\t\"0\": Guest\n\t\"1\": Member\n\t\"2\": Moderator\n\t\"3\": Administrator\n\t\"4\": SuperUser",
 		},
 	},
 })

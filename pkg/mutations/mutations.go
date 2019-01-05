@@ -8,7 +8,7 @@ import (
 // GetRootFields returns all the available mutations.
 func GetRootFields() graphql.Fields {
 	return graphql.Fields{
-		"createAchievement": &graphql.Field{
+		"addAchievement": &graphql.Field{
 			Type: models.AchievementT,
 			Args: graphql.FieldConfigArgument{
 				"title": &graphql.ArgumentConfig{
@@ -20,10 +20,18 @@ func GetRootFields() graphql.Fields {
 			},
 			Description: "Create a new achievement.",
 		},
-		"createSection": &graphql.Field{
+		"addActivity": &graphql.Field{
+			Type: models.AchievementT,
+			Args: graphql.FieldConfigArgument{
+				"message": &graphql.ArgumentConfig{
+					Type: graphql.NewNonNull(graphql.String),
+				}
+			}
+		}
+		"addSection": &graphql.Field{
 			Type: models.SectionT,
 		},
-		"updateAchievement": &graphql.Field{
+		"removeAchievement": &graphql.Field{
 			Type: models.AchievementT,
 			Args: graphql.FieldConfigArgument{
 				"id": &graphql.ArgumentConfig{
