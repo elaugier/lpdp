@@ -25,9 +25,9 @@ func GetRootFields() graphql.Fields {
 			Args: graphql.FieldConfigArgument{
 				"message": &graphql.ArgumentConfig{
 					Type: graphql.NewNonNull(graphql.String),
-				}
-			}
-		}
+				},
+			},
+		},
 		"addSection": &graphql.Field{
 			Type: models.SectionT,
 		},
