@@ -41,12 +41,6 @@ func main() {
 	 */
 	logger = logs.GetInstance()
 
-	go func() {
-		<-c
-		logger.Println("intercept interruption : SIGTERM")
-		run = false
-	}()
-
 	configuration, err := config.Get()
 	if err != nil {
 		logger.Fatal(err)
@@ -61,6 +55,20 @@ func main() {
 	logger.Printf("cockroach.mac.cockroachArgs : '%s'", configuration.GetString("cockroach.mac.cockroachArgs"))
 
 	cockroachProc := db.CockroachStarter(configuration)
+
+	go func() {
+
+		<-c
+		logger.Println("intercept interruption : SIGTERM")
+		if err := cockroachProc.Process.Signal(syscall.SIGTERM); err != nil {
+			logger.Println("failed to send SIGTERM to the process: ", err)
+		} else {
+			if err := cockroachProc.Process.Kill(); err != nil {
+				log.Println("failed to kill process: ", err)
+			}
+		}
+		run = false
+	}()
 
 	stdout, err := cockroachProc.StdoutPipe()
 	if err != nil {
