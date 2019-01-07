@@ -106,7 +106,13 @@ func (i Instance) DatabaseInitialization() {
 		&models.WarningTemplate{},
 	)
 	var admin models.User
-	c.FirstOrCreate(&admin, models.User{UserName: "admin"})
+	admin.Email = "admin@lpdp.org"
+	admin.UserName = "admin"
+	admin.Password = "password"
+	admin.IsEmailVerified = true
+	c.FirstOrCreate(&admin, models.User{
+		UserName: "admin",
+	})
 	return
 }
 

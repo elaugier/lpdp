@@ -57,7 +57,6 @@ func main() {
 	cockroachProc := db.CockroachStarter(configuration)
 
 	go func() {
-
 		<-c
 		logger.Println("intercept interruption : SIGTERM")
 		if err := cockroachProc.Process.Signal(syscall.SIGTERM); err != nil {
