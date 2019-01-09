@@ -11,6 +11,7 @@ import (
 	"net/url"
 	"os"
 	"os/signal"
+	"runtime"
 	"syscall"
 	"time"
 
@@ -59,11 +60,14 @@ func main() {
 	go func() {
 		<-c
 		logger.Println("intercept interruption : SIGTERM")
-		if err := cockroachProc.Process.Signal(syscall.SIGTERM); err != nil {
-			logger.Println("failed to send SIGTERM to the process: ", err)
-		} else {
-			if err := cockroachProc.Process.Kill(); err != nil {
+		if runtime.GOOS == "windows" {
+			logger.Println("Windows doesn't support Interrupt : send Kill")
+			if err := cockroachProc.Process.Signal(os.Kill); err != nil {
 				log.Println("failed to kill process: ", err)
+			}
+		} else {
+			if err := cockroachProc.Process.Signal(syscall.SIGTERM); err != nil {
+				log.Println("failed to send SIGTERM: ", err)
 			}
 		}
 		run = false
