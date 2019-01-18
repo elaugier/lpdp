@@ -22,7 +22,8 @@ func GetRootFields() graphql.Fields {
 			Resolve: db.GetAlertQuery,
 		},
 		"AlertAction": &graphql.Field{
-			Type: graphql.NewList(models.AlertActionT),
+			Type:    graphql.NewList(models.AlertActionT),
+			Resolve: db.GetAlertActionQuery,
 		},
 		"Badge": &graphql.Field{
 			Type: graphql.NewList(models.BadgeT),
