@@ -28,6 +28,26 @@ func GetRootFields() graphql.Fields {
 				},
 			},
 		},
+		"addAlert": &graphql.Field{
+			Type: models.AlertT,
+			Args: graphql.FieldConfigArgument{
+				"type": &graphql.ArgumentConfig{
+					Type: graphql.NewNonNull(graphql.String),
+				},
+				"details": &graphql.ArgumentConfig{
+					Type: graphql.NewNonNull(graphql.String),
+				},
+				"post_ref": &graphql.ArgumentConfig{
+					Type: graphql.NewNonNull(graphql.String),
+				},
+				"user_ref": &graphql.ArgumentConfig{
+					Type: graphql.NewNonNull(graphql.String),
+				},
+				"comment_ref": &graphql.ArgumentConfig{
+					Type: graphql.String,
+				},
+			},
+		},
 		"addSection": &graphql.Field{
 			Type: models.SectionT,
 		},
