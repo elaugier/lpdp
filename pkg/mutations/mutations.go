@@ -58,21 +58,21 @@ func GetRootFields() graphql.Fields {
 			Type: models.AlertActionT,
 			Args: graphql.FieldConfigArgument{
 				"title": &graphql.ArgumentConfig{
-					Type: graphql.NewNonNull(graphql.String),
+					Type:        graphql.NewNonNull(graphql.String),
 					Description: "Alert action title",
 				},
 				"details": &graphql.ArgumentConfig{
-					Type: graphql.NewNonNull(graphql.String),
+					Type:        graphql.NewNonNull(graphql.String),
 					Description: "Alert action details",
 				},
 				"alert_ref": &graphql.ArgumentConfig{
-					Type: graphql.NewNonNull(graphql.String),
+					Type:        graphql.NewNonNull(graphql.String),
 					Description: "Alert id reference",
 				},
 				"user_ref": &graphql.ArgumentConfig{
-					Type: graphql.NewNonNull(graphql.String),
+					Type:        graphql.NewNonNull(graphql.String),
 					Description: "User id reference",
-				}
+				},
 			},
 			Description: "Add alert action",
 		},
