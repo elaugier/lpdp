@@ -32,24 +32,67 @@ func GetRootFields() graphql.Fields {
 			Type: models.AlertT,
 			Args: graphql.FieldConfigArgument{
 				"type": &graphql.ArgumentConfig{
+					Type:        graphql.NewNonNull(graphql.String),
+					Description: "Alert type.",
+				},
+				"details": &graphql.ArgumentConfig{
+					Type:        graphql.NewNonNull(graphql.String),
+					Description: "Alert description.",
+				},
+				"user_ref": &graphql.ArgumentConfig{
+					Type:        graphql.NewNonNull(graphql.String),
+					Description: "User affected by the alert.",
+				},
+				"post_ref": &graphql.ArgumentConfig{
+					Type:        graphql.String,
+					Description: "Post affected by the the alert.",
+				},
+				"comment_ref": &graphql.ArgumentConfig{
+					Type:        graphql.String,
+					Description: "Comment affected by the alert.",
+				},
+			},
+			Description: "Add a new alert",
+		},
+		"addAlertAction": &graphql.Field{
+			Type: models.AlertActionT,
+			Args: graphql.FieldConfigArgument{
+				"title": &graphql.ArgumentConfig{
 					Type: graphql.NewNonNull(graphql.String),
+					Description: "Alert action title",
 				},
 				"details": &graphql.ArgumentConfig{
 					Type: graphql.NewNonNull(graphql.String),
+					Description: "Alert action details",
 				},
-				"post_ref": &graphql.ArgumentConfig{
+				"alert_ref": &graphql.ArgumentConfig{
 					Type: graphql.NewNonNull(graphql.String),
+					Description: "Alert id reference",
 				},
 				"user_ref": &graphql.ArgumentConfig{
 					Type: graphql.NewNonNull(graphql.String),
-				},
-				"comment_ref": &graphql.ArgumentConfig{
-					Type: graphql.String,
-				},
+					Description: "User id reference",
+				}
 			},
+			Description: "Add alert action",
 		},
 		"addSection": &graphql.Field{
 			Type: models.SectionT,
+			Args: graphql.FieldConfigArgument{
+				"name": &graphql.ArgumentConfig{
+					Type:        graphql.NewNonNull(graphql.String),
+					Description: "Section name.",
+				},
+				"shortname": &graphql.ArgumentConfig{
+					Type:        graphql.NewNonNull(graphql.String),
+					Description: "Section shortname.",
+				},
+				"description": &graphql.ArgumentConfig{
+					Type:        graphql.NewNonNull(graphql.String),
+					Description: "Describe section content",
+				},
+			},
+			Description: "Add new section.",
 		},
 		"removeAchievement": &graphql.Field{
 			Type: models.AchievementT,
