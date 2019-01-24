@@ -72,7 +72,7 @@ var UserT = graphql.NewObject(graphql.ObjectConfig{
 			Description: "deletion date of user",
 		},
 		"Email": &graphql.Field{
-			Type:        graphql.String,
+			Type:        graphql.NewNonNull(graphql.String),
 			Description: "email address of user",
 		},
 		"IsEmailVerified": &graphql.Field{

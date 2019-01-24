@@ -94,6 +94,28 @@ func GetRootFields() graphql.Fields {
 			},
 			Description: "Add new section.",
 		},
+		"addUser": &graphql.Field{
+			Type: models.UserT,
+			Args: graphql.FieldConfigArgument{
+				"email": &graphql.ArgumentConfig{
+					Type:        graphql.NewNonNull(graphql.String),
+					Description: "User email",
+				},
+				"username": &graphql.ArgumentConfig{
+					Type:        graphql.NewNonNull(graphql.String),
+					Description: "User Name",
+				},
+				"password": &graphql.ArgumentConfig{
+					Type:        graphql.NewNonNull(graphql.String),
+					Description: "User password",
+				},
+				"date_of_birth": &graphql.ArgumentConfig{
+					Type:        graphql.NewNonNull(graphql.DateTime),
+					Description: "User date of birth",
+				},
+			},
+			Description: "Add new user.",
+		},
 		"removeAchievement": &graphql.Field{
 			Type: models.AchievementT,
 			Args: graphql.FieldConfigArgument{
