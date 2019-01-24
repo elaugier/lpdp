@@ -30,7 +30,7 @@ type User struct {
 	Job                string              `gorm:"type:varchar(100)" json:"job"`
 	Hobbies            string              `gorm:"type:varchar(100)" json:"hobbies"`
 	AccountStatus      string              `gorm:"type:varchar(100)" json:"account_status"`
-	AccountType        string              `gorm:"type:varchar(100)" json:"account_type"`
+	AccountType        uint                `json:"account_type"`
 	Role               string              `gorm:"type:varchar(100)" json:"role"`
 	Achievements       []Achievement       `gorm:"foreignkey:OwnerRef"`
 	Badges             []Badge             `gorm:"foreignkey:OwnerRef"`
@@ -136,7 +136,7 @@ var UserT = graphql.NewObject(graphql.ObjectConfig{
 			Description: "Account status",
 		},
 		"AccountType": &graphql.Field{
-			Type:        graphql.String,
+			Type:        graphql.Int,
 			Description: "Account type",
 		},
 		"Role": &graphql.Field{
