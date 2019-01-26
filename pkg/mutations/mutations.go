@@ -113,6 +113,14 @@ func GetRootFields() graphql.Fields {
 					Type:        graphql.NewNonNull(graphql.DateTime),
 					Description: "User date of birth",
 				},
+				"firstname": &graphql.ArgumentConfig{
+					Type:        graphql.String,
+					Description: "User firstname",
+				},
+				"lastname": &graphql.ArgumentConfig{
+					Type:        graphql.String,
+					Description: "User lastname",
+				},
 			},
 			Description: "Add new user.",
 		},
