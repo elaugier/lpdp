@@ -121,6 +121,30 @@ func GetRootFields() graphql.Fields {
 					Type:        graphql.String,
 					Description: "User lastname",
 				},
+				"gender": &graphql.ArgumentConfig{
+					Type:        graphql.Int,
+					Description: "User gender",
+				},
+				"time_zone": &graphql.ArgumentConfig{
+					Type:        graphql.String,
+					Description: "User timezone",
+				},
+				"postal_address": &graphql.ArgumentConfig{
+					Type:        graphql.String,
+					Description: "User postal address",
+				},
+				"postal_address_2": &graphql.ArgumentConfig{
+					Type:        graphql.String,
+					Description: "User postal address 2",
+				},
+				"job": &graphql.ArgumentConfig{
+					Type:        graphql.String,
+					Description: "User job",
+				},
+				"hobbies": &graphql.ArgumentConfig{
+					Type:        graphql.String,
+					Description: "User hobbies",
+				},
 			},
 			Description: "Add new user.",
 		},
