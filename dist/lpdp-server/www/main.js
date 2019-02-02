@@ -1486,7 +1486,7 @@ var MgmtWarningsComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<p>\n  my-account works!\n</p>\n"
+module.exports = "<div class=\"mdc-text-field username\">\n  <input type=\"text\" class=\"mdc-text-field__input\" id=\"username-input\" name=\"username\">\n  <label class=\"mdc-floating-label\" for=\"username-input\">Username</label>\n  <div class=\"mdc-line-ripple\"></div>\n</div>\n"
 
 /***/ }),
 
