@@ -10,13 +10,13 @@ import (
 //Achievement ...
 type Achievement struct {
 	ID        uuid.UUID `sql:"type:uuid;primary key;default:gen_random_uuid()" json:"id,omitempty"`
-	CreatedAt time.Time `json:"created_at"`
-	UpdatedAt time.Time `json:"updated_at"`
+	CreatedAt time.Time `gorm:"not null" json:"created_at"`
+	UpdatedAt time.Time `gorm:"not null" json:"updated_at"`
 	DeletedAt time.Time `json:"deleted_at"`
-	Title     string    `gorm:"type:varchar(100)" json:"title"`
+	Title     string    `gorm:"type:varchar(100);not null" json:"title"`
 	Rank      int       `gorm:"type:integer" json:"rank"`
 	Score     int       `gorm:"type:integer" json:"score"`
-	OwnerRef  uuid.UUID `sql:"type:uuid" json:"owner_ref"`
+	OwnerRef  uuid.UUID `sql:"type:uuid;not null" json:"owner_ref"`
 }
 
 //TableName ...
@@ -42,11 +42,11 @@ var AchievementT = graphql.NewObject(graphql.ObjectConfig{
 			Description: "Update Date of Achievement",
 		},
 		"DeletedAt": &graphql.Field{
-			Type:        graphql.NewNonNull(graphql.DateTime),
+			Type:        graphql.DateTime,
 			Description: "Deletion Date of Achievement",
 		},
 		"Title": &graphql.Field{
-			Type:        graphql.String,
+			Type:        graphql.NewNonNull(graphql.String),
 			Description: "Achievement Title",
 		},
 		"Rank": &graphql.Field{
@@ -58,7 +58,7 @@ var AchievementT = graphql.NewObject(graphql.ObjectConfig{
 			Description: "Score (optionnal)",
 		},
 		"OwnerRef": &graphql.Field{
-			Type:        graphql.String,
+			Type:        graphql.NewNonNull(graphql.String),
 			Description: "Owner of Achievement",
 		},
 	},

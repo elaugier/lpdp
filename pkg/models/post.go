@@ -18,9 +18,10 @@ type Post struct {
 	ApprovedAt          time.Time `json:"approved_at"`
 	ApprouvedBy         uuid.UUID `sql:"type:uuid" json:"approved_by"`
 	ApprouvedByUserName string    `gorm:"type:varchar(100)" json:"approved_by_username"`
-	Title               string    `gorm:"type:varchar(255)" json:"title"`
+	Title               string    `gorm:"type:varchar(255);not null" json:"title"`
 	Summary             string    `sql:"type:text" json:"summary"`
 	Content             string    `sql:"type:text" json:"content"`
+	ViewsCount          int       `json:"views_count"`
 	AuthorRef           uuid.UUID `sql:"type:uuid" json:"author_ref"`
 	Likes               []Like    `gorm:"foreignkey:PostRef"`
 }
@@ -48,11 +49,11 @@ var PostT = graphql.NewObject(graphql.ObjectConfig{
 			Description: "Update Date of Post",
 		},
 		"DeletedAt": &graphql.Field{
-			Type:        graphql.NewNonNull(graphql.DateTime),
+			Type:        graphql.DateTime,
 			Description: "Deletion Date of Post",
 		},
 		"Title": &graphql.Field{
-			Type:        graphql.String,
+			Type:        graphql.NewNonNull(graphql.String),
 			Description: "Post Title",
 		},
 	},
