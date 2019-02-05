@@ -10,13 +10,13 @@ import (
 
 //BadIPAddress ...
 type BadIPAddress struct {
-	ID        uuid.UUID `sql:"type:uuid;primary key;default:gen_random_uuid()" json:"id,omitempty"`
-	CreatedAt time.Time `json:"created_at"`
-	UpdatedAt time.Time `json:"updated_at"`
-	DeletedAt time.Time `json:"deleted_at"`
-	IPAddress string    `gorm:"type:varchar(200)" json:"ip_address"`
-	Reason    string    `gorm:"type:varchar(200)" json:"reason"`
-	ExpiresAt time.Time `json:"expires_at"`
+	ID        uuid.UUID  `sql:"type:uuid;primary key;default:gen_random_uuid()" json:"id,omitempty"`
+	CreatedAt time.Time  `gorm:"not null" json:"created_at"`
+	UpdatedAt time.Time  `gorm:"not null" json:"updated_at"`
+	DeletedAt *time.Time `json:"deleted_at"`
+	IPAddress string     `gorm:"type:varchar(200)" json:"ip_address"`
+	Reason    string     `gorm:"type:varchar(200)" json:"reason"`
+	ExpiresAt time.Time  `json:"expires_at"`
 }
 
 //TableName ...
@@ -42,7 +42,7 @@ var BadIPAddressT = graphql.NewObject(graphql.ObjectConfig{
 			Description: "update date of bad ip address",
 		},
 		"DeletedAt": &graphql.Field{
-			Type:        graphql.NewNonNull(graphql.DateTime),
+			Type:        graphql.DateTime,
 			Description: "deletion date of bad ip address",
 		},
 		"IPAddress": &graphql.Field{

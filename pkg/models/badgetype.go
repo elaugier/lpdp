@@ -10,12 +10,12 @@ import (
 
 //BadgeType ...
 type BadgeType struct {
-	ID        uuid.UUID `sql:"type:uuid;primary key;default:gen_random_uuid()" json:"id,omitempty"`
-	CreatedAt time.Time `json:"created_at"`
-	UpdatedAt time.Time `json:"updated_at"`
-	DeletedAt time.Time `json:"deleted_at"`
-	Title     string    `gorm:"type:varchar(200);unique_index"`
-	Badges    []Badge   `gorm:"foreignkey:TypeRef"`
+	ID        uuid.UUID  `sql:"type:uuid;primary key;default:gen_random_uuid()" json:"id,omitempty"`
+	CreatedAt time.Time  `gorm:"not null" json:"created_at"`
+	UpdatedAt time.Time  `gorm:"not null" json:"updated_at"`
+	DeletedAt *time.Time `json:"deleted_at"`
+	Title     string     `gorm:"type:varchar(200);unique_index"`
+	Badges    []Badge    `gorm:"foreignkey:TypeRef"`
 }
 
 //TableName ...
@@ -41,7 +41,7 @@ var BadgeTypeT = graphql.NewObject(graphql.ObjectConfig{
 			Description: "update date of badge type",
 		},
 		"DeletedAt": &graphql.Field{
-			Type:        graphql.NewNonNull(graphql.DateTime),
+			Type:        graphql.DateTime,
 			Description: "deletion date of badge type",
 		},
 		"Title": &graphql.Field{

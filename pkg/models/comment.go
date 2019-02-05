@@ -8,13 +8,13 @@ import (
 
 //Comment ...
 type Comment struct {
-	ID        uuid.UUID `sql:"type:uuid;primary key;default:gen_random_uuid()" json:"id,omitempty"`
-	CreatedAt time.Time `json:"created_at"`
-	UpdatedAt time.Time `json:"updated_at"`
-	DeletedAt time.Time `json:"deleted_at"`
-	Content   string    `sql:"type:text"`
-	AuthorRef uuid.UUID `sql:"type:uuid" json:"author_ref"`
-	Likes     []Like    `gorm:"foreignkey:CommentRef"`
+	ID        uuid.UUID  `sql:"type:uuid;primary key;default:gen_random_uuid()" json:"id,omitempty"`
+	CreatedAt time.Time  `gorm:"not null" json:"created_at"`
+	UpdatedAt time.Time  `gorm:"not null" json:"updated_at"`
+	DeletedAt *time.Time `json:"deleted_at"`
+	Content   string     `sql:"type:text"`
+	AuthorRef uuid.UUID  `sql:"type:uuid" json:"author_ref"`
+	Likes     []Like     `gorm:"foreignkey:CommentRef"`
 }
 
 //TableName ...

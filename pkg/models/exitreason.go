@@ -10,11 +10,11 @@ import (
 
 //ExitReason ...
 type ExitReason struct {
-	ID        uuid.UUID `sql:"type:uuid;primary key;default:gen_random_uuid()" json:"id,omitempty"`
-	CreatedAt time.Time `json:"created_at"`
-	UpdatedAt time.Time `json:"updated_at"`
-	DeletedAt time.Time `json:"deleted_at"`
-	Reason    string    `json:"title"`
+	ID        uuid.UUID  `sql:"type:uuid;primary key;default:gen_random_uuid()" json:"id,omitempty"`
+	CreatedAt time.Time  `gorm:"not null" json:"created_at"`
+	UpdatedAt time.Time  `gorm:"not null" json:"updated_at"`
+	DeletedAt *time.Time `json:"deleted_at"`
+	Reason    string     `gorm:"not null" json:"title"`
 }
 
 //TableName ...
@@ -40,7 +40,7 @@ var ExitReasonT = graphql.NewObject(graphql.ObjectConfig{
 			Description: "Update Date",
 		},
 		"DeletedAt": &graphql.Field{
-			Type:        graphql.NewNonNull(graphql.DateTime),
+			Type:        graphql.DateTime,
 			Description: "Deletion Date",
 		},
 		"Reason": &graphql.Field{

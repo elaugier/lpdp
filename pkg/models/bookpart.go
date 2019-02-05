@@ -10,12 +10,12 @@ import (
 
 //BookPart ...
 type BookPart struct {
-	ID        uuid.UUID `sql:"type:uuid;primary key;default:gen_random_uuid()" json:"id,omitempty"`
-	CreatedAt time.Time `json:"created_at"`
-	UpdatedAt time.Time `json:"updated_at"`
-	DeletedAt time.Time `json:"deleted_at"`
-	Title     string    `json:"title"`
-	BookRef   uuid.UUID `sql:"type:uuid" json:"book_ref"`
+	ID        uuid.UUID  `sql:"type:uuid;primary key;default:gen_random_uuid()" json:"id,omitempty"`
+	CreatedAt time.Time  `gorm:"not null" json:"created_at"`
+	UpdatedAt time.Time  `gorm:"not null" json:"updated_at"`
+	DeletedAt *time.Time `json:"deleted_at"`
+	Title     string     `json:"title"`
+	BookRef   uuid.UUID  `sql:"type:uuid" json:"book_ref"`
 }
 
 //TableName ...
@@ -41,7 +41,7 @@ var BookPartT = graphql.NewObject(graphql.ObjectConfig{
 			Description: "update date of book part",
 		},
 		"DeletedAt": &graphql.Field{
-			Type:        graphql.NewNonNull(graphql.DateTime),
+			Type:        graphql.DateTime,
 			Description: "deletion date of book part",
 		},
 		"Title": &graphql.Field{

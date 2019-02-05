@@ -10,13 +10,13 @@ import (
 
 //WarningTemplate ...
 type WarningTemplate struct {
-	ID        uuid.UUID `sql:"type:uuid;primary key;default:gen_random_uuid()" json:"id,omitempty"`
-	CreatedAt time.Time `json:"created_at"`
-	UpdatedAt time.Time `json:"updated_at"`
-	DeletedAt time.Time `json:"deleted_at"`
-	Name      string    `gorm:"type:varchar(200);unique_index" json:"name"`
-	Content   string    `sql:"type:text" json:"content"`
-	Warnings  []Warning `gorm:"foreignkey:WarningTemplateRef"`
+	ID        uuid.UUID  `sql:"type:uuid;primary key;default:gen_random_uuid()" json:"id,omitempty"`
+	CreatedAt time.Time  `gorm:"not null" json:"created_at"`
+	UpdatedAt time.Time  `gorm:"not null" json:"updated_at"`
+	DeletedAt *time.Time `json:"deleted_at"`
+	Name      string     `gorm:"type:varchar(200);unique_index" json:"name"`
+	Content   string     `sql:"type:text" json:"content"`
+	Warnings  []Warning  `gorm:"foreignkey:WarningTemplateRef"`
 }
 
 //TableName ...
@@ -42,7 +42,7 @@ var WarningTemplateT = graphql.NewObject(graphql.ObjectConfig{
 			Description: "update date",
 		},
 		"DeletedAt": &graphql.Field{
-			Type:        graphql.NewNonNull(graphql.DateTime),
+			Type:        graphql.DateTime,
 			Description: "deletion date",
 		},
 		"Name": &graphql.Field{

@@ -10,17 +10,17 @@ import (
 
 //Tag ...
 type Tag struct {
-	ID        uuid.UUID `sql:"type:uuid;primary key;default:gen_random_uuid()" json:"id,omitempty"`
-	CreatedAt time.Time `json:"created_at"`
-	UpdatedAt time.Time `json:"updated_at"`
-	DeletedAt time.Time `json:"deleted_at"`
-	Code      string    `gorm:"not null;type:varchar(3);unique"`
-	Label     string    `gorm:"not null;type:varchar(100);unique"`
-	Enabled   bool      `gorm:"default:false"`
-	StartedAt time.Time `gorm:"column:start_at" json:"start_at"`
-	ClosedAt  time.Time `gorm:"column:closed_at" json:"closed_at"`
-	Type      string    `gorm:"not null;unique"`
-	Mature    bool      `gorm:"default:false"`
+	ID        uuid.UUID  `sql:"type:uuid;primary key;default:gen_random_uuid()" json:"id,omitempty"`
+	CreatedAt time.Time  `gorm:"not null" json:"created_at"`
+	UpdatedAt time.Time  `gorm:"not null" json:"updated_at"`
+	DeletedAt *time.Time `json:"deleted_at"`
+	Code      string     `gorm:"not null;type:varchar(3);unique"`
+	Label     string     `gorm:"not null;type:varchar(100);unique"`
+	Enabled   bool       `gorm:"default:false"`
+	StartedAt time.Time  `gorm:"column:start_at" json:"start_at"`
+	ClosedAt  time.Time  `gorm:"column:closed_at" json:"closed_at"`
+	Type      string     `gorm:"not null;unique"`
+	Mature    bool       `gorm:"default:false"`
 }
 
 //TableName ...
@@ -46,7 +46,7 @@ var TagT = graphql.NewObject(graphql.ObjectConfig{
 			Description: "update date of tag",
 		},
 		"DeletedAt": &graphql.Field{
-			Type:        graphql.NewNonNull(graphql.DateTime),
+			Type:        graphql.DateTime,
 			Description: "deletion date of tag",
 		},
 		"Code": &graphql.Field{

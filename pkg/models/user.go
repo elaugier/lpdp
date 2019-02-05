@@ -11,9 +11,9 @@ import (
 //User ...
 type User struct {
 	ID                 uuid.UUID           `sql:"type:uuid;primary key;default:gen_random_uuid()" json:"id,omitempty"`
-	CreatedAt          time.Time           `json:"created_at"`
-	UpdatedAt          time.Time           `json:"updated_at"`
-	DeletedAt          time.Time           `json:"deleted_at"`
+	CreatedAt          time.Time           `gorm:"not null" json:"created_at"`
+	UpdatedAt          time.Time           `gorm:"not null" json:"updated_at"`
+	DeletedAt          *time.Time          `json:"deleted_at"`
 	Email              string              `gorm:"type:varchar(500);unique_index" json:"email"`
 	IsEmailVerified    bool                `gorm:"type:boolean;unique_index" json:"is_email_verified"`
 	UserName           string              `gorm:"type:varchar(100);unique_index" json:"username"`
@@ -68,7 +68,7 @@ var UserT = graphql.NewObject(graphql.ObjectConfig{
 			Description: "update date of user",
 		},
 		"DeletedAt": &graphql.Field{
-			Type:        graphql.NewNonNull(graphql.DateTime),
+			Type:        graphql.DateTime,
 			Description: "deletion date of user",
 		},
 		"Email": &graphql.Field{

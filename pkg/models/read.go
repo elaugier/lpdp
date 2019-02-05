@@ -10,13 +10,13 @@ import (
 
 //Read ...
 type Read struct {
-	ID         uuid.UUID `sql:"type:uuid;primary key;default:gen_random_uuid()" json:"id,omitempty"`
-	CreatedAt  time.Time `json:"created_at"`
-	UpdatedAt  time.Time `json:"updated_at"`
-	DeletedAt  time.Time `json:"deleted_at"`
-	PostRef    uuid.UUID `sql:"type:uuid" json:"post_ref"`
-	CommentRef uuid.UUID `sql:"type:uuid" json:"comment_ref"`
-	UserRef    uuid.UUID `sql:"type:uuid" json:"user_ref"`
+	ID         uuid.UUID  `sql:"type:uuid;primary key;default:gen_random_uuid()" json:"id,omitempty"`
+	CreatedAt  time.Time  `gorm:"not null" json:"created_at"`
+	UpdatedAt  time.Time  `gorm:"not null" json:"updated_at"`
+	DeletedAt  *time.Time `json:"deleted_at"`
+	PostRef    uuid.UUID  `sql:"type:uuid" json:"post_ref"`
+	CommentRef uuid.UUID  `sql:"type:uuid" json:"comment_ref"`
+	UserRef    uuid.UUID  `sql:"type:uuid" json:"user_ref"`
 }
 
 //TableName ...
@@ -42,7 +42,7 @@ var ReadT = graphql.NewObject(graphql.ObjectConfig{
 			Description: "update date",
 		},
 		"DeletedAt": &graphql.Field{
-			Type:        graphql.NewNonNull(graphql.DateTime),
+			Type:        graphql.DateTime,
 			Description: "deletion date",
 		},
 		"PostRef": &graphql.Field{
