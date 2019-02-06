@@ -35,38 +35,92 @@ var AlertT = graphql.NewObject(graphql.ObjectConfig{
 		"ID": &graphql.Field{
 			Type:        graphql.NewNonNull(graphql.String),
 			Description: "alert id",
+			Resolve: func(p graphql.ResolveParams) (interface{}, error) {
+				if alert, ok := p.Source.(Alert); ok {
+					return alert.ID, nil
+				}
+				return nil, nil
+			},
 		},
 		"CreatedAt": &graphql.Field{
 			Type:        graphql.NewNonNull(graphql.DateTime),
 			Description: "creation date of alert",
+			Resolve: func(p graphql.ResolveParams) (interface{}, error) {
+				if alert, ok := p.Source.(Alert); ok {
+					return alert.CreatedAt, nil
+				}
+				return nil, nil
+			},
 		},
 		"UpdatedAt": &graphql.Field{
 			Type:        graphql.NewNonNull(graphql.DateTime),
 			Description: "update date of alert",
+			Resolve: func(p graphql.ResolveParams) (interface{}, error) {
+				if alert, ok := p.Source.(Alert); ok {
+					return alert.UpdatedAt, nil
+				}
+				return nil, nil
+			},
 		},
 		"DeletedAt": &graphql.Field{
 			Type:        graphql.NewNonNull(graphql.DateTime),
 			Description: "deletion date of alert",
+			Resolve: func(p graphql.ResolveParams) (interface{}, error) {
+				if alert, ok := p.Source.(Alert); ok {
+					return alert.DeletedAt, nil
+				}
+				return nil, nil
+			},
 		},
 		"Type": &graphql.Field{
 			Type:        graphql.String,
 			Description: "type of alert",
+			Resolve: func(p graphql.ResolveParams) (interface{}, error) {
+				if alert, ok := p.Source.(Alert); ok {
+					return alert.Type, nil
+				}
+				return nil, nil
+			},
 		},
 		"Details": &graphql.Field{
 			Type:        graphql.String,
 			Description: "Details of alert",
+			Resolve: func(p graphql.ResolveParams) (interface{}, error) {
+				if alert, ok := p.Source.(Alert); ok {
+					return alert.Details, nil
+				}
+				return nil, nil
+			},
 		},
 		"PostRef": &graphql.Field{
 			Type:        graphql.String,
 			Description: "post targeted by the alert",
+			Resolve: func(p graphql.ResolveParams) (interface{}, error) {
+				if alert, ok := p.Source.(Alert); ok {
+					return alert.PostRef, nil
+				}
+				return nil, nil
+			},
 		},
 		"CommentRef": &graphql.Field{
 			Type:        graphql.String,
 			Description: "comment targeted of alert",
+			Resolve: func(p graphql.ResolveParams) (interface{}, error) {
+				if alert, ok := p.Source.(Alert); ok {
+					return alert.CommentRef, nil
+				}
+				return nil, nil
+			},
 		},
 		"UserRef": &graphql.Field{
 			Type:        graphql.String,
 			Description: "owner of alert",
+			Resolve: func(p graphql.ResolveParams) (interface{}, error) {
+				if alert, ok := p.Source.(Alert); ok {
+					return alert.UserRef, nil
+				}
+				return nil, nil
+			},
 		},
 	},
 })

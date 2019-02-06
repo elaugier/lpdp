@@ -32,30 +32,72 @@ var BadgeT = graphql.NewObject(graphql.ObjectConfig{
 		"ID": &graphql.Field{
 			Type:        graphql.NewNonNull(graphql.String),
 			Description: "badge id",
+			Resolve: func(p graphql.ResolveParams) (interface{}, error) {
+				if badge, ok := p.Source.(Badge); ok {
+					return badge.ID, nil
+				}
+				return nil, nil
+			},
 		},
 		"CreatedAt": &graphql.Field{
 			Type:        graphql.NewNonNull(graphql.DateTime),
 			Description: "creation date of badge",
+			Resolve: func(p graphql.ResolveParams) (interface{}, error) {
+				if badge, ok := p.Source.(Badge); ok {
+					return badge.CreatedAt, nil
+				}
+				return nil, nil
+			},
 		},
 		"UpdatedAt": &graphql.Field{
 			Type:        graphql.NewNonNull(graphql.DateTime),
 			Description: "update date of badge",
+			Resolve: func(p graphql.ResolveParams) (interface{}, error) {
+				if badge, ok := p.Source.(Badge); ok {
+					return badge.UpdatedAt, nil
+				}
+				return nil, nil
+			},
 		},
 		"DeletedAt": &graphql.Field{
 			Type:        graphql.NewNonNull(graphql.DateTime),
 			Description: "deletion date of badge",
+			Resolve: func(p graphql.ResolveParams) (interface{}, error) {
+				if badge, ok := p.Source.(Badge); ok {
+					return badge.DeletedAt, nil
+				}
+				return nil, nil
+			},
 		},
 		"Message": &graphql.Field{
 			Type:        graphql.String,
 			Description: "message of badge",
+			Resolve: func(p graphql.ResolveParams) (interface{}, error) {
+				if badge, ok := p.Source.(Badge); ok {
+					return badge.Message, nil
+				}
+				return nil, nil
+			},
 		},
 		"TypeRef": &graphql.Field{
 			Type:        graphql.String,
 			Description: "type of badge",
+			Resolve: func(p graphql.ResolveParams) (interface{}, error) {
+				if badge, ok := p.Source.(Badge); ok {
+					return badge.TypeRef, nil
+				}
+				return nil, nil
+			},
 		},
 		"OwnerRef": &graphql.Field{
 			Type:        graphql.String,
 			Description: "owner of badge",
+			Resolve: func(p graphql.ResolveParams) (interface{}, error) {
+				if badge, ok := p.Source.(Badge); ok {
+					return badge.OwnerRef, nil
+				}
+				return nil, nil
+			},
 		},
 	},
 })

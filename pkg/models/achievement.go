@@ -32,34 +32,82 @@ var AchievementT = graphql.NewObject(graphql.ObjectConfig{
 		"ID": &graphql.Field{
 			Type:        graphql.NewNonNull(graphql.String),
 			Description: "Achievement Identifier",
+			Resolve: func(p graphql.ResolveParams) (interface{}, error) {
+				if achievement, ok := p.Source.(Achievement); ok {
+					return achievement.ID, nil
+				}
+				return nil, nil
+			},
 		},
 		"CreatedAt": &graphql.Field{
 			Type:        graphql.NewNonNull(graphql.DateTime),
 			Description: "Creation Date of Achievement",
+			Resolve: func(p graphql.ResolveParams) (interface{}, error) {
+				if achievement, ok := p.Source.(Achievement); ok {
+					return achievement.CreatedAt, nil
+				}
+				return nil, nil
+			},
 		},
 		"UpdatedAt": &graphql.Field{
 			Type:        graphql.NewNonNull(graphql.DateTime),
 			Description: "Update Date of Achievement",
+			Resolve: func(p graphql.ResolveParams) (interface{}, error) {
+				if achievement, ok := p.Source.(Achievement); ok {
+					return achievement.UpdatedAt, nil
+				}
+				return nil, nil
+			},
 		},
 		"DeletedAt": &graphql.Field{
 			Type:        graphql.DateTime,
 			Description: "Deletion Date of Achievement",
+			Resolve: func(p graphql.ResolveParams) (interface{}, error) {
+				if achievement, ok := p.Source.(Achievement); ok {
+					return achievement.DeletedAt, nil
+				}
+				return nil, nil
+			},
 		},
 		"Title": &graphql.Field{
 			Type:        graphql.NewNonNull(graphql.String),
 			Description: "Achievement Title",
+			Resolve: func(p graphql.ResolveParams) (interface{}, error) {
+				if achievement, ok := p.Source.(Achievement); ok {
+					return achievement.Title, nil
+				}
+				return nil, nil
+			},
 		},
 		"Rank": &graphql.Field{
 			Type:        graphql.Int,
 			Description: "Rank (optionnal)",
+			Resolve: func(p graphql.ResolveParams) (interface{}, error) {
+				if achievement, ok := p.Source.(Achievement); ok {
+					return achievement.Rank, nil
+				}
+				return nil, nil
+			},
 		},
 		"Score": &graphql.Field{
 			Type:        graphql.Int,
 			Description: "Score (optionnal)",
+			Resolve: func(p graphql.ResolveParams) (interface{}, error) {
+				if achievement, ok := p.Source.(Achievement); ok {
+					return achievement.Score, nil
+				}
+				return nil, nil
+			},
 		},
 		"OwnerRef": &graphql.Field{
 			Type:        graphql.NewNonNull(graphql.String),
 			Description: "Owner of Achievement",
+			Resolve: func(p graphql.ResolveParams) (interface{}, error) {
+				if achievement, ok := p.Source.(Achievement); ok {
+					return achievement.OwnerRef, nil
+				}
+				return nil, nil
+			},
 		},
 	},
 })

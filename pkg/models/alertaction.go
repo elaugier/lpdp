@@ -32,34 +32,82 @@ var AlertActionT = graphql.NewObject(graphql.ObjectConfig{
 		"ID": &graphql.Field{
 			Type:        graphql.NewNonNull(graphql.String),
 			Description: "alert action id",
+			Resolve: func(p graphql.ResolveParams) (interface{}, error) {
+				if alertaction, ok := p.Source.(AlertAction); ok {
+					return alertaction.ID, nil
+				}
+				return nil, nil
+			},
 		},
 		"CreatedAt": &graphql.Field{
 			Type:        graphql.NewNonNull(graphql.DateTime),
 			Description: "creation date of alert action",
+			Resolve: func(p graphql.ResolveParams) (interface{}, error) {
+				if alertaction, ok := p.Source.(AlertAction); ok {
+					return alertaction.CreatedAt, nil
+				}
+				return nil, nil
+			},
 		},
 		"UpdatedAt": &graphql.Field{
 			Type:        graphql.NewNonNull(graphql.DateTime),
 			Description: "update date of alert action",
+			Resolve: func(p graphql.ResolveParams) (interface{}, error) {
+				if alertaction, ok := p.Source.(AlertAction); ok {
+					return alertaction.UpdatedAt, nil
+				}
+				return nil, nil
+			},
 		},
 		"DeletedAt": &graphql.Field{
 			Type:        graphql.NewNonNull(graphql.DateTime),
 			Description: "deletion date of alert action",
+			Resolve: func(p graphql.ResolveParams) (interface{}, error) {
+				if alertaction, ok := p.Source.(AlertAction); ok {
+					return alertaction.DeletedAt, nil
+				}
+				return nil, nil
+			},
 		},
 		"Title": &graphql.Field{
 			Type:        graphql.String,
 			Description: "title of alert action",
+			Resolve: func(p graphql.ResolveParams) (interface{}, error) {
+				if alertaction, ok := p.Source.(AlertAction); ok {
+					return alertaction.Title, nil
+				}
+				return nil, nil
+			},
 		},
 		"Details": &graphql.Field{
 			Type:        graphql.String,
 			Description: "Details of alert action",
+			Resolve: func(p graphql.ResolveParams) (interface{}, error) {
+				if alertaction, ok := p.Source.(AlertAction); ok {
+					return alertaction.Details, nil
+				}
+				return nil, nil
+			},
 		},
 		"AlertRef": &graphql.Field{
 			Type:        graphql.String,
 			Description: "alert targeted by the alert action",
+			Resolve: func(p graphql.ResolveParams) (interface{}, error) {
+				if alertaction, ok := p.Source.(AlertAction); ok {
+					return alertaction.AlertRef, nil
+				}
+				return nil, nil
+			},
 		},
 		"UserRef": &graphql.Field{
 			Type:        graphql.String,
 			Description: "owner of alert action",
+			Resolve: func(p graphql.ResolveParams) (interface{}, error) {
+				if alertaction, ok := p.Source.(AlertAction); ok {
+					return alertaction.UserRef, nil
+				}
+				return nil, nil
+			},
 		},
 	},
 })
