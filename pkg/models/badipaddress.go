@@ -32,30 +32,72 @@ var BadIPAddressT = graphql.NewObject(graphql.ObjectConfig{
 		"ID": &graphql.Field{
 			Type:        graphql.NewNonNull(graphql.String),
 			Description: "bad ip address id",
+			Resolve: func(p graphql.ResolveParams) (interface{}, error) {
+				if badipaddress, ok := p.Source.(BadIPAddress); ok {
+					return badipaddress.ID, nil
+				}
+				return nil, nil
+			},
 		},
 		"CreatedAt": &graphql.Field{
 			Type:        graphql.NewNonNull(graphql.DateTime),
 			Description: "creation date of bad ip address",
+			Resolve: func(p graphql.ResolveParams) (interface{}, error) {
+				if badipaddress, ok := p.Source.(BadIPAddress); ok {
+					return badipaddress.CreatedAt, nil
+				}
+				return nil, nil
+			},
 		},
 		"UpdatedAt": &graphql.Field{
 			Type:        graphql.NewNonNull(graphql.DateTime),
 			Description: "update date of bad ip address",
+			Resolve: func(p graphql.ResolveParams) (interface{}, error) {
+				if badipaddress, ok := p.Source.(BadIPAddress); ok {
+					return badipaddress.UpdatedAt, nil
+				}
+				return nil, nil
+			},
 		},
 		"DeletedAt": &graphql.Field{
 			Type:        graphql.DateTime,
 			Description: "deletion date of bad ip address",
+			Resolve: func(p graphql.ResolveParams) (interface{}, error) {
+				if badipaddress, ok := p.Source.(BadIPAddress); ok {
+					return badipaddress.DeletedAt, nil
+				}
+				return nil, nil
+			},
 		},
 		"IPAddress": &graphql.Field{
 			Type:        graphql.String,
 			Description: "ip address of bad ip address",
+			Resolve: func(p graphql.ResolveParams) (interface{}, error) {
+				if badipaddress, ok := p.Source.(BadIPAddress); ok {
+					return badipaddress.IPAddress, nil
+				}
+				return nil, nil
+			},
 		},
 		"Reason": &graphql.Field{
 			Type:        graphql.String,
 			Description: "reason of bad ip address",
+			Resolve: func(p graphql.ResolveParams) (interface{}, error) {
+				if badipaddress, ok := p.Source.(BadIPAddress); ok {
+					return badipaddress.Reason, nil
+				}
+				return nil, nil
+			},
 		},
-		"Expires": &graphql.Field{
+		"ExpiresAt": &graphql.Field{
 			Type:        graphql.DateTime,
 			Description: "date expiration of bad ip address",
+			Resolve: func(p graphql.ResolveParams) (interface{}, error) {
+				if badipaddress, ok := p.Source.(BadIPAddress); ok {
+					return badipaddress.ExpiresAt, nil
+				}
+				return nil, nil
+			},
 		},
 	},
 })

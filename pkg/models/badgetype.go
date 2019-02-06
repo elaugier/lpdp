@@ -31,22 +31,52 @@ var BadgeTypeT = graphql.NewObject(graphql.ObjectConfig{
 		"ID": &graphql.Field{
 			Type:        graphql.NewNonNull(graphql.String),
 			Description: "badge type id",
+			Resolve: func(p graphql.ResolveParams) (interface{}, error) {
+				if badgetype, ok := p.Source.(BadgeType); ok {
+					return badgetype.ID, nil
+				}
+				return nil, nil
+			},
 		},
 		"CreatedAt": &graphql.Field{
 			Type:        graphql.NewNonNull(graphql.DateTime),
 			Description: "creation date of badge type",
+			Resolve: func(p graphql.ResolveParams) (interface{}, error) {
+				if badgetype, ok := p.Source.(BadgeType); ok {
+					return badgetype.CreatedAt, nil
+				}
+				return nil, nil
+			},
 		},
 		"UpdatedAt": &graphql.Field{
 			Type:        graphql.NewNonNull(graphql.DateTime),
 			Description: "update date of badge type",
+			Resolve: func(p graphql.ResolveParams) (interface{}, error) {
+				if badgetype, ok := p.Source.(BadgeType); ok {
+					return badgetype.UpdatedAt, nil
+				}
+				return nil, nil
+			},
 		},
 		"DeletedAt": &graphql.Field{
 			Type:        graphql.DateTime,
 			Description: "deletion date of badge type",
+			Resolve: func(p graphql.ResolveParams) (interface{}, error) {
+				if badgetype, ok := p.Source.(BadgeType); ok {
+					return badgetype.DeletedAt, nil
+				}
+				return nil, nil
+			},
 		},
 		"Title": &graphql.Field{
 			Type:        graphql.String,
 			Description: "title of badge type",
+			Resolve: func(p graphql.ResolveParams) (interface{}, error) {
+				if badgetype, ok := p.Source.(BadgeType); ok {
+					return badgetype.Title, nil
+				}
+				return nil, nil
+			},
 		},
 	},
 })
