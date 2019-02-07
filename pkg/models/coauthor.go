@@ -31,26 +31,62 @@ var CoAuthorT = graphql.NewObject(graphql.ObjectConfig{
 		"ID": &graphql.Field{
 			Type:        graphql.NewNonNull(graphql.String),
 			Description: "id",
+			Resolve: func(p graphql.ResolveParams) (interface{}, error) {
+				if coauthor, ok := p.Source.(CoAuthor); ok {
+					return coauthor.ID, nil
+				}
+				return nil, nil
+			},
 		},
 		"CreatedAt": &graphql.Field{
 			Type:        graphql.NewNonNull(graphql.DateTime),
 			Description: "creation date",
+			Resolve: func(p graphql.ResolveParams) (interface{}, error) {
+				if coauthor, ok := p.Source.(CoAuthor); ok {
+					return coauthor.CreatedAt, nil
+				}
+				return nil, nil
+			},
 		},
 		"UpdatedAt": &graphql.Field{
 			Type:        graphql.NewNonNull(graphql.DateTime),
 			Description: "update date",
+			Resolve: func(p graphql.ResolveParams) (interface{}, error) {
+				if coauthor, ok := p.Source.(CoAuthor); ok {
+					return coauthor.UpdatedAt, nil
+				}
+				return nil, nil
+			},
 		},
 		"DeletedAt": &graphql.Field{
 			Type:        graphql.DateTime,
 			Description: "deletion date",
+			Resolve: func(p graphql.ResolveParams) (interface{}, error) {
+				if coauthor, ok := p.Source.(CoAuthor); ok {
+					return coauthor.DeletedAt, nil
+				}
+				return nil, nil
+			},
 		},
 		"CoAuthorRef": &graphql.Field{
 			Type:        graphql.NewNonNull(graphql.String),
 			Description: "CoAuthor Reference",
+			Resolve: func(p graphql.ResolveParams) (interface{}, error) {
+				if coauthor, ok := p.Source.(CoAuthor); ok {
+					return coauthor.CoAuthorRef, nil
+				}
+				return nil, nil
+			},
 		},
 		"PostRef": &graphql.Field{
 			Type:        graphql.NewNonNull(graphql.String),
 			Description: "Post Reference",
+			Resolve: func(p graphql.ResolveParams) (interface{}, error) {
+				if coauthor, ok := p.Source.(CoAuthor); ok {
+					return coauthor.PostRef, nil
+				}
+				return nil, nil
+			},
 		},
 	},
 })

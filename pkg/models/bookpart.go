@@ -31,26 +31,62 @@ var BookPartT = graphql.NewObject(graphql.ObjectConfig{
 		"ID": &graphql.Field{
 			Type:        graphql.NewNonNull(graphql.String),
 			Description: "book part id",
+			Resolve: func(p graphql.ResolveParams) (interface{}, error) {
+				if bookpart, ok := p.Source.(BookPart); ok {
+					return bookpart.ID, nil
+				}
+				return nil, nil
+			},
 		},
 		"CreatedAt": &graphql.Field{
 			Type:        graphql.NewNonNull(graphql.DateTime),
 			Description: "creation date of book part",
+			Resolve: func(p graphql.ResolveParams) (interface{}, error) {
+				if bookpart, ok := p.Source.(BookPart); ok {
+					return bookpart.CreatedAt, nil
+				}
+				return nil, nil
+			},
 		},
 		"UpdatedAt": &graphql.Field{
 			Type:        graphql.NewNonNull(graphql.DateTime),
 			Description: "update date of book part",
+			Resolve: func(p graphql.ResolveParams) (interface{}, error) {
+				if bookpart, ok := p.Source.(BookPart); ok {
+					return bookpart.UpdatedAt, nil
+				}
+				return nil, nil
+			},
 		},
 		"DeletedAt": &graphql.Field{
 			Type:        graphql.DateTime,
 			Description: "deletion date of book part",
+			Resolve: func(p graphql.ResolveParams) (interface{}, error) {
+				if bookpart, ok := p.Source.(BookPart); ok {
+					return bookpart.DeletedAt, nil
+				}
+				return nil, nil
+			},
 		},
 		"Title": &graphql.Field{
 			Type:        graphql.String,
 			Description: "title of book part",
+			Resolve: func(p graphql.ResolveParams) (interface{}, error) {
+				if bookpart, ok := p.Source.(BookPart); ok {
+					return bookpart.Title, nil
+				}
+				return nil, nil
+			},
 		},
 		"BookRef": &graphql.Field{
 			Type:        graphql.String,
 			Description: "book's uuid of book part",
+			Resolve: func(p graphql.ResolveParams) (interface{}, error) {
+				if bookpart, ok := p.Source.(BookPart); ok {
+					return bookpart.BookRef, nil
+				}
+				return nil, nil
+			},
 		},
 	},
 })
