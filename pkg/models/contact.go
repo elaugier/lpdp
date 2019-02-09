@@ -4,6 +4,7 @@ import (
 	"time"
 
 	"github.com/google/uuid"
+	"github.com/graphql-go/graphql"
 )
 
 //Contact ...
@@ -23,3 +24,51 @@ type Contact struct {
 func (Contact) TableName() string {
 	return "contacts"
 }
+
+//ContactT ...
+var ContactT = graphql.NewObject(graphql.ObjectConfig{
+	Name:        "Contact",
+	Description: "Contact",
+	Fields: graphql.Fields{
+		"ID": &graphql.Field{
+			Type:        graphql.NewNonNull(graphql.String),
+			Description: "id",
+			Resolve: func(p graphql.ResolveParams) (interface{}, error) {
+				if contact, ok := p.Source.(Contact); ok {
+					return contact.ID, nil
+				}
+				return nil, nil
+			},
+		},
+		"CreatedAt": &graphql.Field{
+			Type:        graphql.NewNonNull(graphql.DateTime),
+			Description: "creation date",
+			Resolve: func(p graphql.ResolveParams) (interface{}, error) {
+				if contact, ok := p.Source.(Contact); ok {
+					return contact.CreatedAt, nil
+				}
+				return nil, nil
+			},
+		},
+		"UpdatedAt": &graphql.Field{
+			Type:        graphql.NewNonNull(graphql.DateTime),
+			Description: "update date",
+			Resolve: func(p graphql.ResolveParams) (interface{}, error) {
+				if contact, ok := p.Source.(Contact); ok {
+					return contact.UpdatedAt, nil
+				}
+				return nil, nil
+			},
+		},
+		"DeletedAt": &graphql.Field{
+			Type:        graphql.DateTime,
+			Description: "deletion date",
+			Resolve: func(p graphql.ResolveParams) (interface{}, error) {
+				if contact, ok := p.Source.(Contact); ok {
+					return contact.DeletedAt, nil
+				}
+				return nil, nil
+			},
+		},
+	},
+})
