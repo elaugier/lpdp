@@ -70,5 +70,55 @@ var ContactT = graphql.NewObject(graphql.ObjectConfig{
 				return nil, nil
 			},
 		},
+		"LastName": &graphql.Field{
+			Type:        graphql.String,
+			Description: "Contact Lastname",
+			Resolve: func(p graphql.ResolveParams) (interface{}, error) {
+				if contact, ok := p.Source.(Contact); ok {
+					return contact.LastName, nil
+				}
+				return nil, nil
+			},
+		},
+		"FirstName": &graphql.Field{
+			Type:        graphql.String,
+			Description: "Contact FirstName",
+			Resolve: func(p graphql.ResolveParams) (interface{}, error) {
+				if contact, ok := p.Source.(Contact); ok {
+					return contact.FirstName, nil
+				}
+				return nil, nil
+			},
+		},
+		"BirthDate": &graphql.Field{
+			Type:        graphql.DateTime,
+			Description: "Birthdate",
+			Resolve: func(p graphql.ResolveParams) (interface{}, error) {
+				if contact, ok := p.Source.(Contact); ok {
+					return contact.BirthDate, nil
+				}
+				return nil, nil
+			},
+		},
+		"OwnerRef": &graphql.Field{
+			Type:        graphql.String,
+			Description: "Owner reference",
+			Resolve: func(p graphql.ResolveParams) (interface{}, error) {
+				if contact, ok := p.Source.(Contact); ok {
+					return contact.OwnerRef, nil
+				}
+				return nil, nil
+			},
+		},
+		"UserContactRef": &graphql.Field{
+			Type:        graphql.String,
+			Description: "User contact reference",
+			Resolve: func(p graphql.ResolveParams) (interface{}, error) {
+				if contact, ok := p.Source.(Contact); ok {
+					return contact.UserContactRef, nil
+				}
+				return nil, nil
+			},
+		},
 	},
 })

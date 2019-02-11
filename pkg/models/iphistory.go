@@ -4,6 +4,7 @@ import (
 	"time"
 
 	"github.com/google/uuid"
+	"github.com/graphql-go/graphql"
 )
 
 //IPHistory ...
@@ -21,3 +22,27 @@ type IPHistory struct {
 func (IPHistory) TableName() string {
 	return "iphistories"
 }
+
+//IPHistoryT ...
+var IPHistoryT = graphql.NewObject(graphql.ObjectConfig{
+	Name:        "IPHistory",
+	Description: "IP history og user",
+	Fields: graphql.Fields{
+		"ID": &graphql.Field{
+			Type:        graphql.NewNonNull(graphql.String),
+			Description: "Identifier",
+		},
+		"CreatedAt": &graphql.Field{
+			Type:        graphql.NewNonNull(graphql.DateTime),
+			Description: "Creation Date",
+		},
+		"UpdatedAt": &graphql.Field{
+			Type:        graphql.NewNonNull(graphql.DateTime),
+			Description: "Update Date",
+		},
+		"DeletedAt": &graphql.Field{
+			Type:        graphql.DateTime,
+			Description: "Deletion Date",
+		},
+	},
+})
