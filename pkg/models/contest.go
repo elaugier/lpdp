@@ -13,6 +13,7 @@ type Contest struct {
 	CreatedAt time.Time  `gorm:"not null" json:"created_at"`
 	UpdatedAt time.Time  `gorm:"not null" json:"updated_at"`
 	DeletedAt *time.Time `json:"deleted_at"`
+	Title     string     `gorm:"type:varchar(200)" json:"last_name" binding:"required"`
 }
 
 //TableName ...
@@ -61,6 +62,16 @@ var ContestT = graphql.NewObject(graphql.ObjectConfig{
 			Resolve: func(p graphql.ResolveParams) (interface{}, error) {
 				if contest, ok := p.Source.(Contest); ok {
 					return contest.DeletedAt, nil
+				}
+				return nil, nil
+			},
+		},
+		"Title": &graphql.Field{
+			Type:        graphql.NewNonNull(graphql.String),
+			Description: "Contest title",
+			Resolve: func(p graphql.ResolveParams) (interface{}, error) {
+				if contest, ok := p.Source.(Contest); ok {
+					return contest.Title, nil
 				}
 				return nil, nil
 			},
