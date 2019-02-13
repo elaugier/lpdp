@@ -16,6 +16,7 @@ type BookPart struct {
 	DeletedAt *time.Time `json:"deleted_at"`
 	Title     string     `json:"title"`
 	BookRef   uuid.UUID  `sql:"type:uuid" json:"book_ref"`
+	Posts     []Post
 }
 
 //TableName ...

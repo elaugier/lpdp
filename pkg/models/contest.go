@@ -9,11 +9,12 @@ import (
 
 //Contest ...
 type Contest struct {
-	ID        uuid.UUID  `sql:"type:uuid;primary key;default:gen_random_uuid()" json:"id,omitempty"`
-	CreatedAt time.Time  `gorm:"not null" json:"created_at"`
-	UpdatedAt time.Time  `gorm:"not null" json:"updated_at"`
-	DeletedAt *time.Time `json:"deleted_at"`
-	Title     string     `gorm:"type:varchar(200)" json:"last_name" binding:"required"`
+	ID            uuid.UUID  `sql:"type:uuid;primary key;default:gen_random_uuid()" json:"id,omitempty"`
+	CreatedAt     time.Time  `gorm:"not null" json:"created_at"`
+	UpdatedAt     time.Time  `gorm:"not null" json:"updated_at"`
+	DeletedAt     *time.Time `json:"deleted_at"`
+	Title         string     `gorm:"type:varchar(200)" json:"last_name" binding:"required"`
+	ContestRounds []ContestRound
 }
 
 //TableName ...
