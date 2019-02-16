@@ -43,6 +43,7 @@ type User struct {
 	CorrectionRequests []CorrectionRequest `gorm:"foreignkey:RequesterRef"`
 	Payments           []Payment           `gorm:"foreignkey:PayerRef"`
 	Votes              []Vote              `gorm:"foreignkey:OwnerRef"`
+	Warnings           []Warning           `gorm:"foreignkey:UserRef"`
 }
 
 //TableName ...

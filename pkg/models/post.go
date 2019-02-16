@@ -3,9 +3,8 @@ package models
 import (
 	"time"
 
-	"github.com/graphql-go/graphql"
-
 	"github.com/google/uuid"
+	"github.com/graphql-go/graphql"
 )
 
 //Post ...
@@ -24,6 +23,7 @@ type Post struct {
 	ViewsCount          int        `json:"views_count"`
 	AuthorRef           uuid.UUID  `sql:"type:uuid" json:"author_ref"`
 	Likes               []Like     `gorm:"foreignkey:PostRef"`
+	Warnings            []Warning  `gorm:"foreignkey:PostRef"`
 }
 
 //TableName ...
@@ -55,6 +55,10 @@ var PostT = graphql.NewObject(graphql.ObjectConfig{
 		"Title": &graphql.Field{
 			Type:        graphql.NewNonNull(graphql.String),
 			Description: "Post Title",
+		},
+		"Summary": &graphql.Field{
+			Type:        graphql.String,
+			Description: "Post Summary",
 		},
 	},
 })
