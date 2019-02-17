@@ -6,63 +6,226 @@ import (
 	"github.com/graphql-go/graphql"
 )
 
+//DefaultItemsPerPage ...
+const DefaultItemsPerPage = 50
+
 // GetRootFields returns all the available queries.
 func GetRootFields() graphql.Fields {
 	return graphql.Fields{
 		"Achievement": &graphql.Field{
-			Type:    graphql.NewList(models.AchievementT),
+			Type: graphql.NewList(models.AchievementT),
+			Args: graphql.FieldConfigArgument{
+				"page": &graphql.ArgumentConfig{
+					Type:         graphql.Int,
+					DefaultValue: 1,
+				},
+				"itemsPerPage": &graphql.ArgumentConfig{
+					Type:         graphql.Int,
+					DefaultValue: DefaultItemsPerPage,
+				},
+			},
 			Resolve: db.GetAchievementQuery,
 		},
 		"Activity": &graphql.Field{
-			Type:    graphql.NewList(models.ActivityT),
+			Type: graphql.NewList(models.ActivityT),
+			Args: graphql.FieldConfigArgument{
+				"page": &graphql.ArgumentConfig{
+					Type:         graphql.Int,
+					DefaultValue: 1,
+				},
+				"itemsPerPage": &graphql.ArgumentConfig{
+					Type:         graphql.Int,
+					DefaultValue: DefaultItemsPerPage,
+				},
+			},
 			Resolve: db.GetActivityQuery,
 		},
 		"Alert": &graphql.Field{
-			Type:    graphql.NewList(models.AlertT),
+			Type: graphql.NewList(models.AlertT),
+			Args: graphql.FieldConfigArgument{
+				"page": &graphql.ArgumentConfig{
+					Type:         graphql.Int,
+					DefaultValue: 1,
+				},
+				"itemsPerPage": &graphql.ArgumentConfig{
+					Type:         graphql.Int,
+					DefaultValue: DefaultItemsPerPage,
+				},
+			},
 			Resolve: db.GetAlertQuery,
 		},
 		"AlertAction": &graphql.Field{
-			Type:    graphql.NewList(models.AlertActionT),
+			Type: graphql.NewList(models.AlertActionT),
+			Args: graphql.FieldConfigArgument{
+				"page": &graphql.ArgumentConfig{
+					Type:         graphql.Int,
+					DefaultValue: 1,
+				},
+				"itemsPerPage": &graphql.ArgumentConfig{
+					Type:         graphql.Int,
+					DefaultValue: DefaultItemsPerPage,
+				},
+			},
 			Resolve: db.GetAlertActionQuery,
 		},
 		"Badge": &graphql.Field{
 			Type: graphql.NewList(models.BadgeT),
+			Args: graphql.FieldConfigArgument{
+				"page": &graphql.ArgumentConfig{
+					Type:         graphql.Int,
+					DefaultValue: 1,
+				},
+				"itemsPerPage": &graphql.ArgumentConfig{
+					Type:         graphql.Int,
+					DefaultValue: DefaultItemsPerPage,
+				},
+			},
 		},
 		"BadgeType": &graphql.Field{
 			Type: graphql.NewList(models.BadgeTypeT),
+			Args: graphql.FieldConfigArgument{
+				"page": &graphql.ArgumentConfig{
+					Type:         graphql.Int,
+					DefaultValue: 1,
+				},
+				"itemsPerPage": &graphql.ArgumentConfig{
+					Type:         graphql.Int,
+					DefaultValue: DefaultItemsPerPage,
+				},
+			},
 		},
 		"BadIPAddress": &graphql.Field{
 			Type: graphql.NewList(models.BadIPAddressT),
+			Args: graphql.FieldConfigArgument{
+				"page": &graphql.ArgumentConfig{
+					Type:         graphql.Int,
+					DefaultValue: 1,
+				},
+				"itemsPerPage": &graphql.ArgumentConfig{
+					Type:         graphql.Int,
+					DefaultValue: DefaultItemsPerPage,
+				},
+			},
 		},
 		"Book": &graphql.Field{
 			Type: graphql.NewList(models.BookT),
+			Args: graphql.FieldConfigArgument{
+				"page": &graphql.ArgumentConfig{
+					Type:         graphql.Int,
+					DefaultValue: 1,
+				},
+				"itemsPerPage": &graphql.ArgumentConfig{
+					Type:         graphql.Int,
+					DefaultValue: DefaultItemsPerPage,
+				},
+			},
 		},
 		"BookPart": &graphql.Field{
 			Type: graphql.NewList(models.BookPartT),
+			Args: graphql.FieldConfigArgument{
+				"page": &graphql.ArgumentConfig{
+					Type:         graphql.Int,
+					DefaultValue: 1,
+				},
+				"itemsPerPage": &graphql.ArgumentConfig{
+					Type:         graphql.Int,
+					DefaultValue: DefaultItemsPerPage,
+				},
+			},
 		},
 		"CoAuthor": &graphql.Field{
 			Type: graphql.NewList(models.CoAuthorT),
+			Args: graphql.FieldConfigArgument{
+				"page": &graphql.ArgumentConfig{
+					Type:         graphql.Int,
+					DefaultValue: 1,
+				},
+				"itemsPerPage": &graphql.ArgumentConfig{
+					Type:         graphql.Int,
+					DefaultValue: DefaultItemsPerPage,
+				},
+			},
 		},
 		"User": &graphql.Field{
-			Type:    graphql.NewList(models.UserT),
+			Type: graphql.NewList(models.UserT),
+			Args: graphql.FieldConfigArgument{
+				"page": &graphql.ArgumentConfig{
+					Type:         graphql.Int,
+					DefaultValue: 1,
+				},
+				"itemsPerPage": &graphql.ArgumentConfig{
+					Type:         graphql.Int,
+					DefaultValue: DefaultItemsPerPage,
+				},
+			},
 			Resolve: db.GetUserQuery,
 		},
 		"Section": &graphql.Field{
-			Type:    graphql.NewList(models.SectionT),
+			Type: graphql.NewList(models.SectionT),
+			Args: graphql.FieldConfigArgument{
+				"page": &graphql.ArgumentConfig{
+					Type:         graphql.Int,
+					DefaultValue: 1,
+				},
+				"itemsPerPage": &graphql.ArgumentConfig{
+					Type:         graphql.Int,
+					DefaultValue: DefaultItemsPerPage,
+				},
+			},
 			Resolve: db.GetSectionQuery,
 		},
 		"Tag": &graphql.Field{
-			Type:    graphql.NewList(models.TagT),
+			Type: graphql.NewList(models.TagT),
+			Args: graphql.FieldConfigArgument{
+				"page": &graphql.ArgumentConfig{
+					Type:         graphql.Int,
+					DefaultValue: 1,
+				},
+				"itemsPerPage": &graphql.ArgumentConfig{
+					Type:         graphql.Int,
+					DefaultValue: DefaultItemsPerPage,
+				},
+			},
 			Resolve: db.GetTagQuery,
 		},
 		"Warning": &graphql.Field{
 			Type: graphql.NewList(models.WarningT),
+			Args: graphql.FieldConfigArgument{
+				"page": &graphql.ArgumentConfig{
+					Type:         graphql.Int,
+					DefaultValue: 1,
+				},
+				"itemsPerPage": &graphql.ArgumentConfig{
+					Type:         graphql.Int,
+					DefaultValue: DefaultItemsPerPage,
+				},
+			},
 		},
 		"WarningAction": &graphql.Field{
 			Type: graphql.NewList(models.WarningActionT),
+			Args: graphql.FieldConfigArgument{
+				"page": &graphql.ArgumentConfig{
+					Type:         graphql.Int,
+					DefaultValue: 1,
+				},
+				"itemsPerPage": &graphql.ArgumentConfig{
+					Type:         graphql.Int,
+					DefaultValue: DefaultItemsPerPage,
+				},
+			},
 		},
 		"WarningTemplate": &graphql.Field{
 			Type: graphql.NewList(models.WarningTemplateT),
+			Args: graphql.FieldConfigArgument{
+				"page": &graphql.ArgumentConfig{
+					Type:         graphql.Int,
+					DefaultValue: 1,
+				},
+				"itemsPerPage": &graphql.ArgumentConfig{
+					Type:         graphql.Int,
+					DefaultValue: DefaultItemsPerPage,
+				},
+			},
 		},
 	}
 }
