@@ -80,6 +80,7 @@ func GetRootFields() graphql.Fields {
 					DefaultValue: DefaultItemsPerPage,
 				},
 			},
+			Resolve: db.GetBadgeQuery,
 		},
 		"BadgeType": &graphql.Field{
 			Type: graphql.NewList(models.BadgeTypeT),
@@ -93,6 +94,7 @@ func GetRootFields() graphql.Fields {
 					DefaultValue: DefaultItemsPerPage,
 				},
 			},
+			Resolve: db.GetBadgeTypeQuery,
 		},
 		"BadIPAddress": &graphql.Field{
 			Type: graphql.NewList(models.BadIPAddressT),
@@ -106,6 +108,7 @@ func GetRootFields() graphql.Fields {
 					DefaultValue: DefaultItemsPerPage,
 				},
 			},
+			Resolve: db.GetBadIPAddressQuery,
 		},
 		"Book": &graphql.Field{
 			Type: graphql.NewList(models.BookT),

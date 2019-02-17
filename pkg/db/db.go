@@ -122,3 +122,18 @@ func (i Instance) DatabaseInitialization() {
 func (i Instance) Close() error {
 	return i.c.Close()
 }
+
+// //GetQuery ...
+// func GetQuery(params graphql.ResolveParams, items []interface{}) (interface{}, error) {
+// 	var count int
+// 	page := params.Args["page"].(int)
+// 	logger.Printf("page requested : %d", page)
+// 	itemsPerPage := params.Args["itemsPerPage"].(int)
+// 	logger.Printf("number of items per page requested : %d", itemsPerPage)
+// 	Inst.c.Model(items.(type)).Count(&count)
+// 	pages := math.RoundToEven(float64(count) / float64(itemsPerPage))
+// 	logger.Printf("computed total pages : %d", int(pages))
+// 	offset := (page - 1) * itemsPerPage
+// 	Inst.c.Offset(offset).Limit(itemsPerPage).Find(&items)
+// 	return items, nil
+// }
