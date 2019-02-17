@@ -20,6 +20,8 @@ import (
 //Inst ...
 var Inst Instance
 
+var logger *log.Logger
+
 //GetInstance ...
 func GetInstance() *gorm.DB {
 	if Inst != (Instance{}) {
@@ -35,7 +37,7 @@ func GetInstance() *gorm.DB {
 
 //NewInstance ...
 func NewInstance(logMode bool, io io.Writer) *Instance {
-	logger := logs.GetInstance()
+	logger = logs.GetInstance()
 	configuration, err := config.Get()
 	c, err := gorm.Open("postgres", configuration.GetString("database.postgres"))
 	if err != nil {
