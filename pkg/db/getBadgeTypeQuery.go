@@ -9,7 +9,7 @@ import (
 
 //GetBadgeTypeQuery ...
 func GetBadgeTypeQuery(params graphql.ResolveParams) (interface{}, error) {
-	var badges []models.BadgeType
+	var badgetypes []models.BadgeType
 	var count int
 	page := params.Args["page"].(int)
 	logger.Printf("page requested : %d", page)
@@ -19,6 +19,6 @@ func GetBadgeTypeQuery(params graphql.ResolveParams) (interface{}, error) {
 	pages := math.RoundToEven(float64(count) / float64(itemsPerPage))
 	logger.Printf("computed total pages : %d", int(pages))
 	offset := (page - 1) * itemsPerPage
-	Inst.c.Offset(offset).Limit(itemsPerPage).Find(&badges)
-	return badges, nil
+	Inst.c.Offset(offset).Limit(itemsPerPage).Find(&badgetypes)
+	return badgetypes, nil
 }
