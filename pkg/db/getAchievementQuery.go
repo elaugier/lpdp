@@ -9,6 +9,8 @@ import (
 
 //GetAchievementQuery ...
 func GetAchievementQuery(params graphql.ResolveParams) (interface{}, error) {
+	// c = params.Context
+	// info := params.Info
 	var achievements []models.Achievement
 	var count int
 	page := params.Args["page"].(int)

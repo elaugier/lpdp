@@ -23,6 +23,12 @@ func GetRootFields() graphql.Fields {
 					Type:         graphql.Int,
 					DefaultValue: DefaultItemsPerPage,
 				},
+				"sortBy": &graphql.ArgumentConfig{
+					Type: graphql.NewList(graphql.String),
+				},
+				"filter": &graphql.ArgumentConfig{
+					Type: graphql.NewList(graphql.String),
+				},
 			},
 			Resolve: db.GetAchievementQuery,
 		},
@@ -36,6 +42,12 @@ func GetRootFields() graphql.Fields {
 				"itemsPerPage": &graphql.ArgumentConfig{
 					Type:         graphql.Int,
 					DefaultValue: DefaultItemsPerPage,
+				},
+				"sortBy": &graphql.ArgumentConfig{
+					Type: graphql.NewList(graphql.String),
+				},
+				"filter": &graphql.ArgumentConfig{
+					Type: graphql.NewList(graphql.String),
 				},
 			},
 			Resolve: db.GetActivityQuery,
@@ -51,6 +63,12 @@ func GetRootFields() graphql.Fields {
 					Type:         graphql.Int,
 					DefaultValue: DefaultItemsPerPage,
 				},
+				"sortBy": &graphql.ArgumentConfig{
+					Type: graphql.NewList(graphql.String),
+				},
+				"filter": &graphql.ArgumentConfig{
+					Type: graphql.NewList(graphql.String),
+				},
 			},
 			Resolve: db.GetAlertQuery,
 		},
@@ -64,6 +82,12 @@ func GetRootFields() graphql.Fields {
 				"itemsPerPage": &graphql.ArgumentConfig{
 					Type:         graphql.Int,
 					DefaultValue: DefaultItemsPerPage,
+				},
+				"sortBy": &graphql.ArgumentConfig{
+					Type: graphql.NewList(graphql.String),
+				},
+				"filter": &graphql.ArgumentConfig{
+					Type: graphql.NewList(graphql.String),
 				},
 			},
 			Resolve: db.GetAlertActionQuery,
@@ -79,6 +103,12 @@ func GetRootFields() graphql.Fields {
 					Type:         graphql.Int,
 					DefaultValue: DefaultItemsPerPage,
 				},
+				"sortBy": &graphql.ArgumentConfig{
+					Type: graphql.NewList(graphql.String),
+				},
+				"filter": &graphql.ArgumentConfig{
+					Type: graphql.NewList(graphql.String),
+				},
 			},
 			Resolve: db.GetBadgeQuery,
 		},
@@ -92,6 +122,12 @@ func GetRootFields() graphql.Fields {
 				"itemsPerPage": &graphql.ArgumentConfig{
 					Type:         graphql.Int,
 					DefaultValue: DefaultItemsPerPage,
+				},
+				"sortBy": &graphql.ArgumentConfig{
+					Type: graphql.NewList(graphql.String),
+				},
+				"filter": &graphql.ArgumentConfig{
+					Type: graphql.NewList(graphql.String),
 				},
 			},
 			Resolve: db.GetBadgeTypeQuery,
@@ -107,6 +143,12 @@ func GetRootFields() graphql.Fields {
 					Type:         graphql.Int,
 					DefaultValue: DefaultItemsPerPage,
 				},
+				"sortBy": &graphql.ArgumentConfig{
+					Type: graphql.NewList(graphql.String),
+				},
+				"filter": &graphql.ArgumentConfig{
+					Type: graphql.NewList(graphql.String),
+				},
 			},
 			Resolve: db.GetBadIPAddressQuery,
 		},
@@ -121,6 +163,12 @@ func GetRootFields() graphql.Fields {
 					Type:         graphql.Int,
 					DefaultValue: DefaultItemsPerPage,
 				},
+				"sortBy": &graphql.ArgumentConfig{
+					Type: graphql.NewList(graphql.String),
+				},
+				"filter": &graphql.ArgumentConfig{
+					Type: graphql.NewList(graphql.String),
+				},
 			},
 		},
 		"BookPart": &graphql.Field{
@@ -133,6 +181,12 @@ func GetRootFields() graphql.Fields {
 				"itemsPerPage": &graphql.ArgumentConfig{
 					Type:         graphql.Int,
 					DefaultValue: DefaultItemsPerPage,
+				},
+				"sortBy": &graphql.ArgumentConfig{
+					Type: graphql.NewList(graphql.String),
+				},
+				"filter": &graphql.ArgumentConfig{
+					Type: graphql.NewList(graphql.String),
 				},
 			},
 		},
@@ -147,6 +201,12 @@ func GetRootFields() graphql.Fields {
 					Type:         graphql.Int,
 					DefaultValue: DefaultItemsPerPage,
 				},
+				"sortBy": &graphql.ArgumentConfig{
+					Type: graphql.NewList(graphql.String),
+				},
+				"filter": &graphql.ArgumentConfig{
+					Type: graphql.NewList(graphql.String),
+				},
 			},
 		},
 		"User": &graphql.Field{
@@ -159,6 +219,12 @@ func GetRootFields() graphql.Fields {
 				"itemsPerPage": &graphql.ArgumentConfig{
 					Type:         graphql.Int,
 					DefaultValue: DefaultItemsPerPage,
+				},
+				"sortBy": &graphql.ArgumentConfig{
+					Type: graphql.NewList(graphql.String),
+				},
+				"filter": &graphql.ArgumentConfig{
+					Type: graphql.NewList(graphql.String),
 				},
 			},
 			Resolve: db.GetUserQuery,
@@ -174,6 +240,12 @@ func GetRootFields() graphql.Fields {
 					Type:         graphql.Int,
 					DefaultValue: DefaultItemsPerPage,
 				},
+				"sortBy": &graphql.ArgumentConfig{
+					Type: graphql.NewList(graphql.String),
+				},
+				"filter": &graphql.ArgumentConfig{
+					Type: graphql.NewList(graphql.String),
+				},
 			},
 			Resolve: db.GetSectionQuery,
 		},
@@ -187,6 +259,12 @@ func GetRootFields() graphql.Fields {
 				"itemsPerPage": &graphql.ArgumentConfig{
 					Type:         graphql.Int,
 					DefaultValue: DefaultItemsPerPage,
+				},
+				"sortBy": &graphql.ArgumentConfig{
+					Type: graphql.NewList(graphql.String),
+				},
+				"filter": &graphql.ArgumentConfig{
+					Type: graphql.NewList(graphql.String),
 				},
 			},
 			Resolve: db.GetTagQuery,
@@ -202,6 +280,12 @@ func GetRootFields() graphql.Fields {
 					Type:         graphql.Int,
 					DefaultValue: DefaultItemsPerPage,
 				},
+				"sortBy": &graphql.ArgumentConfig{
+					Type: graphql.NewList(graphql.String),
+				},
+				"filter": &graphql.ArgumentConfig{
+					Type: graphql.NewList(graphql.String),
+				},
 			},
 		},
 		"WarningAction": &graphql.Field{
@@ -215,6 +299,12 @@ func GetRootFields() graphql.Fields {
 					Type:         graphql.Int,
 					DefaultValue: DefaultItemsPerPage,
 				},
+				"sortBy": &graphql.ArgumentConfig{
+					Type: graphql.NewList(graphql.String),
+				},
+				"filter": &graphql.ArgumentConfig{
+					Type: graphql.NewList(graphql.String),
+				},
 			},
 		},
 		"WarningTemplate": &graphql.Field{
@@ -227,6 +317,12 @@ func GetRootFields() graphql.Fields {
 				"itemsPerPage": &graphql.ArgumentConfig{
 					Type:         graphql.Int,
 					DefaultValue: DefaultItemsPerPage,
+				},
+				"sortBy": &graphql.ArgumentConfig{
+					Type: graphql.NewList(graphql.String),
+				},
+				"filter": &graphql.ArgumentConfig{
+					Type: graphql.NewList(graphql.String),
 				},
 			},
 		},
